@@ -2,7 +2,7 @@
 @section('content')
     @include('home.hero')
     @include('home.what-we-do')
-    @include('home.cta')
+    @include('components.cta')
     @include('home.why-us')
     @include('home.showcase')
     @include('home.about')
