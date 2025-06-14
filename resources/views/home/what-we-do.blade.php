@@ -1,9 +1,14 @@
     <!-- Enhanced Services Section with Clickable Cards -->
-    <section id="services" class="section-padding dark-bg">
+    <section id="services" class="section-padding dark-bg"
+        style="background-image: url({{ asset('frontend/assets/images/360_F_336009887_yI4fLOqWbm8rNLCCIgmCuR3XY1caADIy.jpg') }}); background-size: cover; background-position: center;">
+        <div
+            style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); z-index: 0;">
+        </div>
         <div class="container position-relative">
             <div class="section-area text-center">
                 <span>- WHAT WE DO -</span>
-                <h2 class="fs-two text-white" style="line-height: 1.1;">HUB OF CORPORATE <span style="color: var(--primary-purple); font-size: inherit; font-weight: inherit;">EVENT MANAGEMENT</span> & PRODUCTION</h2>
+                <h2 class="fs-two text-white">CORPORATE <span>EVENT
+                        MANAGEMENT</span> & PRODUCTION</h2>
             </div>
             <div class="row g-4 mt-5">
                 <!-- Enhanced Services Grid with Click Functionality -->
@@ -73,7 +78,7 @@
                         <span class="see-more">See More <i class="fas fa-arrow-right"></i></span>
                     </a>
                 </div>
-               <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3">
                     <a href="events.html?service=corporate-emcees" class="category-card">
                         <h5>Corporate Emcees</h5>
                         <span class="see-more">See More <i class="fas fa-arrow-right"></i></span>
