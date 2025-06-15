@@ -3,7 +3,7 @@
         <div class="container">
             <div class="section-area text-center mb-5">
                 <span>- TESTIMONIAL -</span>
-                <h2 class="fs-two text-white">CLIENT REVIEWS</h2>
+                <h2 class="fs-two text-white">CLIENT <span>REVIEWS</span></h2>
             </div>
             <div class="testimonial-wrapper">
                 <div class="row align-items-stretch g-4">
@@ -129,7 +129,7 @@
                             </div>
                             <!-- Gradient overlay for better text visibility -->
                             <div class="position-absolute bottom-0 start-0 w-100 p-4" style="z-index: 10;">
-                                <h3 class="text-white mb-2">25+ Years of Excellence</h3>
+                                <h3 class="text-white mb-2">20+ Years of Excellence</h3>
                                 <p class="text-white-50 mb-0">Trusted by Malaysia's leading corporations</p>
                             </div>
                         </div>

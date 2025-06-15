@@ -16,11 +16,11 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center">
                     <li class="breadcrumb-item"><a href="{{route('/')}}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{$event->name}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$eventType->name}}</li>
                 </ol>
             </nav>
-            <h1 class="category-title mb-3">{{$event->name}}</h1>
-            <p class="category-subtitle">{{$event->description}}</p>
+            <h1 class="category-title mb-3">{{$eventType->name}}</h1>
+            <p class="category-subtitle">{{$eventType->description}}</p>
         </div>
     </div>
 </section>

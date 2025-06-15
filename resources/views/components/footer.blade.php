@@ -19,7 +19,7 @@
             </div>
             <hr class="my-4" style="border-color: var(--border-color);">
             <div class="text-center">
-                <p class="mb-0 text-white-50">&copy; 2024 KL Mobile Events. All Rights Reserved.</p>
+                <p class="mb-0 text-white-50">&copy; {{ date('Y') }} KL Mobile Events. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

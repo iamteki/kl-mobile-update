@@ -3,7 +3,7 @@
         <div class="container">
             <div class="section-area text-center mb-5">
                 <span>- SHOWCASE -</span>
-                <h2 class="fs-two text-white">EXPERIENCE OUR WORK</h2>
+                <h2 class="fs-two text-white">EXPERIENCE <span>OUR</span> WORK</h2>
             </div>
             <div class="row g-4 align-items-stretch">
                 <div class="col-lg-8">

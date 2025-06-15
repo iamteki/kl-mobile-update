@@ -5,7 +5,7 @@
                 <div class="col-lg-10 text-center">
                     <div class="section-area">
                         <span>- WHY CHOOSE US -</span>
-                        <h2 class="fs-two text-white mb-4 upper">Importance of Support</h2>
+                        <h2 class="fs-two text-white mb-4 upper">Importance of <span>Support</span></h2>
                     </div>
                     <p class="lead" style="font-size: 1.25rem; line-height: 1.8;">
                         Celebrating a moment or milestone can be a once-in-a-lifetime opportunity, whether it's a

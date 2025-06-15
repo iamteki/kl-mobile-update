@@ -9,9 +9,10 @@
                 <div class="about-text">
                     <div class="section-area">
                         <span>- ABOUT US -</span>
-                        <h2 class="fs-two text-white">WHY PROFESSIONAL EVENT SUPPORT MATTERS</h2>
+                        <h2 class="fs-two text-white">WHY <span>PROFESSIONAL</span> EVENT SUPPORT</h2>
                     </div>
-                    <p class="lead mb-4">With over 25 years of experience, we understand that successful events require
+                    
+                    <p class="lead mb-4">With over 20 years of experience, we understand that successful events require
                         meticulous planning, professional execution, and seamless coordination.</p>
                     <ul class="list-unstyled">
                         <li class="mb-3"><i class="fas fa-check-circle me-3"

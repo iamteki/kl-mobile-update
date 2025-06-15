@@ -23,7 +23,7 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'image_gallery' => 'array',
+        'image_gallery' => 'array', // This ensures JSON is cast to array
     ];
 
     protected static function boot()

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="section-area text-center">
             <span>- LOCATIONS -</span>
-            <h2 class="fs-two text-white">FIND US HERE</h2>
+            <h2 class="fs-two text-white">FIND <span>US</span> HERE</h2>
         </div>
         <div class="row g-4 mt-5">
             <div class="col-md-6">

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="section-area text-center">
                 <span>- TRUSTED BY -</span>
-                <h2 class="fs-two text-white">OUR PRESTIGIOUS CLIENTS</h2>
+                <h2 class="fs-two text-white">OUR <span>PRESTIGIOUS</span> CLIENTS</h2>
                 <p class="lead mt-3">Proudly serving Malaysia's leading corporations and international brands</p>
             </div>
 

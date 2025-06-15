@@ -18,7 +18,7 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Event Management';
 
     protected static ?int $navigationSort = 1;
 
@@ -37,21 +37,21 @@ class EventResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $context, $state, Forms\Set $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
-                                
+                                    ->afterStateUpdated(fn(string $context, $state, Forms\Set $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+
                                 Forms\Components\TextInput::make('slug')
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(EventType::class, 'slug')
                                     ->rules(['regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/']),
-                                
+
                                 Forms\Components\Toggle::make('status')
                                     ->default(true),
-                                
+
                                 Forms\Components\TextInput::make('order')
                                     ->numeric()
                                     ->default(0),
-                                
+
                                 Forms\Components\Textarea::make('description')
                                     ->maxLength(1000),
                             ])
@@ -61,7 +61,7 @@ class EventResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $context, $state, Forms\Set $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                            ->afterStateUpdated(fn(string $context, $state, Forms\Set $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
 
                         Forms\Components\TextInput::make('slug')
                             ->required()
@@ -184,16 +184,20 @@ class EventResource extends Resource
 
                 Tables\Columns\IconColumn::make('video')
                     ->boolean()
+                    ->getStateUsing(function ($record) {
+                        return !empty($record->video);
+                    })
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('gray')
-                    ->label('Video'),
+                    ->label('Video')
+                    ->tooltip(function ($record) {
+                        return !empty($record->video)
+                            ? 'Video: ' . basename($record->video)
+                            : 'No video uploaded';
+                    }),
 
-                Tables\Columns\TextColumn::make('image_gallery')
-                    ->badge()
-                    ->formatStateUsing(fn ($state) => is_array($state) ? count($state) . ' images' : '0 images')
-                    ->color('primary'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -213,12 +217,23 @@ class EventResource extends Resource
                     ->label('Event Type'),
 
                 Tables\Filters\Filter::make('has_video')
-                    ->query(fn ($query) => $query->whereNotNull('video'))
+                    ->query(function ($query) {
+                        return $query->whereNotNull('video');
+                    })
                     ->label('Has Video'),
-                
+
                 Tables\Filters\Filter::make('has_gallery')
-                    ->query(fn ($query) => $query->whereNotNull('image_gallery'))
+                    ->query(function ($query) {
+                        return $query->whereNotNull('image_gallery');
+                    })
                     ->label('Has Gallery'),
+
+                Tables\Filters\Filter::make('has_images')
+                    ->query(function ($query) {
+                        return $query->where('image_gallery', '!=', '[]')
+                            ->whereNotNull('image_gallery');
+                    })
+                    ->label('Has Images'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -232,7 +247,6 @@ class EventResource extends Resource
             ])
             ->defaultSort('created_at', 'desc');
     }
-
     public static function getRelations(): array
     {
         return [
