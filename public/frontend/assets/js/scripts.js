@@ -15,17 +15,41 @@ let autoplayTimer = null;
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize loading screen
+    initLoadingScreen();
+    
     // Initialize common components
     initCustomCursor();
     initScrollToTop();
     initNavbar();
     initSmoothScrolling();
     initFormHandlers();
-    initAnimations();
+    // Removed initAnimations() to remove scroll animations
     
     // Initialize page-specific components
     initPageSpecificComponents();
 });
+
+// ========================================
+// LOADING SCREEN
+// ========================================
+
+function initLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    if (loadingScreen) {
+        // Hide loading screen when page is fully loaded
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                loadingScreen.classList.add('loaded');
+                document.body.classList.add('loaded');
+                
+                // Initialize page animations after loading
+                initPageLoadAnimations();
+            }, 500);
+        });
+    }
+}
 
 // ========================================
 // CUSTOM CURSOR
@@ -178,51 +202,20 @@ function initFormHandlers() {
 }
 
 // ========================================
-// ANIMATIONS
+// PAGE LOAD ANIMATIONS (NO SCROLL)
 // ========================================
 
-function initAnimations() {
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(30px)';
-                setTimeout(() => {
-                    entry.target.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, 100);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements
-    const elementsToAnimate = document.querySelectorAll('.media-card, .location-card, .single-area, .category-card, .subcategory-card, .gallery-item, .form-control, .btn');
-    elementsToAnimate.forEach(el => {
-        observer.observe(el);
-    });
-
-    // Animate on page load
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
-        
-        // Animate header elements based on page type
-        const headerElements = document.querySelectorAll('.hero-badge, .hero-title, .hero-description, .box-style, .category-title, .category-subtitle, .page-title, .page-subtitle');
-        headerElements.forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            setTimeout(() => {
-                el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, index * 200);
-        });
+function initPageLoadAnimations() {
+    // Animate header elements on page load only
+    const headerElements = document.querySelectorAll('.hero-badge, .hero-title, .hero-description, .box-style, .category-title, .category-subtitle, .page-title, .page-subtitle');
+    headerElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, index * 200);
     });
 }
 
@@ -266,6 +259,11 @@ function initPageSpecificComponents() {
     
     if (document.querySelector('.sparkles')) {
         initSparkles();
+    }
+    
+    // Blog section
+    if (document.querySelector('.blog-section')) {
+        initBlogSection();
     }
 }
 
@@ -653,45 +651,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 // ========================================
 // BLOG SECTION SCRIPTS
 // ======================================== 
 
-// Add this to the initPageSpecificComponents() function
-if (document.querySelector('.blog-section')) {
-    initBlogSection();
-}
-
 // Blog Section Initialization
 function initBlogSection() {
-    // Animate blog cards on scroll
+    // Add ripple effect on blog card click
     const blogCards = document.querySelectorAll('.blog-card');
     
-    const blogObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '0';
-                    entry.target.style.transform = 'translateY(50px)';
-                    
-                    setTimeout(() => {
-                        entry.target.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, 100);
-                }, index * 150);
-                
-                blogObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    blogCards.forEach(card => {
-        blogObserver.observe(card);
-    });
-    
-    // Add ripple effect on blog card click
     blogCards.forEach(card => {
         card.addEventListener('click', function(e) {
             if (e.target.tagName === 'A') return; // Don't trigger on link clicks

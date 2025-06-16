@@ -1,8 +1,8 @@
     <!-- Enhanced Services Section with Clickable Cards -->
     <section id="services" class="section-padding dark-bg"
         style="background-image: url({{ asset('frontend/assets/images/360_F_336009887_yI4fLOqWbm8rNLCCIgmCuR3XY1caADIy.jpg') }}); background-size: cover; background-position: center;">
-        <div
-            style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); z-index: 0;">
+        <div class="what-we-do-overlay">
+            
         </div>
         <div class="container position-relative">
             <div class="section-area text-center">

@@ -27,8 +27,24 @@
 
 </head>
 
-
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="{{ asset('frontend/assets/images/kl_mobile_final_logo.svg') }}" alt="KL Mobile Events" class="loading-logo-img">
+            </div>
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loading-text">Loading Experience...</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom Cursor -->
     <div class="mouse-follower">
@@ -46,6 +62,7 @@
     @yield('content')
 
     @include('components.footer')
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Swiper JS -->
