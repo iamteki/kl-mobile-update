@@ -525,7 +525,7 @@
 
 .overlay-content p {
     color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 1rem;
+    margin-bottom: -1rem;
 }
 
 .view-specs {

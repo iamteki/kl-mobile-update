@@ -27,7 +27,7 @@
                         <div class="overlay-content">
                             <h4>JBL Line Array System</h4>
                             <p>Professional PA system for large venues</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                        
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                     <div class="equipment-overlay">
                         <div class="overlay-content">
                             <h4>Intelligent Moving Heads</h4>
-                            <p>360° rotating beam lights with DMX control</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                            <p>360° rotating lights with DMX control</p>
+                          
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                         <div class="overlay-content">
                             <h4>Pioneer DJ Set</h4>
                             <p>Industry-standard DJ equipment</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                        
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <div class="overlay-content">
                             <h4>LED Video Walls</h4>
                             <p>High-resolution P3.91 LED panels</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                      
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                         <div class="overlay-content">
                             <h4>Modular Stage System</h4>
                             <p>Customizable staging solutions</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                       
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                         <div class="overlay-content">
                             <h4>Aluminum Truss System</h4>
                             <p>Heavy-duty rigging solutions</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                        
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                         <div class="overlay-content">
                             <h4>Laser & Effects</h4>
                             <p>RGB laser systems and fog machines</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                       
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                         <div class="overlay-content">
                             <h4>Wireless Mic Systems</h4>
                             <p>Shure & Sennheiser wireless systems</p>
-                            <a href="#" class="view-specs">View Specs <i class="fas fa-arrow-right"></i></a>
+                        
                         </div>
                     </div>
                 </div>
