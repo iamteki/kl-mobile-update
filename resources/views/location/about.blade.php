@@ -3,7 +3,7 @@
     <div class="container">
         <div class="section-area text-center mb-5">
             <span>- ABOUT OUR OFFICE -</span>
-            <h2 class="fs-two text-white">THE HEART OF <span>KL MOBILE EVENTS</span></h2>
+            <h2 class="fs-two text-white">THE<span>HEART OF</span>KL MOBILE EVENTS</h2>
         </div>
         
         <div class="row align-items-center g-5">

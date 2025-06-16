@@ -3,7 +3,7 @@
     <div class="container">
         <div class="section-area text-center">
             <span>- FREQUENTLY ASKED QUESTIONS -</span>
-            <h2 class="fs-two text-white">EVERYTHING YOU NEED TO <span>KNOW</span></h2>
+            <h2 class="fs-two text-white">EVERYTHING <span>YOU NEED TO</span> KNOW</h2>
         </div>
         
         <div class="row justify-content-center">

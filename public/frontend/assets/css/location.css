@@ -198,6 +198,12 @@
 .location-about-section .section-area {
     margin-bottom: 4rem;
 }
+.location-about-section .section-area span {
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
 /* Ensure content alignment */
 .about-office-content {
@@ -368,6 +374,13 @@
     position: relative;
     overflow: hidden;
     min-height: 600px;
+}
+
+.equipment-gallery-section .section-area span{
+     background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Equipment Filters */
@@ -617,6 +630,13 @@
     overflow: hidden;
 }
 
+.team-section .section-area span{
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -760,6 +780,12 @@
     padding: 100px 0;
     position: relative;
 }
+.facilities-section .section-area span{
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
 .facilities-grid {
     display: grid;
@@ -876,6 +902,13 @@
     background: var(--bg-black);
     padding: 100px 0;
     position: relative;
+}
+
+.faq-section .section-area span{
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .faq-accordion {
@@ -1016,6 +1049,12 @@
 .visit-section .container {
     position: relative;
     z-index: 1;
+}
+.visit-section .section-area span{
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Map Wrapper */
