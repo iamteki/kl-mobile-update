@@ -78,45 +78,82 @@ function initEquipmentGallery() {
     const filterTabs = document.querySelectorAll('.filter-tab');
     const equipmentItems = document.querySelectorAll('.equipment-item');
     
+    // Show all items by default on page load
+    equipmentItems.forEach((item, index) => {
+        item.style.display = 'block';
+        item.classList.add('show');
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
+        item.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    });
+    
+    // Set 'All Equipment' tab as active by default
+    const allTab = document.querySelector('.filter-tab[data-filter="all"]');
+    if (allTab) {
+        allTab.classList.add('active');
+    }
+    
     // Filter functionality
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function() {
+            // Prevent multiple clicks during animation
+            if (this.classList.contains('filtering')) return;
+            
             // Update active state
-            filterTabs.forEach(t => t.classList.remove('active'));
+            filterTabs.forEach(t => {
+                t.classList.remove('active');
+                t.classList.remove('filtering');
+            });
             this.classList.add('active');
+            this.classList.add('filtering');
             
             const filterValue = this.getAttribute('data-filter');
+            let visibleIndex = 0;
             
-            // Filter items with animation
-            equipmentItems.forEach((item, index) => {
-                const category = item.getAttribute('data-category');
+            // First, hide all items
+            equipmentItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+            });
+            
+            // Then show filtered items with delay
+            setTimeout(() => {
+                const equipmentGrid = document.querySelector('.equipment-grid');
+                if (equipmentGrid) {
+                    equipmentGrid.classList.add('filtering');
+                }
                 
-                if (filterValue === 'all' || category === filterValue) {
-                    // Show item
-                    item.style.display = 'block';
-                    item.classList.add('show');
+                equipmentItems.forEach((item) => {
+                    const category = item.getAttribute('data-category');
                     
-                    // Staggered animation
-                    setTimeout(() => {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
+                    if (filterValue === 'all' || category === filterValue) {
+                        // Show item with staggered animation
+                        item.style.display = 'block';
+                        item.classList.add('show');
                         
                         setTimeout(() => {
-                            item.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                             item.style.opacity = '1';
                             item.style.transform = 'scale(1)';
-                        }, 50);
-                    }, index * 50);
-                } else {
-                    // Hide item
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        item.style.display = 'none';
-                        item.classList.remove('show');
-                    }, 300);
-                }
-            });
+                        }, visibleIndex * 100);
+                        
+                        visibleIndex++;
+                    } else {
+                        // Hide item
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                            item.classList.remove('show');
+                        }, 300);
+                    }
+                });
+                
+                // Remove filtering state
+                setTimeout(() => {
+                    this.classList.remove('filtering');
+                    if (equipmentGrid) {
+                        equipmentGrid.classList.remove('filtering');
+                    }
+                }, visibleIndex * 100 + 300);
+            }, 300);
         });
     });
     
