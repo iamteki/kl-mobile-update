@@ -190,13 +190,13 @@
                 <div class="row text-center">
                     <div class="col-md-3 col-6 mb-4">
                         <div class="stat-card">
-                            <h3 class="stat-number" data-target="500">0</h3>
+                            <h3 class="stat-number" data-target="500">0</h3><span> <h3 class="stat-number">+</h3></span>
                             <p class="text-white-50">Corporate Clients</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-6 mb-4">
                         <div class="stat-card">
-                            <h3 class="stat-number" data-target="25">0</h3>
+                            <h3 class="stat-number" data-target="20">0</h3><span> <h3 class="stat-number">+</h3></span>
                             <p class="text-white-50">Years of Trust</p>
                         </div>
                     </div>
