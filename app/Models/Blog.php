@@ -55,7 +55,7 @@ class Blog extends Model
     // Scopes
     public function scopePublished($query)
     {
-        return $query->where('status', 'published')->whereNotNull('published_at');
+        return $query->where('status', 'published');
     }
 
     public function scopeDraft($query)
@@ -75,7 +75,22 @@ class Blog extends Model
 
     public function scopeRecent($query)
     {
-        return $query->orderBy('published_at', 'desc');
+        return $query->orderBy('created_at', 'desc');
+    }
+
+    // Accessors - Use created_at as published_at if published_at doesn't exist
+    public function getPublishedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value);
+        }
+        
+        // If no published_at and status is published, use created_at
+        if ($this->status === 'published') {
+            return $this->created_at;
+        }
+        
+        return null;
     }
 
     // Boot method for auto-generation
@@ -92,21 +107,21 @@ class Blog extends Model
                 $blog->reading_time = static::calculateReadingTime($blog->content);
             }
 
-            if (empty($blog->user_id)) {
-                $blog->user_id = auth()->id();
+            if (empty($blog->excerpt)) {
+                $blog->excerpt = Str::limit(strip_tags($blog->content), 160);
             }
         });
 
         static::updating(function ($blog) {
-            if ($blog->isDirty('title')) {
-                $blog->slug = static::generateUniqueSlug($blog->title, $blog->id);
+            if ($blog->isDirty('title') && empty($blog->getOriginal('slug'))) {
+                $blog->slug = static::generateUniqueSlug($blog->title);
             }
-            
+
             if ($blog->isDirty('content')) {
                 $blog->reading_time = static::calculateReadingTime($blog->content);
             }
 
-            // Auto-publish when status changes to published
+            // Set published_at when status changes to published
             if ($blog->isDirty('status') && $blog->status === 'published' && !$blog->published_at) {
                 $blog->published_at = now();
             }
@@ -130,32 +145,15 @@ class Blog extends Model
         return $slug;
     }
 
-    // Calculate reading time (average 200 words per minute)
+    // Calculate reading time
     private static function calculateReadingTime($content)
     {
         $wordCount = str_word_count(strip_tags($content));
-        return max(1, ceil($wordCount / 200)); // Minimum 1 minute
+        $wordsPerMinute = 200;
+        return max(1, ceil($wordCount / $wordsPerMinute));
     }
 
-    // Accessors
-    public function getMetaTitleAttribute($value)
-    {
-        return $value ?: $this->title;
-    }
-
-    public function getMetaDescriptionAttribute($value)
-    {
-        if ($value) {
-            return $value;
-        }
-        
-        if ($this->excerpt) {
-            return Str::limit($this->excerpt, 160);
-        }
-        
-        return Str::limit(strip_tags($this->content), 160);
-    }
-
+    // Get featured image URL
     public function getFeaturedImageUrlAttribute()
     {
         if ($this->featured_image) {
@@ -164,53 +162,26 @@ class Blog extends Model
             }
             return Storage::url($this->featured_image);
         }
-        
         return null;
     }
 
-    public function getAuthorNameAttribute()
+    // Get meta title or fallback to title
+    public function getMetaTitleAttribute($value)
     {
-        return $this->user ? $this->user->name : 'Unknown Author';
+        return $value ?: $this->title;
     }
 
-    public function getPublishedDateAttribute()
+    // Get meta description or generate from excerpt/content
+    public function getMetaDescriptionAttribute($value)
     {
-        return $this->published_at ? $this->published_at->format('M d, Y') : null;
-    }
+        if ($value) {
+            return $value;
+        }
 
-    public function getReadingTimeTextAttribute()
-    {
-        return $this->reading_time . ' min read';
-    }
+        if ($this->excerpt) {
+            return Str::limit($this->excerpt, 160);
+        }
 
-    public function getStatusBadgeAttribute()
-    {
-        return match($this->status) {
-            'published' => 'success',
-            'draft' => 'warning',
-            'archived' => 'danger',
-            default => 'secondary'
-        };
-    }
-
-    // Helper methods
-    public function incrementViews()
-    {
-        $this->increment('views');
-    }
-
-    public function isPublished()
-    {
-        return $this->status === 'published' && $this->published_at && $this->published_at <= now();
-    }
-
-    public function isDraft()
-    {
-        return $this->status === 'draft';
-    }
-
-    public function isArchived()
-    {
-        return $this->status === 'archived';
+        return Str::limit(strip_tags($this->content), 160);
     }
 }
