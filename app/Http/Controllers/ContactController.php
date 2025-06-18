@@ -47,8 +47,8 @@ class ContactController extends Controller
             $inquiry = ContactInquiry::create($data);
 
             // Send email to admin
-            Mail::to(config('mail.from.address'))
-                ->send(new ContactInquiryMail($inquiry));
+            $adminEmail = config('mail.from.address', 'info@ceylonayurvedahealth.co.uk');
+            Mail::to($adminEmail)->send(new ContactInquiryMail($inquiry));
 
             // Send confirmation email to user
             Mail::to($inquiry->email)

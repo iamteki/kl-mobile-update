@@ -5,50 +5,31 @@ namespace App\Mail;
 use App\Models\ContactInquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $inquiry;
+    public $serviceName;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public ContactInquiry $inquiry,
-    ) {}
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function __construct(ContactInquiry $inquiry)
     {
-        return new Envelope(
-            subject: 'Thank you for contacting KL Mobile Events',
-        );
+        $this->inquiry = $inquiry;
+        $this->serviceName = $inquiry->service_name;
     }
 
     /**
-     * Get the message content definition.
+     * Build the message.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'emails.contact-confirmation',
-            with: [
-                'inquiry' => $this->inquiry,
-                'serviceName' => $this->inquiry->service_name,
-            ],
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
+                    ->subject('Thank you for contacting KL Mobile Events')
+                    ->view('emails.contact-confirmation');
     }
 }
