@@ -1,5 +1,22 @@
 @extends('layouts.frontend')
 
+@section('title', $post->meta_title ?: $post->title . ' - KL Mobile Events Blog')
+@section('meta_description', $post->meta_description ?: Str::limit(strip_tags($post->excerpt ?: $post->content), 160))
+@section('meta_keywords', $post->meta_keywords ?: implode(', ', $post->tags ?? []) . ', event management, kuala lumpur')
+
+@section('og_title', $post->meta_title ?: $post->title)
+@section('og_description', $post->meta_description ?: $post->excerpt)
+@section('og_image', $post->featured_image ? Storage::url($post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
+@section('og_type', 'article')
+@section('og_url', route('blog.show', $post->slug))
+
+@section('twitter_card', 'summary_large_image')
+@section('twitter_title', $post->title)
+@section('twitter_description', Str::limit(strip_tags($post->excerpt ?: $post->content), 200))
+@section('twitter_image', $post->featured_image ? Storage::url($post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
+
+@section('canonical_url', route('blog.show', $post->slug))
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/blog-single.css') }}">
 @endpush
@@ -232,47 +249,6 @@
             </div>
         </section>
     @endif
-
-    <!-- Comments Section -->
-    <section class="comments-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="comments-wrapper">
-                        <h3 class="comments-title">Comments</h3>
-                        
-                        <!-- Comment Form -->
-                        <div class="comment-form-wrapper">
-                            <h4>Leave a Comment</h4>
-                            <form class="comment-form" id="comment-form">
-                                @csrf
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Your Name" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="email" class="form-control" placeholder="Your Email" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <textarea class="form-control" rows="4" placeholder="Your Comment" required></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="submit-comment">Post Comment</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Comments List -->
-                        <div class="comments-list">
-                            <!-- Comments will be loaded here dynamically -->
-                            <p class="text-white-50">Be the first to comment!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
 
 @push('scripts')

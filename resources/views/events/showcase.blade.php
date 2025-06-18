@@ -16,7 +16,7 @@
             <div class="row g-4 mt-5">
 
 
-                @foreach ($events as $event)
+             @foreach ($events as $event)
                     <div class="col-lg-4 col-md-6">
                         <a href="{{ route('event.show', $event->slug) }}" class="subcategory-card">
                             <img src="{{ $event->featured_image ? Storage::url($event->featured_image) : 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=400&fit=crop' }}"

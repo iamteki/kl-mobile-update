@@ -1,5 +1,5 @@
 <!-- Contact Form -->
-<section id="contact" class="contact-section" style="padding: 100px 0; background: var(--bg-black);">
+<section id="contact" class="contact-section">
     <div class="container">
         <div class="section-area text-center mb-5">
             <span>- GET IN TOUCH -</span>

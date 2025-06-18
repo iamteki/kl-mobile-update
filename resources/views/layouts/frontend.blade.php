@@ -4,7 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KL Mobile Events - Kuala Lumpur's Premier Event Management</title>
+    
+    <!-- Dynamic Title -->
+    <!-- Dynamic Title -->
+    <title>@yield('title', 'KL Mobile Events - Kuala Lumpur\'s Premier Event Management')</title>
+    
+    <!-- Dynamic Meta Tags -->
+    <meta name="description" content="@yield('meta_description', 'KL Mobile Events is Kuala Lumpur\'s premier event management company, specializing in corporate events, weddings, concerts, and exhibitions.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'event management, kuala lumpur events, corporate events, wedding planning, concert management, exhibition services')">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="@yield('og_title', 'KL Mobile Events - Premier Event Management')">
+    <meta property="og:description" content="@yield('og_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
+    <meta property="og:image" content="@yield('og_image', asset('frontend/assets/images/kl_mobile_final_logo.jpg'))">
+    <meta property="og:url" content="@yield('og_url', url()->current())">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="KL Mobile Events">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('twitter_title', 'KL Mobile Events - Premier Event Management')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('frontend/assets/images/kl_mobile_final_logo.jpg'))">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    
+    <!-- Robots -->
+    <meta name="robots" content="@yield('robots', 'index, follow')">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png"
