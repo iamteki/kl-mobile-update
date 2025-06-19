@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollToTop();
     initNavbar();
     initSmoothScrolling();
-    initFormHandlers();
+
     // Removed initAnimations() to remove scroll animations
     
     // Initialize page-specific components
@@ -190,16 +190,7 @@ function initSmoothScrolling() {
 // FORM HANDLERS
 // ========================================
 
-function initFormHandlers() {
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your inquiry! We will contact you soon.');
-            this.reset();
-        });
-    });
-}
+
 
 // ========================================
 // PAGE LOAD ANIMATIONS (NO SCROLL)

@@ -1,5 +1,16 @@
 @extends('layouts.frontend')
 
+@section('title', isset($category) ? $category->meta_title ?: $category->name . ' Blog - KL Mobile Events' : 'Blog - Event Management Insights | KL Mobile Events')
+@section('meta_description', isset($category) ? $category->meta_description : 'Discover event planning tips, industry insights, and success stories from KL Mobile Events. Your guide to creating memorable events in Kuala Lumpur.')
+@section('meta_keywords', isset($category) ? $category->meta_keywords : 'event planning blog, event management tips, kuala lumpur events, corporate event ideas, wedding planning guide')
+
+@section('og_title', isset($category) ? $category->name . ' Articles' : 'KL Mobile Events Blog')
+@section('og_description', isset($category) ? $category->meta_description : 'Expert insights and tips on event management')
+@section('og_type', 'website')
+@section('og_url', isset($category) ? route('blog.category', $category->slug) : route('blog.index'))
+
+@section('canonical_url', isset($category) ? route('blog.category', $category->slug) : route('blog.index'))
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/blog.css') }}">
 @endpush

@@ -4,6 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,3 +20,6 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 // Location Pages
 Route::get('/locations/corporate-office', [LocationController::class, 'corporateOffice'])->name('locations.corporate');
 Route::get('/locations/warehouse', [LocationController::class, 'warehouse'])->name('locations.warehouse');
+
+// Contact Form
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

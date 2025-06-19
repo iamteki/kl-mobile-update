@@ -1,5 +1,5 @@
 <!-- Contact Form -->
-<section id="contact" class="contact-section" style="padding: 100px 0; background: var(--bg-black);">
+<section id="contact" class="contact-section">
     <div class="container">
         <div class="section-area text-center mb-5">
             <span>- GET IN TOUCH -</span>
@@ -7,7 +7,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('contact.store') }}">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -64,7 +64,8 @@
                             <textarea class="form-control @error('message') is-invalid @enderror" 
                                       name="message" 
                                       rows="5"
-                                      placeholder="Tell us about your event...">{{ old('message') }}</textarea>
+                                      placeholder="Tell us about your event..."
+                                      required>{{ old('message') }}</textarea>
                             @error('message')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -79,7 +80,13 @@
                 
                 @if(session('success'))
                     <div class="alert alert-success mt-4" role="alert">
-                        {{ session('success') }}
+                        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                    </div>
+                @endif
+                
+                @if($errors->has('error'))
+                    <div class="alert alert-danger mt-4" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>{{ $errors->first('error') }}
                     </div>
                 @endif
             </div>
