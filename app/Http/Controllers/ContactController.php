@@ -9,19 +9,39 @@ use App\Mail\ContactConfirmationMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
     public function store(Request $request)
     {
+        // Check if request is AJAX
+        $isAjax = $request->ajax() || $request->wantsJson();
+
         // Validate the request
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:50',
             'service' => 'nullable|string',
             'message' => 'required|string|max:5000',
         ]);
+
+        if ($validator->fails()) {
+            if ($isAjax) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please correct the errors below.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
 
         try {
             // Prepare data for storage
@@ -54,8 +74,20 @@ class ContactController extends Controller
             Mail::to($inquiry->email)
                 ->send(new ContactConfirmationMail($inquiry));
 
-            // Return success response
-            return redirect()->back()->with('success', 'Thank you for contacting us! We will get back to you soon.');
+            // Return response
+            $successMessage = 'Thank you for contacting us! We will get back to you soon.';
+            
+            if ($isAjax) {
+                return response()->json([
+                    'success' => true,
+                    'message' => $successMessage,
+                    'data' => [
+                        'inquiry_id' => $inquiry->id
+                    ]
+                ]);
+            }
+
+            return redirect()->back()->with('success', $successMessage);
 
         } catch (\Exception $e) {
             // Log the error
@@ -66,9 +98,18 @@ class ContactController extends Controller
             ]);
 
             // Return error response
+            $errorMessage = 'Sorry, there was an error sending your message. Please try again later.';
+            
+            if ($isAjax) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMessage
+                ], 500);
+            }
+
             return redirect()->back()
                 ->withInput()
-                ->withErrors(['error' => 'Sorry, there was an error sending your message. Please try again later.']);
+                ->withErrors(['error' => $errorMessage]);
         }
     }
 }

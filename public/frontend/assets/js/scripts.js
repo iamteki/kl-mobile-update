@@ -256,6 +256,11 @@ function initPageSpecificComponents() {
     if (document.querySelector('.blog-section')) {
         initBlogSection();
     }
+
+    // Contact form AJAX
+if (document.querySelector('#contactForm')) {
+    initContactFormAjax();
+}
 }
 
 // ========================================
@@ -728,4 +733,142 @@ function initBlogSection() {
             this.style.transform = 'translateX(0)';
         });
     });
+}
+
+
+// ========================================
+// CONTACT FORM AJAX - Add this section to your existing scripts.js
+// ========================================
+
+function initContactFormAjax() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessages = document.getElementById('formMessages');
+    const alertDiv = formMessages.querySelector('.alert');
+    const alertIcon = formMessages.querySelector('.alert-icon');
+    const alertMessage = formMessages.querySelector('.alert-message');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Clear previous errors
+        clearContactErrors();
+        
+        // Disable submit button and show loading
+        submitBtn.disabled = true;
+        submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+        submitBtn.querySelector('i').className = 'fas fa-spinner fa-spin me-2';
+        
+        // Create FormData object
+        const formData = new FormData(form);
+        
+        // Send AJAX request
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                showContactMessage('success', data.message);
+                
+                // Reset form
+                form.reset();
+                
+                // Optionally scroll to message
+                formMessages.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Optional: Add success animation
+                playSuccessAnimation();
+            } else {
+                // Show error message
+                showContactMessage('danger', data.message || 'An error occurred. Please try again.');
+                
+                // Show field errors if any
+                if (data.errors) {
+                    showFieldErrors(data.errors);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showContactMessage('danger', 'An unexpected error occurred. Please try again later.');
+        })
+        .finally(() => {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.querySelector('.btn-text').textContent = 'Send Message';
+            submitBtn.querySelector('i').className = 'fas fa-paper-plane me-2';
+        });
+    });
+    
+    function showContactMessage(type, message) {
+        alertDiv.className = `alert alert-${type}`;
+        alertIcon.className = type === 'success' ? 'fas fa-check-circle me-2' : 'fas fa-exclamation-circle me-2';
+        alertMessage.textContent = message;
+        formMessages.style.display = 'block';
+        
+        // Auto-hide success message after 5 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                formMessages.style.display = 'none';
+            }, 5000);
+        }
+    }
+    
+    function showFieldErrors(errors) {
+        Object.keys(errors).forEach(field => {
+            const input = document.getElementById(field);
+            if (input) {
+                input.classList.add('is-invalid');
+                const feedback = input.nextElementSibling;
+                if (feedback && feedback.classList.contains('invalid-feedback')) {
+                    feedback.textContent = errors[field][0];
+                }
+            }
+        });
+    }
+    
+    function clearContactErrors() {
+        // Hide message div
+        formMessages.style.display = 'none';
+        
+        // Clear field errors
+        form.querySelectorAll('.is-invalid').forEach(element => {
+            element.classList.remove('is-invalid');
+        });
+        
+        form.querySelectorAll('.invalid-feedback').forEach(element => {
+            element.textContent = '';
+        });
+    }
+    
+    // Clear errors when user starts typing
+    form.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                this.classList.remove('is-invalid');
+                const feedback = this.nextElementSibling;
+                if (feedback && feedback.classList.contains('invalid-feedback')) {
+                    feedback.textContent = '';
+                }
+            }
+        });
+    });
+    
+    // Optional: Add success animation
+    function playSuccessAnimation() {
+        // Add a subtle pulse to the form
+        form.style.animation = 'pulse 0.5s ease-in-out';
+        setTimeout(() => {
+            form.style.animation = '';
+        }, 500);
+    }
 }
