@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EventType;
 use App\Models\Blog;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
         
-        return view('home.index', compact('eventTypes', 'latestBlogs'));
+        // Get clients separated by odd and even order
+        $oddClients = Client::oddOrder()->ordered()->get();
+        $evenClients = Client::evenOrder()->ordered()->get();
+        
+        return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients'));
     }
 }
