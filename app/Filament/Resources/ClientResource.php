@@ -10,6 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ClientResource extends Resource
 {
@@ -32,7 +34,8 @@ class ClientResource extends Resource
 
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->directory('clients')
+                    ->directory('images/clients')
+                    ->disk('public_uploads')
                     ->visibility('public')
                     ->imageEditor()
                     ->imageEditorAspectRatios([
@@ -40,14 +43,16 @@ class ClientResource extends Resource
                         '4:3',
                         '1:1',
                     ])
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText('Images will be saved in public/images/clients directory'),
 
                 Forms\Components\TextInput::make('order')
                     ->numeric()
                     ->default(0)
                     ->required()
                     ->minValue(0)
-                    ->step(1),
+                    ->step(1)
+                    ->helperText('Odd numbers (1,3,5...) appear in first row, Even numbers (2,4,6...) in second row'),
             ]);
     }
 
@@ -57,7 +62,8 @@ class ClientResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->circular()
-                    ->size(50),
+                    ->size(50)
+                    ->defaultImageUrl(asset('images/placeholder-logo.png')),
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
@@ -67,7 +73,8 @@ class ClientResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->badge()
-                    ->color('primary'),
+                    ->color(fn (string $state): string => $state % 2 == 0 ? 'success' : 'primary')
+                    ->formatStateUsing(fn (string $state): string => $state . ' (' . ($state % 2 == 0 ? 'Row 2' : 'Row 1') . ')'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -85,7 +92,16 @@ class ClientResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Client $record) {
+                        // Delete the image file when deleting the record
+                        if ($record->image && !filter_var($record->image, FILTER_VALIDATE_URL)) {
+                            $imagePath = public_path($record->image);
+                            if (File::exists($imagePath)) {
+                                File::delete($imagePath);
+                            }
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

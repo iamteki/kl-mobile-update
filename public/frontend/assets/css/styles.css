@@ -1031,8 +1031,7 @@ footer {
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-
-/* Client Section */
+/* Client Section - Updated Styles */
 .clients-section {
     background: var(--bg-dark);
     position: relative;
@@ -1053,7 +1052,7 @@ footer {
     z-index: 0;
 }
 
-/* Client Logos Marquee Animation */
+/* Client Logos Marquee Animation - UPDATED */
 .clients-wrapper {
     position: relative;
     width: 100%;
@@ -1082,11 +1081,13 @@ footer {
 .clients-track {
     display: flex;
     gap: 4rem;
-    animation: marquee 40s linear infinite;
+    /* Faster animation - reduced from 40s to 20s */
+    animation: marquee 20s linear infinite;
 }
 
 .clients-marquee-reverse .clients-track {
-    animation: marquee-reverse 40s linear infinite;
+    /* Faster animation - reduced from 40s to 20s */
+    animation: marquee-reverse 20s linear infinite;
 }
 
 .client-logo-wrapper {
@@ -1113,6 +1114,8 @@ footer {
     object-fit: contain;
     opacity: 0.8;
     transition: all 0.3s ease;
+    /* Remove the grayscale filter to show logos in color */
+    filter: brightness(0.9);
 }
 
 .client-logo-wrapper:hover {
@@ -1125,11 +1128,31 @@ footer {
 .client-logo-wrapper:hover .client-logo {
     opacity: 1;
     transform: scale(1.1);
+    filter: brightness(1);
 }
 
 /* Pause animation on hover */
 .clients-marquee:hover .clients-track {
     animation-play-state: paused;
+}
+
+/* Updated Animations with better performance */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-reverse {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
 /* Client Statistics */
@@ -1179,6 +1202,27 @@ footer {
     letter-spacing: 1px;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .client-logo-wrapper {
+        min-width: 150px;
+        height: 80px;
+    }
+    
+    .client-logo {
+        max-width: 100px;
+        max-height: 50px;
+    }
+    
+    .clients-track {
+        /* Even faster on mobile */
+        animation-duration: 15s;
+    }
+    
+    .clients-marquee-reverse .clients-track {
+        animation-duration: 15s;
+    }
+}
 /* Locations Section */
 .locations-section {
     background: var(--gradient-dark);
