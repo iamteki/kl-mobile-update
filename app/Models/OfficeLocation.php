@@ -76,4 +76,10 @@ class OfficeLocation extends Model
             return Storage::disk('spaces')->url($image);
         })->toArray();
     }
+
+    // Relationship with team members
+    public function teamMembers()
+    {
+        return $this->belongsToMany(Team::class, 'team_office_locations');
+    }
 }
