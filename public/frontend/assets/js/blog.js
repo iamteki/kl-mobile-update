@@ -302,45 +302,7 @@ function initBlogAnimations() {
     });
 }
 
-// ========================================
-// NEWSLETTER FORM
-// ========================================
 
-function initNewsletterForm() {
-    const newsletterForm = document.querySelector('.newsletter-form');
-    
-    if (!newsletterForm) return;
-    
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const input = this.querySelector('.newsletter-input');
-        const button = this.querySelector('.newsletter-btn');
-        const originalText = button.textContent;
-        
-        // Show loading state
-        button.textContent = 'Subscribing...';
-        button.disabled = true;
-        
-        // Simulate API call
-        setTimeout(() => {
-            // Success animation
-            button.textContent = '✓ Subscribed!';
-            button.style.background = 'var(--gradient-pink)';
-            input.value = '';
-            
-            // Create success particles
-            createSuccessParticles(button);
-            
-            // Reset after delay
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = '';
-                button.disabled = false;
-            }, 3000);
-        }, 1500);
-    });
-}
 
 // ========================================
 // UTILITY FUNCTIONS

@@ -6,14 +6,14 @@
 
 @section('og_title', $post->meta_title ?: $post->title)
 @section('og_description', $post->meta_description ?: $post->excerpt)
-@section('og_image', $post->featured_image ? Storage::url($post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
+@section('og_image', $post->featured_image ? asset('storage/' . $post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
 @section('og_type', 'article')
 @section('og_url', route('blog.show', $post->slug))
 
 @section('twitter_card', 'summary_large_image')
 @section('twitter_title', $post->title)
 @section('twitter_description', Str::limit(strip_tags($post->excerpt ?: $post->content), 200))
-@section('twitter_image', $post->featured_image ? Storage::url($post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
+@section('twitter_image', $post->featured_image ? asset('storage/' . $post->featured_image) : asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
 
 @section('canonical_url', route('blog.show', $post->slug))
 
@@ -29,7 +29,7 @@
     <header class="blog-single-header">
         <!-- Background Image -->
         <div class="blog-header-bg">
-            <img src="{{ $post->featured_image ? Storage::url($post->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop' }}" 
+            <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop' }}" 
                  alt="{{ $post->title }}" 
                  class="header-bg-image">
             <div class="header-overlay"></div>
@@ -140,11 +140,6 @@
                                 <h4>About {{ $post->user->name }}</h4>
                                 <p class="bio-title">Senior Event Strategist at KL Mobile Events</p>
                                 <p>{{ $post->user->name }} brings over 15 years of experience in corporate event management and has been instrumental in pioneering innovative event solutions. Their expertise spans traditional event planning and cutting-edge digital experiences.</p>
-                                <div class="bio-social">
-                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-envelope"></i></a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -183,7 +178,7 @@
                             <div class="recent-posts">
                                 @foreach($recentPosts as $recentPost)
                                     <article class="recent-post">
-                                        <img src="{{ $recentPost->featured_image ? Storage::url($recentPost->featured_image) : 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=100&h=80&fit=crop' }}" 
+                                        <img src="{{ $recentPost->featured_image ? asset('storage/' . $recentPost->featured_image) : 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=100&h=80&fit=crop' }}" 
                                              alt="{{ $recentPost->title }}">
                                         <div class="recent-post-content">
                                             <h4><a href="{{ route('blog.show', $recentPost->slug) }}">{{ $recentPost->title }}</a></h4>
@@ -195,7 +190,7 @@
                         </div>
 
                         <!-- Newsletter Widget -->
-                        <div class="sidebar-widget newsletter-widget">
+                        {{-- <div class="sidebar-widget newsletter-widget">
                             <h3 class="widget-title">Newsletter</h3>
                             <p>Get the latest event insights delivered to your inbox</p>
                             <form class="newsletter-form" id="sidebar-newsletter">
@@ -203,7 +198,7 @@
                                 <input type="email" placeholder="Your email" class="newsletter-input" required>
                                 <button type="submit" class="newsletter-submit">Subscribe</button>
                             </form>
-                        </div>
+                        </div> --}}
 
                         <!-- Social Widget -->
                         <div class="sidebar-widget">
@@ -231,7 +226,7 @@
                         <div class="col-md-4">
                             <article class="related-post-card">
                                 <div class="related-post-image">
-                                    <img src="{{ $relatedPost->featured_image ? Storage::url($relatedPost->featured_image) : 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=250&fit=crop' }}" 
+                                    <img src="{{ $relatedPost->featured_image ? asset('storage/' . $relatedPost->featured_image) : 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=250&fit=crop' }}" 
                                          alt="{{ $relatedPost->title }}">
                                     @if($relatedPost->category)
                                         <div class="post-category">{{ $relatedPost->category->name }}</div>

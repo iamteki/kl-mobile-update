@@ -49,7 +49,7 @@
         rel="stylesheet">
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles.css') }}">
-    @vite(['', 'resources/js/app.js'])
+    {{-- @vite(['', 'resources/js/app.js']) --}}
     @stack('styles')
 
 </head>

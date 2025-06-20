@@ -108,7 +108,7 @@
                         <article class="featured-post-card" data-category="{{ $featuredPost->category->slug ?? '' }}">
                             <div class="featured-card-wrapper">
                                 <div class="featured-card-image">
-                                    <img src="{{ $featuredPost->featured_image ? Storage::url($featuredPost->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop' }}" 
+                                    <img src="{{ $featuredPost->featured_image ? asset('storage/' . $featuredPost->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop' }}" 
                                          alt="{{ $featuredPost->title }}" 
                                          class="featured-img">
                                     <div class="featured-img-overlay"></div>
@@ -197,7 +197,7 @@
                     <div class="col-lg-4 col-md-6">
                         <article class="blog-post-card" data-category="{{ $post->category->slug ?? '' }}">
                             <div class="post-image-wrapper">
-                                <img src="{{ $post->featured_image ? Storage::url($post->featured_image) : 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop' }}" 
+                                <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop' }}" 
                                      alt="{{ $post->title }}" 
                                      class="post-image">
                                 <div class="post-overlay">
@@ -235,26 +235,7 @@
         </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-        <div class="container">
-            <div class="newsletter-wrapper">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <h3 class="newsletter-title">Stay Updated</h3>
-                        <p class="newsletter-subtitle">Get the latest event insights delivered to your inbox</p>
-                    </div>
-                    <div class="col-lg-6">
-                        <form class="newsletter-form" id="newsletter-form">
-                            @csrf
-                            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-                            <button type="submit" class="newsletter-btn">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 @endsection
 
 @push('scripts')
