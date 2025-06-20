@@ -3160,7 +3160,7 @@ footer {
 /* See Location link - similar to category cards */
 .location-card .see-location {
     position: absolute;
-    bottom: 25px;
+    top: 25px;
     right: 25px;
     color: var(--primary-purple);
     font-size: 0.875rem;
@@ -3194,9 +3194,9 @@ footer {
 }
 
 /* Add a subtle glow effect to icons on hover */
-.location-card-link:hover .location-card h4 i {
+/* .location-card-link:hover .location-card h4 i {
     filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.8));
-}
+} */
 
 /* ========================================
    Removing Some Inline Css

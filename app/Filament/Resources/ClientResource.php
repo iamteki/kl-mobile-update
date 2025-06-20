@@ -34,8 +34,7 @@ class ClientResource extends Resource
 
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->directory('images/clients')
-                    ->disk('public_uploads')
+                    ->directory('clients')
                     ->visibility('public')
                     ->imageEditor()
                     ->imageEditorAspectRatios([
@@ -43,8 +42,7 @@ class ClientResource extends Resource
                         '4:3',
                         '1:1',
                     ])
-                    ->columnSpanFull()
-                    ->helperText('Images will be saved in public/images/clients directory'),
+                    ->columnSpanFull(),
 
                 Forms\Components\TextInput::make('order')
                     ->numeric()

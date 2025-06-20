@@ -56,7 +56,7 @@
 
 <body>
     <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
+    {{-- <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
             <div class="loading-logo">
                 <img src="{{ asset('frontend/assets/images/kl_mobile_final_logo.svg') }}" alt="KL Mobile Events" class="loading-logo-img">
@@ -71,7 +71,7 @@
                 <div class="loading-progress-bar"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Custom Cursor -->
     <div class="mouse-follower">

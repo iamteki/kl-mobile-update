@@ -13,7 +13,7 @@
                 <div class="col-lg-4 col-md-6">
                     <article class="blog-card">
                         <div class="blog-image-wrapper">
-                            <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop' }}"
+                            <img src="{{ $blog->featured_image ?  asset('storage/' . $blog->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop' }}"
                                 alt="{{ $blog->title }}" class="blog-image">
                             @if($blog->category)
                                 <div class="blog-category">{{ $blog->category->name }}</div>

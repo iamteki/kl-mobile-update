@@ -15,7 +15,8 @@
                 <div class="clients-track">
                     @foreach($oddClients as $client)
                     <div class="client-logo-wrapper">
-                        <img src="{{ $client->image_url }}" alt="{{ $client->name }}" class="client-logo">
+                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}" class="client-logo">
+
                     </div>
                     @endforeach
                 </div>
@@ -28,7 +29,7 @@
                 <div class="clients-track">
                     @foreach($evenClients as $client)
                     <div class="client-logo-wrapper">
-                        <img src="{{ $client->image_url }}" alt="{{ $client->name }}" class="client-logo">
+                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}" class="client-logo">
                     </div>
                     @endforeach
                 </div>

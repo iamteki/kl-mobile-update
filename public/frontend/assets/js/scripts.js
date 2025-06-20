@@ -348,7 +348,7 @@ function initTestimonials() {
         loop: true,
         direction: 'horizontal',
         autoplay: {
-            delay: 5000,
+            delay: 4000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true
         },
@@ -397,22 +397,22 @@ function initTestimonials() {
     });
 
     // Initialize testimonial images carousel
-    testimonialImagesSwiper = new Swiper('.testimonial-images-carousel', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        loop: true,
-        direction: 'horizontal',
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false
-        },
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        speed: 800,
-        allowTouchMove: false
-    });
+    // testimonialImagesSwiper = new Swiper('.testimonial-images-carousel', {
+    //     slidesPerView: 1,
+    //     spaceBetween: 0,
+    //     loop: true,
+    //     direction: 'horizontal',
+    //     autoplay: {
+    //         delay: 5000,
+    //         disableOnInteraction: false
+    //     },
+    //     effect: 'fade',
+    //     fadeEffect: {
+    //         crossFade: true
+    //     },
+    //     speed: 800,
+    //     allowTouchMove: false
+    // });
 
     // Sync both carousels
     if (testimonialSwiper && testimonialImagesSwiper) {

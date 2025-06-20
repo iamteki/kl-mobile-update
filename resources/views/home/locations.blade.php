@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <p class="operating-hours"><strong>Operating Hours: Mon-Fri 9:00 AM - 6:00 PM</strong></p>
-                        <span class="see-location">See Office <i class="fas fa-arrow-right"></i></span>
+                        <span class="see-location"><i class="fas fa-arrow-right"></i></span>
                     </div>
                 </a>
             </div>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <p class="operating-hours"><strong>24/7 Equipment Storage & Logistics</strong></p>
-                        <span class="see-location">See Warehouse <i class="fas fa-arrow-right"></i></span>
+                        <span class="see-location"><i class="fas fa-arrow-right"></i></span>
                     </div>
                 </a>
             </div>

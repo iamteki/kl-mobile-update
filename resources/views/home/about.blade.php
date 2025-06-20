@@ -21,12 +21,11 @@
                                 style="color: var(--primary-purple);"></i>State-of-the-art equipment</li>
                         <li class="mb-3"><i class="fas fa-check-circle me-3"
                                 style="color: var(--primary-purple);"></i>Professional team of specialists</li>
-                        <li class="mb-3"><i class="fas fa-check-circle me-3"
-                                style="color: var(--primary-purple);"></i>Customized solutions for every event</li>
+
                     </ul>
-                    <a href="aboutus.html" class="btn btn-sm mt-4" style="background: var(--gradient-purple); color: var(--pure-white); padding: 10px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 50px; transition: all 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);">
+                    {{-- <a href="aboutus.html" class="btn btn-sm mt-4" style="background: var(--gradient-purple); color: var(--pure-white); padding: 10px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 50px; transition: all 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);">
                         Learn More About Us <i class="fas fa-arrow-right ms-2" style="font-size: 0.875rem;"></i>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
