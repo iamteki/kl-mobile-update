@@ -21,14 +21,14 @@ class OfficeLocation extends Model
         'phone',
         'email',
         'address',
-        'photo_gallery',
+        'image_gallery', // Changed from photo_gallery to match your form
         'google_map_iframe',
         'is_active',
         'sort_order',
     ];
 
     protected $casts = [
-        'photo_gallery' => 'array',
+        'image_gallery' => 'array', // Changed from photo_gallery
         'is_active' => 'boolean',
     ];
 
@@ -64,6 +64,8 @@ class OfficeLocation extends Model
         return 'slug';
     }
 
+
+    // Get all image gallery URLs
     public function getImageGalleryUrlsAttribute()
     {
         if (!$this->image_gallery || !is_array($this->image_gallery)) {

@@ -143,14 +143,7 @@ class OfficeLocationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('first_image_url')
-                    ->label('Photo')
-                    ->circular()
-                    ->size(60)
-                    ->defaultImageUrl(url('/images/placeholder-office.jpg'))
-                    ->getStateUsing(function ($record) {
-                        return $record->first_image_url;
-                    }),
+                
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()

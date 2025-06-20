@@ -60,12 +60,29 @@ class ViewOfficeLocation extends ViewRecord
 
                 Infolists\Components\Section::make('Image Gallery')
                     ->schema([
-                        Infolists\Components\ImageEntry::make('image_gallery')
-                            ->disk('spaces')
-                            ->visibility('public')
-                            ->size(150)
-                            ->square()
-                            ->columnSpanFull(),
+                        Infolists\Components\TextEntry::make('image_gallery')
+                            ->label('Image Gallery')
+                            ->formatStateUsing(function ($state, $record) {
+                                // Refresh the model to get properly cast data
+                                $record->refresh();
+                                $gallery = $record->image_gallery;
+                                
+                                if (empty($gallery) || !is_array($gallery)) {
+                                    return 'No images in gallery';
+                                }
+                                
+                                $images = '';
+                                foreach ($gallery as $imagePath) {
+                                    $url = Storage::disk('spaces')->url($imagePath);
+                                    $images .= '<img src="' . $url . '" style="width: 200px; height: 200px; object-fit: cover; margin: 5px; border-radius: 8px; border: 1px solid #e5e7eb;" />';
+                                }
+                                
+                                return new \Illuminate\Support\HtmlString(
+                                    '<div style="display: flex; flex-wrap: wrap; gap: 10px;">' . $images . '</div>'
+                                );
+                            })
+                            ->columnSpanFull()
+                            ->visible(fn ($record) => !empty($record->image_gallery)),
                     ])
                     ->visible(fn ($record) => $record->image_gallery && count($record->image_gallery) > 0),
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('address');
-            $table->json('photo_gallery')->nullable();
+            $table->json('image_gallery')->nullable();
             $table->text('google_map_iframe')->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('sort_order')->default(0);
