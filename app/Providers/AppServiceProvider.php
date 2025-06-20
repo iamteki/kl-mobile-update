@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\EventType;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,5 +41,7 @@ class AppServiceProvider extends ServiceProvider
             
             $view->with('eventTypes', $eventTypes);
         });
+
+        Schema::defaultStringLength(191);
     }
 }
