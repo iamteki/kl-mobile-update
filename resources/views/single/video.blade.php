@@ -32,10 +32,10 @@
     <section class="video-section">
         <div class="container position-relative">
             <div class="section-area text-center mb-5">
-                <span>- SHOWCASE VIDEO -</span>
-                <h2 class="fs-two">{{ $event->video_title ?? 'EXPERIENCE THE MAGIC' }}</h2>
+                <span data-animscroll="fade-up">- SHOWCASE VIDEO -</span>
+                <h2 data-animscroll="fade-up" class="fs-two">{{ $event->video_title ?? 'EXPERIENCE THE MAGIC' }}</h2>
             </div>
-            <div class="video-container">
+            <div class="video-container" data-animscroll="fade-up">
                 <div class="video-wrapper">
                     <div class="video-placeholder" id="videoPlaceholder" style="background-image: url('{{ $event->featured_image ? Storage::url($event->featured_image) : '' }}');">
                         <div class="video-overlay" id="videoOverlay">

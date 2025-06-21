@@ -4,12 +4,12 @@
     <div class="category-bg-image"></div>
     
     <!-- Animated Music Notes -->
-    <div class="music-notes">
+    {{-- <div class="music-notes">
         <i class="fas fa-music music-note"></i>
         <i class="fas fa-music music-note"></i>
         <i class="fas fa-music music-note"></i>
         <i class="fas fa-music music-note"></i>
-    </div>
+    </div> --}}
     
     <div class="container text-center">
         <div class="position-relative">

@@ -18,7 +18,7 @@
     <div class="hero-particles"></div>
     
     <!-- Floating Elements -->
-    <div class="floating-elements">
+    {{-- <div class="floating-elements">
         <div class="float-element element-1">
             <i class="fas fa-music"></i>
         </div>
@@ -28,7 +28,7 @@
         <div class="float-element element-3">
             <i class="fas fa-microphone"></i>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container text-center">
         <div class="hero-content">

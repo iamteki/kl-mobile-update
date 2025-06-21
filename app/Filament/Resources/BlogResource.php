@@ -122,21 +122,7 @@ class BlogResource extends Resource
                             ->options(\App\Models\Category::where('status', true)->pluck('name', 'id'))
                             ->searchable()
                             ->preload()
-                            ->createOptionForm([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\ColorPicker::make('color')
-                                    ->default('#3B82F6'),
-                            ])
-                            ->createOptionUsing(function (array $data): int {
-                                return \App\Models\Category::create([
-                                    'name' => $data['name'],
-                                    'slug' => \Illuminate\Support\Str::slug($data['name']),
-                                    'color' => $data['color'] ?? '#3B82F6',
-                                    'status' => true,
-                                ])->getKey();
-                            }),
+                            ->required(),
 
                         Forms\Components\TextInput::make('reading_time')
                             ->label('Reading Time (minutes)')
