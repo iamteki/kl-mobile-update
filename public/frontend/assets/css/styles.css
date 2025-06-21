@@ -33,7 +33,7 @@
     /* Gradients */
     --gradient-purple: linear-gradient(135deg, #9333EA 0%, #C084FC 100%);
     --gradient-violet: linear-gradient(135deg, #7a41dd 0%, #9763f1 100%);
-    --gradient-pink: linear-gradient(135deg, #EC4899 0%, #9333EA 100%);
+    --gradient-pink: linear-gradient(135deg, #c648ec 0%, #9333EA 100%);
     --gradient-dark: linear-gradient(180deg, #0A0A0A 0%, #000000 100%);
     --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #6366F1 100%);
     --gradient-indigo: linear-gradient(135deg, #6366F1 0%, #9333EA 100%);
@@ -1295,6 +1295,12 @@ footer {
 }
 
 /* Testimonials Section */
+
+/* ========================================
+   TESTIMONIALS SECTION - COMPLETE
+   ======================================== */
+
+/* Testimonials Section */
 .review-section {
     background: var(--bg-dark);
     position: relative;
@@ -1302,81 +1308,82 @@ footer {
     padding-bottom: 120px;
 }
 
+/* Main wrapper */
 .testimonial-wrapper {
     position: relative;
     overflow: visible;
+    padding: 20px 0;
 }
 
-/* Fix the overflow cutting issue */
-.testimonial-content-wrapper {
+/* Ensure both columns have exactly the same height */
+.testimonial-wrapper .row {
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    align-items: stretch;
+}
+
+.testimonial-wrapper .col-lg-6 {
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Both wrappers with identical structure */
+.testimonial-content-wrapper,
+.testimonial-static-image-wrapper {
     position: relative;
     height: 100%;
     min-height: 500px;
-    overflow: visible !important; /* Changed from hidden to visible */
+    overflow: visible !important;
     border-radius: 16px;
-    padding: 10px; /* Add padding to accommodate hover effect */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Ensure carousel doesn't overflow */
+/* Carousel container */
 .testimonial-carousel {
     height: 100%;
     overflow: visible !important;
-    padding: 15px; /* Add padding to prevent cutting */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Adjust the single area card */
+/* Review card */
 .single-area {
     background: var(--bg-card);
     border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease; /* Smoother transition */
+    transition: all 0.3s ease;
     border: 2px solid var(--border-color);
     padding: 3rem;
-    height: calc(100% - 30px); /* Account for padding */
-    min-height: 470px; /* Slightly reduced to fit with padding */
+    height: 100%;
+    min-height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     z-index: 1;
     animation: fadeInUp 0.8s ease-out;
-    margin: 0; /* Ensure no margin issues */
+    margin: 0;
 }
 
-/* Improved hover effect */
+/* Hover effect for review card */
 .single-area:hover {
-    transform: translateY(-8px) scale(1.02); /* Slightly more dramatic effect */
+    transform: translateY(-8px) scale(1.02);
     border-color: var(--primary-purple);
-    box-shadow: 0 25px 50px rgba(147, 51, 234, 0.3); /* Enhanced shadow */
-    z-index: 10; /* Higher z-index to ensure it's above other elements */
+    box-shadow: 0 25px 50px rgba(147, 51, 234, 0.3);
+    z-index: 10;
 }
 
-/* Ensure the wrapper can accommodate the hover effect */
-.testimonial-wrapper {
-    position: relative;
-    overflow: visible;
-    padding: 20px 0; /* Add vertical padding */
-}
-
-/* Fix for the row container */
-.testimonial-wrapper .row {
-    position: relative;
-    z-index: 1;
-    overflow: visible; /* Ensure row doesn't cut off content */
-}
-
-/* Ensure columns don't cut off content */
-.testimonial-wrapper .col-lg-6 {
-    overflow: visible;
-}
-
-/* Add a subtle scale effect to the quote icon on hover */
+/* Quote icon animation */
 .single-area:hover .fa-quote-left {
     transform: scale(1.1) rotate(-5deg);
     transition: transform 0.3s ease;
 }
 
-/* Enhance the star rating animation on hover */
+/* Star rating animation */
 .single-area:hover .fa-star {
     animation: starPulse 0.5s ease-in-out;
 }
@@ -1386,32 +1393,32 @@ footer {
     50% { transform: scale(1.2); }
 }
 
-/* Enhanced Testimonial Image Carousel */
-.testimonial-image-wrapper {
+/* Static image container - matching review card */
+.testimonial-image-container {
     position: relative;
-    overflow: hidden;
-    height: 100%;
-    min-height: 500px;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(147, 51, 234, 0.3);
-}
-
-.testimonial-images-carousel {
-    height: 100%;
     width: 100%;
-}
-
-.testimonial-images-carousel .swiper-wrapper {
     height: 100%;
-}
-
-.testimonial-images-carousel .swiper-slide {
-    height: 100%;
-    position: relative;
+    min-height: 480px;
+    border-radius: 16px;
     overflow: hidden;
+    box-shadow: 0 20px 60px rgba(147, 51, 234, 0.3);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.testimonial-images-carousel .swiper-slide img {
+/* Hover effect for image card - matching review card */
+.testimonial-image-container:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary-purple);
+    box-shadow: 0 25px 50px rgba(147, 51, 234, 0.3);
+    z-index: 10;
+}
+
+/* Static image */
+.testimonial-static-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1419,7 +1426,7 @@ footer {
     transition: filter 0.5s ease;
 }
 
-.testimonial-image-wrapper:hover .testimonial-images-carousel .swiper-slide-active img {
+.testimonial-image-container:hover .testimonial-static-image {
     filter: grayscale(0%);
 }
 
@@ -1435,7 +1442,29 @@ footer {
     pointer-events: none;
 }
 
-/* Swiper Pagination Dots */
+/* Content over image */
+.testimonial-image-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem;
+    z-index: 10;
+}
+
+/* Swiper specific styles */
+.testimonial-carousel .swiper-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.testimonial-carousel .swiper-slide {
+    height: auto !important;
+    display: flex;
+}
+
+/* Pagination dots */
 .testimonial-dots-container {
     text-align: center;
     margin-top: 3rem;
@@ -1475,11 +1504,108 @@ footer {
     border-color: var(--primary-purple) !important;
 }
 
-/* Ensure proper layering */
-.testimonial-wrapper .row {
-    position: relative;
-    z-index: 1;
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .testimonial-content-wrapper,
+    .testimonial-static-image-wrapper {
+        min-height: 400px;
+        margin-bottom: 2rem;
+        padding: 5px;
+    }
+    
+    .single-area,
+    .testimonial-image-container {
+        min-height: 380px;
+        padding: 2rem;
+    }
+    
+    .single-area:hover,
+    .testimonial-image-container:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+    
+    .testimonial-image-content {
+        padding: 1.5rem;
+    }
+    
+    .testimonial-image-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .testimonial-image-content p {
+        font-size: 0.875rem;
+    }
+    
+    .testimonial-dots-container {
+        margin-top: 2rem;
+    }
 }
+
+/* ========================================
+   TESTIMONIAL WIDTH FIX
+   ======================================== */
+
+/* Fix the container max-width to prevent horizontal stretching */
+.testimonial-wrapper {
+    max-width: 1200px; /* Limit the maximum width */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+/* Ensure both columns have consistent width */
+.testimonial-wrapper .col-lg-6 {
+    max-width: 600px; /* Set a maximum width for each column */
+}
+
+/* Fix the carousel to not expand beyond its container */
+.testimonial-carousel {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ensure swiper wrapper doesn't overflow */
+.testimonial-carousel .swiper-wrapper {
+    width: 100%;
+}
+
+/* Ensure swiper slide takes full width but not more */
+.testimonial-carousel .swiper-slide {
+    width: 100% !important;
+}
+
+/* Contain the single-area within bounds */
+.single-area {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Make sure content wrapper has proper constraints */
+.testimonial-content-wrapper {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Ensure image container matches */
+.testimonial-static-image-wrapper {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* For larger screens, ensure equal spacing */
+@media (min-width: 992px) {
+    .testimonial-wrapper .row {
+        justify-content: center;
+    }
+    
+    .testimonial-wrapper .col-lg-6:first-child {
+        padding-right: 2rem;
+    }
+    
+    .testimonial-wrapper .col-lg-6:last-child {
+        padding-left: 2rem;
+    }
+}
+
 
 /* Section Label Gradients */
 #services .section-area span {
@@ -3314,4 +3440,402 @@ footer {
     width: 30px;
     height: 30px;
   filter: brightness(0) saturate(100%) invert(32%) sepia(77%) saturate(4914%) hue-rotate(260deg) brightness(91%) contrast(102%);
+}
+
+/* ========================================
+   RESPONSIVE FIXES FOR KL MOBILE EVENTS
+   ======================================== */
+
+/* 1. NAVBAR BACKGROUND FIX - Always show background on mobile */
+@media (max-width: 991px) {
+    .navbar {
+        background-color: rgba(10, 10, 10, 0.95) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 2px 30px rgba(147, 51, 234, 0.2);
+    }
+    
+    .navbar.scrolled {
+        padding: 1rem 0; /* Maintain consistent padding */
+    }
+}
+
+/* 2. HERO SECTION TEXT HIERARCHY FIX */
+.hero-description {
+    font-size: clamp(0.875rem, 2vw, 1rem) !important; /* Reduced from 1.1rem max */
+    padding: 0 15px;
+    margin-bottom: 2.5rem;
+}
+
+/* Ensure title is always larger than description */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 3.5rem); /* Slightly reduced for mobile */
+    }
+    
+    .hero-description {
+        font-size: 0.75rem !important; /* Even smaller on mobile */
+        letter-spacing: 1px; /* Reduced letter spacing */
+    }
+}
+
+/* 3. SECTION HEADERS - INCREASED FONT SIZE */
+.fs-two {
+    font-size: clamp(3rem, 5vw, 4.5rem) !important; /* Increased for bigger headers */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.fs-two span {
+    font-size: clamp(3rem, 5vw, 4.5rem) !important; /* Match parent size */
+}
+
+/* Responsive sizes for tablets */
+@media (max-width: 768px) {
+    .fs-two {
+        font-size: clamp(2.5rem, 7vw, 3.5rem) !important; /* Bigger on mobile too */
+    }
+    
+    .fs-two span {
+        font-size: clamp(2.5rem, 7vw, 3.5rem) !important;
+        padding: 0 5px; /* Reduced padding */
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 480px) {
+    .fs-two {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important; /* Still readable on small devices */
+    }
+    
+    .fs-two span {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important;
+    }
+}
+
+/* 4. ABOUT SECTION PADDING FIX */
+.about-section {
+    padding: 80px 0; /* Reduced from 100px */
+}
+
+.about-section .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Reduced from 4rem */
+    padding: 0 15px; /* Add horizontal padding */
+}
+
+@media (max-width: 991px) {
+    .about-content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+    
+    .about-image,
+    .about-text {
+        width: 100%;
+        max-width: 600px; /* Prevent full width stretch */
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 60px 0;
+    }
+    
+    .about-content {
+        padding: 0 10px;
+    }
+}
+
+/* 5. CLIENT SECTION CARDS UNIFORM SIZE */
+.client-logo-wrapper {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    width: 200px; /* Fixed width instead of min-width */
+    height: 120px; /* Fixed height */
+    position: relative;
+}
+
+.client-logo {
+    max-width: 140px; /* Increased from 120px */
+    max-height: 80px; /* Increased from 60px */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    filter: brightness(0.9);
+}
+
+/* Responsive adjustments for client cards */
+@media (max-width: 768px) {
+    .client-logo-wrapper {
+        width: 160px; /* Fixed width for mobile */
+        height: 100px; /* Fixed height for mobile */
+    }
+    
+    .client-logo {
+        max-width: 120px;
+        max-height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-logo-wrapper {
+        width: 140px;
+        height: 90px;
+    }
+    
+    .client-logo {
+        max-width: 100px;
+        max-height: 50px;
+    }
+}
+
+/* 6. DISABLE CURSOR EFFECTS ON MOBILE/TABLET */
+@media (max-width: 1024px) {
+    .mouse-follower {
+        display: none !important;
+    }
+    
+    /* Reset cursor to default on all elements */
+    * {
+        cursor: default !important;
+    }
+    
+    /* Keep pointer cursor for interactive elements */
+    a, button, .btn, .box-style, 
+    .category-card, .subcategory-card, 
+    .location-card-link, .blog-card,
+    .social-icon, input[type="submit"],
+    .navbar-toggler, .play-button-overlay,
+    .gallery-item, .lightbox-nav, .lightbox-close {
+        cursor: pointer !important;
+    }
+}
+
+/* 7. ADDITIONAL RESPONSIVE IMPROVEMENTS */
+
+/* Reduce "Importance of Support" text size */
+.importance-section p {
+    font-size: 1rem !important; /* Reduced from 1.25rem */
+    line-height: 1.6 !important; /* Tighter line height */
+}
+
+@media (max-width: 768px) {
+    .importance-section p {
+        font-size: 0.875rem !important; /* Even smaller on mobile */
+        line-height: 1.5 !important;
+    }
+}
+
+/* Reduce section padding on mobile */
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    /* Reduce container padding */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Fix navbar toggle button visibility */
+.navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(147, 51, 234, 0.25);
+    border-color: var(--primary-purple);
+}
+
+/* Ensure consistent spacing in mobile menu */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(10, 10, 10, 0.98);
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid rgba(147, 51, 234, 0.2);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Fix testimonial section on mobile */
+@media (max-width: 768px) {
+    .testimonial-wrapper .row {
+        gap: 2rem;
+    }
+    
+    .testimonial-content-wrapper,
+    .testimonial-static-image-wrapper {
+        min-height: 350px; /* Reduced height for mobile */
+    }
+}
+
+/* Improve button sizing on mobile */
+@media (max-width: 480px) {
+    .box-style {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Fix overflow issues */
+@media (max-width: 768px) {
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Ensure all sections respect viewport width */
+    section {
+        overflow-x: hidden;
+    }
+    
+    /* Fix any elements that might cause overflow */
+    .hero-particles,
+    .floating-elements,
+    .sparkles,
+    .music-notes,
+    .gallery-particles,
+    .blog-decoration {
+        display: none; /* Hide decorative elements on mobile */
+    }
+}
+
+/* Fix Client Statistics Cards - Uniform Height */
+.client-stats .stat-card {
+    min-height: 180px; /* Ensure minimum height */
+    height: 100%; /* Take full height of column */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem; /* Consistent padding */
+}
+
+/* Ensure uniform number display */
+.client-stats .stat-number {
+    font-size: 3rem;
+    height: 60px; /* Fixed height for number line */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Fix the percentage and plus symbols */
+.client-stats .stat-card span {
+    font-size: 2rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Ensure consistent text area */
+.client-stats .stat-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-height: 40px; /* Ensure consistent height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile adjustments for stat cards */
+@media (max-width: 768px) {
+    .client-stats .stat-card {
+        min-height: 150px;
+        padding: 1.5rem 1rem;
+    }
+    
+    .client-stats .stat-number {
+        font-size: 2.5rem;
+        height: 50px;
+    }
+    
+    .client-stats .stat-card span {
+        font-size: 1.75rem;
+    }
+    
+    .client-stats .stat-card p {
+        font-size: 0.8rem;
+        min-height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-stats .stat-card {
+        min-height: 130px;
+    }
+    
+    .client-stats .stat-number {
+        font-size: 2rem;
+        height: 40px;
+    }
+    
+    .client-stats .stat-card span {
+        font-size: 1.5rem;
+    }
+}
+
+/* Improve form responsiveness */
+@media (max-width: 576px) {
+    .contact-section .row > div {
+        margin-bottom: 1rem;
+    }
+    
+    .form-control {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Fix category cards on very small screens */
+@media (max-width: 480px) {
+    .category-card {
+        min-height: 120px;
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .category-card h5 {
+        font-size: 1rem !important;
+    }
 }

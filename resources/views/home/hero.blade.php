@@ -49,9 +49,9 @@
                 Creating unforgettable experiences through professional sound, lighting & production
             </p>
             
-            <!-- CTA Button with Original Style -->
+            <!-- CTA Button with Animation -->
             <div class="hero-buttons mt-5">
-                <a href="#contact" class="box-style box-second">
+                <a href="#contact" class="box-style box-second anim fadeInUp" data-animscroll="fade-up" data-animscroll-delay="200">
                      Book Your Event
                 </a>
             </div>

@@ -115,19 +115,19 @@
                         <div class="blog-share">
                             <h4>Share this article</h4>
                             <div class="share-buttons">
-                                <a href="#" class="share-btn facebook" onclick="shareOnFacebook(); return false;">
+                                <a href="#" class="share-btn" onclick="shareOnFacebook(); return false;" title="Share on Facebook">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#" class="share-btn twitter" onclick="shareOnTwitter(); return false;">
+                                <a href="#" class="share-btn" onclick="shareOnTwitter(); return false;" title="Share on Twitter">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(); return false;">
+                                <a href="#" class="share-btn" onclick="shareOnLinkedIn(); return false;" title="Share on LinkedIn">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
-                                <a href="#" class="share-btn whatsapp" onclick="shareOnWhatsApp(); return false;">
+                                <a href="#" class="share-btn" onclick="shareOnWhatsApp(); return false;" title="Share on WhatsApp">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>
-                                <a href="#" class="share-btn email" onclick="shareByEmail(); return false;">
+                                <a href="#" class="share-btn" onclick="shareByEmail(); return false;" title="Share by Email">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
@@ -210,13 +210,18 @@
                         <div class="sidebar-widget">
                             <h3 class="widget-title">Follow Us</h3>
                             <div class="social-widget">
-                                <a href="#" class="social-icon-widget facebook"><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="social-icon-widget twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="social-icon-widget instagram"><i
-                                        class="fab fa-instagram"></i></a>
-                                <a href="#" class="social-icon-widget linkedin"><i
-                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-icon-widget" title="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-icon-widget" title="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-icon-widget" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-icon-widget" title="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
                             </div>
                         </div>
                     </aside>
