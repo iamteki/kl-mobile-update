@@ -25,12 +25,12 @@
         <div class="blog-hero-overlay"></div>
         
         <!-- Decorative Elements -->
-        <div class="blog-decorative-elements">
+        {{-- <div class="blog-decorative-elements">
             <div class="decorative-line line-1"></div>
             <div class="decorative-line line-2"></div>
             <div class="decorative-circle circle-1"></div>
             <div class="decorative-circle circle-2"></div>
-        </div>
+        </div> --}}
         
         <div class="container text-center position-relative">
             <nav aria-label="breadcrumb">
