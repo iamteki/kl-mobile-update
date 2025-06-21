@@ -28,7 +28,7 @@ class HomeController extends Controller
         // Get clients separated by odd and even order
         $oddClients = Client::oddOrder()->ordered()->get();
         $evenClients = Client::evenOrder()->ordered()->get();
-        $officeLocations = OfficeLocation::active()->ordered()->get();
+        $officeLocations = OfficeLocation::active()->ordered()->select('name', 'icon', 'slug','address','phone','email','open_time')->get();
 
         return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations'));
     }
