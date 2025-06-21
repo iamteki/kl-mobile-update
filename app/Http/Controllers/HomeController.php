@@ -6,6 +6,7 @@ use App\Models\EventType;
 use App\Models\Blog;
 use App\Models\Client;
 use App\Models\OfficeLocation;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,7 +29,14 @@ class HomeController extends Controller
         // Get clients separated by odd and even order
         $oddClients = Client::oddOrder()->ordered()->get();
         $evenClients = Client::evenOrder()->ordered()->get();
-        $officeLocations = OfficeLocation::active()->ordered()->select('name', 'icon', 'slug','address','phone','email','open_time')->get();
+        $officeLocations = OfficeLocation::active()->ordered()->select('name', 'icon', 'slug', 'address', 'phone', 'email', 'open_time')->get();
+
+        $settings = Settings::first();
+        $homeData = [
+            'hero_video' => $settings?->hero_video,
+            'hero_featured_image' => $settings?->hero_featured_image,
+            'company_profile_pdf' => $settings?->company_profile_pdf,
+        ];
 
         return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations'));
     }

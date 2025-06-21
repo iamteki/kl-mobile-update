@@ -151,8 +151,6 @@ class CategoryResource extends Resource
                     ->label('ID')
                     ->sortable(),
 
-                Tables\Columns\ColorColumn::make('color')
-                    ->label('Color'),
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
