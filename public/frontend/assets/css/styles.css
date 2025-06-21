@@ -3441,3 +3441,323 @@ footer {
     height: 30px;
   filter: brightness(0) saturate(100%) invert(32%) sepia(77%) saturate(4914%) hue-rotate(260deg) brightness(91%) contrast(102%);
 }
+
+/* ========================================
+   RESPONSIVE FIXES FOR KL MOBILE EVENTS
+   ======================================== */
+
+/* 1. NAVBAR BACKGROUND FIX - Always show background on mobile */
+@media (max-width: 991px) {
+    .navbar {
+        background-color: rgba(10, 10, 10, 0.95) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 2px 30px rgba(147, 51, 234, 0.2);
+    }
+    
+    .navbar.scrolled {
+        padding: 1rem 0; /* Maintain consistent padding */
+    }
+}
+
+/* 2. HERO SECTION TEXT HIERARCHY FIX */
+.hero-description {
+    font-size: clamp(0.875rem, 2vw, 1rem) !important; /* Reduced from 1.1rem max */
+    padding: 0 15px;
+    margin-bottom: 2.5rem;
+}
+
+/* Ensure title is always larger than description */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 3.5rem); /* Slightly reduced for mobile */
+    }
+    
+    .hero-description {
+        font-size: 0.75rem !important; /* Even smaller on mobile */
+        letter-spacing: 1px; /* Reduced letter spacing */
+    }
+}
+
+/* 3. SECTION HEADERS - INCREASED FONT SIZE */
+.fs-two {
+    font-size: clamp(3rem, 5vw, 4.5rem) !important; /* Increased for bigger headers */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.fs-two span {
+    font-size: clamp(3rem, 5vw, 4.5rem) !important; /* Match parent size */
+}
+
+/* Responsive sizes for tablets */
+@media (max-width: 768px) {
+    .fs-two {
+        font-size: clamp(2.5rem, 7vw, 3.5rem) !important; /* Bigger on mobile too */
+    }
+    
+    .fs-two span {
+        font-size: clamp(2.5rem, 7vw, 3.5rem) !important;
+        padding: 0 5px; /* Reduced padding */
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 480px) {
+    .fs-two {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important; /* Still readable on small devices */
+    }
+    
+    .fs-two span {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important;
+    }
+}
+
+/* 4. ABOUT SECTION PADDING FIX */
+.about-section {
+    padding: 80px 0; /* Reduced from 100px */
+}
+
+.about-section .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Reduced from 4rem */
+    padding: 0 15px; /* Add horizontal padding */
+}
+
+@media (max-width: 991px) {
+    .about-content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+    
+    .about-image,
+    .about-text {
+        width: 100%;
+        max-width: 600px; /* Prevent full width stretch */
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 60px 0;
+    }
+    
+    .about-content {
+        padding: 0 10px;
+    }
+}
+
+/* 5. CLIENT SECTION CARDS UNIFORM SIZE */
+.client-logo-wrapper {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    width: 200px; /* Fixed width instead of min-width */
+    height: 120px; /* Fixed height */
+    position: relative;
+}
+
+.client-logo {
+    max-width: 140px; /* Increased from 120px */
+    max-height: 80px; /* Increased from 60px */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    filter: brightness(0.9);
+}
+
+/* Responsive adjustments for client cards */
+@media (max-width: 768px) {
+    .client-logo-wrapper {
+        width: 160px; /* Fixed width for mobile */
+        height: 100px; /* Fixed height for mobile */
+    }
+    
+    .client-logo {
+        max-width: 120px;
+        max-height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-logo-wrapper {
+        width: 140px;
+        height: 90px;
+    }
+    
+    .client-logo {
+        max-width: 100px;
+        max-height: 50px;
+    }
+}
+
+/* 6. DISABLE CURSOR EFFECTS ON MOBILE/TABLET */
+@media (max-width: 1024px) {
+    .mouse-follower {
+        display: none !important;
+    }
+    
+    /* Reset cursor to default on all elements */
+    * {
+        cursor: default !important;
+    }
+    
+    /* Keep pointer cursor for interactive elements */
+    a, button, .btn, .box-style, 
+    .category-card, .subcategory-card, 
+    .location-card-link, .blog-card,
+    .social-icon, input[type="submit"],
+    .navbar-toggler, .play-button-overlay,
+    .gallery-item, .lightbox-nav, .lightbox-close {
+        cursor: pointer !important;
+    }
+}
+
+/* 7. ADDITIONAL RESPONSIVE IMPROVEMENTS */
+
+/* Reduce "Importance of Support" text size */
+.importance-section p {
+    font-size: 1rem !important; /* Reduced from 1.25rem */
+    line-height: 1.6 !important; /* Tighter line height */
+}
+
+@media (max-width: 768px) {
+    .importance-section p {
+        font-size: 0.875rem !important; /* Even smaller on mobile */
+        line-height: 1.5 !important;
+    }
+}
+
+/* Reduce section padding on mobile */
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    /* Reduce container padding */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Fix navbar toggle button visibility */
+.navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(147, 51, 234, 0.25);
+    border-color: var(--primary-purple);
+}
+
+/* Ensure consistent spacing in mobile menu */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(10, 10, 10, 0.98);
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid rgba(147, 51, 234, 0.2);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Fix testimonial section on mobile */
+@media (max-width: 768px) {
+    .testimonial-wrapper .row {
+        gap: 2rem;
+    }
+    
+    .testimonial-content-wrapper,
+    .testimonial-static-image-wrapper {
+        min-height: 350px; /* Reduced height for mobile */
+    }
+}
+
+/* Improve button sizing on mobile */
+@media (max-width: 480px) {
+    .box-style {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Fix overflow issues */
+@media (max-width: 768px) {
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Ensure all sections respect viewport width */
+    section {
+        overflow-x: hidden;
+    }
+    
+    /* Fix any elements that might cause overflow */
+    .hero-particles,
+    .floating-elements,
+    .sparkles,
+    .music-notes,
+    .gallery-particles,
+    .blog-decoration {
+        display: none; /* Hide decorative elements on mobile */
+    }
+}
+
+/* Improve form responsiveness */
+@media (max-width: 576px) {
+    .contact-section .row > div {
+        margin-bottom: 1rem;
+    }
+    
+    .form-control {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Fix category cards on very small screens */
+@media (max-width: 480px) {
+    .category-card {
+        min-height: 120px;
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .category-card h5 {
+        font-size: 1rem !important;
+    }
+}
