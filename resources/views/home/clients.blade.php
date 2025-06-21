@@ -1,4 +1,3 @@
-<!-- Clients Section -->
 <section class="section-padding clients-section">
     <div class="container">
         <div class="section-area text-center">
@@ -51,31 +50,37 @@
             <div class="row text-center">
                 <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="100">
                     <div class="stat-card">
-                        <h3 class="stat-number" data-target="500">0</h3><span>
-                            <h3 class="stat-number">+</h3>
-                        </span>
-                        <p class="text-white-50">Corporate Clients</p>
+                        <div>
+                            <h3 class="stat-number" data-target="500">500</h3>
+                            <span>+</span>
+                        </div>
+                        <p>Corporate Clients</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="200">
                     <div class="stat-card">
-                        <h3 class="stat-number" data-target="20">0</h3><span>
-                            <h3 class="stat-number">+</h3>
-                        </span>
-                        <p class="text-white-50">Years of Trust</p>
+                        <div>
+                            <h3 class="stat-number" data-target="20">20</h3>
+                            <span>+</span>
+                        </div>
+                        <p>Years of Trust</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="300">
                     <div class="stat-card">
-                        <h3 class="stat-number" data-target="1000">0</h3>
-                        <p class="text-white-50">Events Delivered</p>
+                        <div>
+                            <h3 class="stat-number" data-target="1000">1000</h3>
+                        </div>
+                        <p>Events Delivered</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="400">
                     <div class="stat-card">
-                        <h3 class="stat-number" data-target="98">0</h3>
-                        <span>%</span>
-                        <p class="text-white-50">Client Satisfaction</p>
+                        <div>
+                            <h3 class="stat-number" data-target="98">98</h3>
+                            <span>%</span>
+                        </div>
+                        <p>Client Satisfaction</p>
                     </div>
                 </div>
             </div>
