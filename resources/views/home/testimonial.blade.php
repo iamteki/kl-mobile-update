@@ -2,12 +2,12 @@
     <section id="testimonials" class="review-section section-padding">
         <div class="container">
             <div class="section-area text-center mb-5">
-                <span>- TESTIMONIAL -</span>
-                <h2 class="fs-two text-white">CLIENT <span>REVIEWS</span></h2>
+                <span data-animscroll="fade-up">- TESTIMONIAL -</span>
+                <h2 data-animscroll="fade-up" class="fs-two text-white">CLIENT <span>REVIEWS</span></h2>
             </div>
             <div class="testimonial-wrapper">
                 <div class="row align-items-stretch g-4">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" data-animscroll="fade-right">
                         <div class="testimonial-content-wrapper h-100">
                             <div class="swiper testimonial-carousel h-100">
                                 <div class="swiper-wrapper">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" data-animscroll="fade-left">
                         <div class="testimonial-image-wrapper h-100">
                             <!-- Image Carousel for Testimonials -->
                                      <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop" alt="Live band performance at event">

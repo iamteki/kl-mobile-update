@@ -2,11 +2,11 @@
 <section class="locations-section">
     <div class="container">
         <div class="section-area text-center">
-            <span>- LOCATIONS -</span>
-            <h2 class="fs-two text-white">FIND <span>US</span> HERE</h2>
+            <span data-animscroll="fade-up">- LOCATIONS -</span>
+            <h2 data-animscroll="fade-up" class="fs-two text-white">FIND <span>US</span> HERE</h2>
         </div>
         <div class="row g-4 mt-5">
-            <div class="col-md-6">
+            <div class="col-md-6" data-animscroll="fade-right">
                 <a href="" class="location-card-link">
                     <div class="location-card">
                         <h4><i class="fas fa-building me-2" style="color: var(--primary-purple);"></i>Corporate Office</h4>
@@ -32,7 +32,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" data-animscroll="fade-left">
                 <a href="" class="location-card-link">
                     <div class="location-card">
                         <h4><i class="fas fa-warehouse me-2" style="color: var(--primary-purple);"></i>Our Warehouse</h4>

@@ -2,11 +2,11 @@
     <section id="showcase" class="media-section">
         <div class="container">
             <div class="section-area text-center mb-5">
-                <span>- SHOWCASE -</span>
-                <h2 class="fs-two text-white">EXPERIENCE <span>OUR</span> WORK</h2>
+                <span data-animscroll="fade-up">- SHOWCASE -</span>
+                <h2 data-animscroll="fade-up" class="fs-two text-white">EXPERIENCE <span>OUR</span> WORK</h2>
             </div>
             <div class="row g-4 align-items-stretch">
-                <div class="col-lg-8">
+                <div class="col-lg-8" data-animscroll="fade-right">
                     <div class="video-wrapper position-relative">
                         <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=600&fit=crop"
                             alt="Event video thumbnail" class="video-thumbnail">
@@ -16,7 +16,7 @@
                         <div class="dj-element vinyl"></div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" data-animscroll="fade-left">
                     <div class="media-card">
                         <i class="fas fa-file-pdf"></i>
                         <h5 class="text-white">Company Profile</h5>

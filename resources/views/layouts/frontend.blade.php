@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Dynamic Title -->
     <!-- Dynamic Title -->
     <title>@yield('title', 'KL Mobile Events - Kuala Lumpur\'s Premier Event Management')</title>
-    
+
     <!-- Dynamic Meta Tags -->
     <meta name="description" content="@yield('meta_description', 'KL Mobile Events is Kuala Lumpur\'s premier event management company, specializing in corporate events, weddings, concerts, and exhibitions.')">
     <meta name="keywords" content="@yield('meta_keywords', 'event management, kuala lumpur events, corporate events, wedding planning, concert management, exhibition services')">
-    
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="@yield('og_title', 'KL Mobile Events - Premier Event Management')">
     <meta property="og:description" content="@yield('og_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
@@ -20,16 +20,16 @@
     <meta property="og:url" content="@yield('og_url', url()->current())">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:site_name" content="KL Mobile Events">
-    
+
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
     <meta name="twitter:title" content="@yield('twitter_title', 'KL Mobile Events - Premier Event Management')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('frontend/assets/images/kl_mobile_final_logo.jpg'))">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
-    
+
     <!-- Robots -->
     <meta name="robots" content="@yield('robots', 'index, follow')">
 
@@ -49,6 +49,8 @@
         rel="stylesheet">
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles.css') }}">
+    {{-- Anim Trap  --}}
+    <link rel="stylesheet" href="{{ asset('frontend/animtrap/css/animtrap.min.css') }}">
     {{-- @vite(['', 'resources/js/app.js']) --}}
     @stack('styles')
 
@@ -89,7 +91,7 @@
     @yield('content')
 
     @include('components.footer')
-    
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Swiper JS -->
@@ -97,7 +99,15 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('frontend/animtrap/js/anim-effect.js') }}"></script>
+    <script src="{{ asset('frontend/animtrap/js/anim-scroll.js') }}"></script>
     @stack('scripts')
+
+    <script>
+        ANIMSCROLL.init({
+            easing: 'ease-in-out-sine'
+        });
+    </script>
 
 </body>
 

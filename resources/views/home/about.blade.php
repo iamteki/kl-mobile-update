@@ -2,19 +2,19 @@
     <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
-                <div class="about-image">
+                <div class="about-image" data-animscroll="fade-right">
                     <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop"
                         alt="Professional DJ Equipment">
                 </div>
                 <div class="about-text">
                     <div class="section-area">
-                        <span>- ABOUT US -</span>
-                        <h2 class="fs-two text-white">WHY <span>PROFESSIONAL</span> EVENT SUPPORT</h2>
+                        <span data-animscroll="fade-up">- ABOUT US -</span>
+                        <h2 data-animscroll="fade-up" class="fs-two text-white">WHY <span>PROFESSIONAL</span> EVENT SUPPORT</h2>
                     </div>
                     
-                    <p class="lead mb-4">With over 20 years of experience, we understand that successful events require
+                    <p data-animscroll="fade-up" class="lead mb-4">With over 20 years of experience, we understand that successful events require
                         meticulous planning, professional execution, and seamless coordination.</p>
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled" data-animscroll="fade-up">
                         <li class="mb-3"><i class="fas fa-check-circle me-3"
                                 style="color: var(--primary-purple);"></i>Expert planning and coordination</li>
                         <li class="mb-3"><i class="fas fa-check-circle me-3"

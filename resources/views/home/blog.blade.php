@@ -2,15 +2,15 @@
 <section id="blog" class="blog-section section-padding">
     <div class="container">
         <div class="section-area text-center">
-            <span>- LATEST INSIGHTS -</span>
-            <h2 class="fs-two text-white">FROM OUR <span>BLOG</span></h2>
-            <p class="lead mt-3">Stay updated with the latest trends, tips, and insights in event management</p>
+            <span data-animscroll="fade-up">- LATEST INSIGHTS -</span>
+            <h2 data-animscroll="fade-up" class="fs-two text-white">FROM OUR <span>BLOG</span></h2>
+            <p data-animscroll="fade-up" class="lead mt-3">Stay updated with the latest trends, tips, and insights in event management</p>
         </div>
         
         <div class="row g-4 mt-5">
-            @foreach($latestBlogs as $blog)
+                 @foreach ($latestBlogs as $key => $blog)
                 <!-- Blog Post -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-animscroll="fade-up" data-animscroll-delay="{{ $key * 100 }}">
                     <article class="blog-card">
                         <div class="blog-image-wrapper">
                             <img src="{{ $blog->featured_image ?  asset('storage/' . $blog->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop' }}"
@@ -47,7 +47,7 @@
         
         <!-- View All Posts Button -->
         <div class="text-center mt-5">
-            <a href="{{ route('blog.index') }}" class="box-style box-second">
+            <a href="{{ route('blog.index') }}" class="box-style box-second" data-animscroll="fade-up">
                 View All Posts <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
