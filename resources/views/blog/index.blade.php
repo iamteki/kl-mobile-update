@@ -102,104 +102,18 @@
     <section class="blog-posts-section">
         <div class="container">
             <div class="row g-4">
-                <!-- Featured Post -->
-                @if(isset($featuredPost) && !isset($category) && !request('search') && !request('page'))
-                    <div class="col-12">
-                        <article class="featured-post-card" data-category="{{ $featuredPost->category->slug ?? '' }}">
-                            <div class="featured-card-wrapper">
-                                <div class="featured-card-image">
-                                    <img src="{{ $featuredPost->featured_image ? asset('storage/' . $featuredPost->featured_image) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop' }}" 
-                                         alt="{{ $featuredPost->title }}" 
-                                         class="featured-img">
-                                    <div class="featured-img-overlay"></div>
-                                </div>
-                                
-                                <div class="featured-card-content">
-                                    <!-- Top Row - Badges -->
-                                    <div class="featured-top-row">
-                                        <div class="featured-badges-group">
-                                            <span class="featured-badge pink">
-                                                <i class="fas fa-star"></i> FEATURED ARTICLE
-                                            </span>
-                                            @if($featuredPost->category)
-                                                <span class="featured-badge purple">
-                                                    {{ strtoupper($featuredPost->category->name) }}
-                                                </span>
-                                            @endif
-                                            @if($featuredPost->views > 1000)
-                                                <span class="featured-badge orange">
-                                                    <i class="fas fa-fire"></i> TRENDING
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Main Content -->
-                                    <div class="featured-main-content">
-                                        <h2 class="featured-headline">
-                                            {{ $featuredPost->title }}
-                                        </h2>
-                                        
-                                        <p class="featured-text">
-                                            {{ $featuredPost->excerpt }}
-                                        </p>
-                                        
-                                        <!-- Author and Meta -->
-                                        <div class="featured-author-meta">
-                                            <div class="featured-author">
-                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($featuredPost->user->name) }}&background=9333EA&color=fff&size=40" 
-                                                     alt="{{ $featuredPost->user->name }}" 
-                                                     class="author-pic">
-                                                <span class="author-name">{{ $featuredPost->user->name }}</span>
-                                            </div>
-                                            <div class="featured-stats">
-                                                <span class="stat-item">
-                                                    <i class="fas fa-eye"></i> {{ number_format($featuredPost->views) }} views
-                                                </span>
-                                                <span class="stat-item">
-                                                    <i class="fas fa-clock"></i> {{ $featuredPost->reading_time }} min read
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Bottom Row -->
-                                    <div class="featured-bottom-row">
-                                        <div class="featured-date-box">
-                                            <span class="date-num">{{ $featuredPost->published_at ? $featuredPost->published_at->format('d') : $featuredPost->created_at->format('d') }}</span>
-                                            <span class="date-mon">{{ strtoupper($featuredPost->published_at ? $featuredPost->published_at->format('M') : $featuredPost->created_at->format('M')) }}</span>
-                                        </div>
-                                        
-                                        <a href="{{ route('blog.show', $featuredPost->slug) }}" class="featured-read-btn">
-                                            READ FULL ARTICLE <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                        
-                                        <div class="featured-social-links">
-                                            <a href="#" class="social-link" onclick="shareOnFacebook('{{ route('blog.show', $featuredPost->slug) }}'); return false;">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                            <a href="#" class="social-link" onclick="shareOnTwitter('{{ route('blog.show', $featuredPost->slug) }}', '{{ $featuredPost->title }}'); return false;">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                            <a href="#" class="social-link" onclick="shareOnLinkedIn('{{ route('blog.show', $featuredPost->slug) }}'); return false;">
-                                                <i class="fab fa-linkedin-in"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                @endif
-
-                <!-- Regular Posts -->
                 @forelse($posts as $post)
                     <div class="col-lg-4 col-md-6">
-                        <article class="blog-post-card" data-category="{{ $post->category->slug ?? '' }}">
+                        <article class="blog-post-card {{ $post->is_featured ? 'featured' : '' }}" data-category="{{ $post->category->slug ?? '' }}">
                             <div class="post-image-wrapper">
                                 <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop' }}" 
                                      alt="{{ $post->title }}" 
                                      class="post-image">
+                                @if($post->is_featured)
+                                    <div class="featured-label">
+                                        <i class="fas fa-star"></i> Featured
+                                    </div>
+                                @endif
                                 <div class="post-overlay">
                                     <a href="{{ route('blog.show', $post->slug) }}" class="overlay-link">Read More</a>
                                 </div>

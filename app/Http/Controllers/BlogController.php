@@ -14,8 +14,10 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $query = Blog::with(['user', 'category'])
-            ->published()
-            ->ordered();
+            ->where('status', 'published')
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc');
 
         // Search functionality
         if ($request->filled('search')) {
@@ -35,29 +37,19 @@ class BlogController extends Controller
             });
         }
 
-        // Get featured post
-        $featuredPost = Blog::with(['user', 'category'])
-            ->published()
-            ->featured()
-            ->latest('created_at')
-            ->first();
-
-        // Get regular posts (exclude featured if exists)
-        if ($featuredPost) {
-            $query->where('id', '!=', $featuredPost->id);
-        }
-
-        $posts = $query->paginate(6);
+        // Get all posts (including featured ones)
+        $posts = $query->paginate(9);
 
         // Get categories for filter
-        $categories = Category::active()
-            ->ordered()
+        $categories = Category::where('status', 1)
+            ->orderBy('order', 'asc')
+            ->orderBy('name', 'asc')
             ->withCount(['blogs' => function ($q) {
-                $q->published();
+                $q->where('status', 'published');
             }])
             ->get();
 
-        return view('blog.index', compact('posts', 'featuredPost', 'categories'));
+        return view('blog.index', compact('posts', 'categories'));
     }
 
     /**
@@ -66,7 +58,7 @@ class BlogController extends Controller
     public function show($slug)
     {
         $post = Blog::with(['user', 'category'])
-            ->published()
+            ->where('status', 'published')
             ->where('slug', $slug)
             ->firstOrFail();
 
@@ -75,27 +67,35 @@ class BlogController extends Controller
 
         // Get related posts
         $relatedPosts = Blog::with(['user', 'category'])
-            ->published()
+            ->where('status', 'published')
             ->where('id', '!=', $post->id)
             ->where(function ($query) use ($post) {
-                $query->where('category_id', $post->category_id)
-                    ->orWhereJsonContains('tags', $post->tags);
+                if ($post->category_id) {
+                    $query->where('category_id', $post->category_id);
+                }
+                if ($post->tags && is_array($post->tags)) {
+                    foreach ($post->tags as $tag) {
+                        $query->orWhereJsonContains('tags', $tag);
+                    }
+                }
             })
+            ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
 
         // Get recent posts for sidebar
-        $recentPosts = Blog::published()
+        $recentPosts = Blog::where('status', 'published')
             ->where('id', '!=', $post->id)
             ->latest('created_at')
             ->limit(3)
             ->get();
 
         // Get categories for sidebar
-        $categories = Category::active()
-            ->ordered()
+        $categories = Category::where('status', 1)
+            ->orderBy('order', 'asc')
+            ->orderBy('name', 'asc')
             ->withCount(['blogs' => function ($q) {
-                $q->published();
+                $q->where('status', 'published');
             }])
             ->get();
 
@@ -107,18 +107,23 @@ class BlogController extends Controller
      */
     public function category($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', $slug)
+            ->where('status', 1)
+            ->firstOrFail();
 
         $posts = Blog::with(['user', 'category'])
-            ->published()
+            ->where('status', 'published')
             ->where('category_id', $category->id)
-            ->ordered()
-            ->paginate(6);
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
 
-        $categories = Category::active()
-            ->ordered()
+        $categories = Category::where('status', 1)
+            ->orderBy('order', 'asc')
+            ->orderBy('name', 'asc')
             ->withCount(['blogs' => function ($q) {
-                $q->published();
+                $q->where('status', 'published');
             }])
             ->get();
 
