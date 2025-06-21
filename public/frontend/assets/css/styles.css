@@ -3738,6 +3738,84 @@ footer {
     }
 }
 
+/* Fix Client Statistics Cards - Uniform Height */
+.client-stats .stat-card {
+    min-height: 180px; /* Ensure minimum height */
+    height: 100%; /* Take full height of column */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem; /* Consistent padding */
+}
+
+/* Ensure uniform number display */
+.client-stats .stat-number {
+    font-size: 3rem;
+    height: 60px; /* Fixed height for number line */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Fix the percentage and plus symbols */
+.client-stats .stat-card span {
+    font-size: 2rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Ensure consistent text area */
+.client-stats .stat-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-height: 40px; /* Ensure consistent height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile adjustments for stat cards */
+@media (max-width: 768px) {
+    .client-stats .stat-card {
+        min-height: 150px;
+        padding: 1.5rem 1rem;
+    }
+    
+    .client-stats .stat-number {
+        font-size: 2.5rem;
+        height: 50px;
+    }
+    
+    .client-stats .stat-card span {
+        font-size: 1.75rem;
+    }
+    
+    .client-stats .stat-card p {
+        font-size: 0.8rem;
+        min-height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-stats .stat-card {
+        min-height: 130px;
+    }
+    
+    .client-stats .stat-number {
+        font-size: 2rem;
+        height: 40px;
+    }
+    
+    .client-stats .stat-card span {
+        font-size: 1.5rem;
+    }
+}
+
 /* Improve form responsiveness */
 @media (max-width: 576px) {
     .contact-section .row > div {
