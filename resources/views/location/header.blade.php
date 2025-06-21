@@ -23,39 +23,39 @@
                 <ol class="breadcrumb justify-content-center">
                     <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('/') }}#locations">Locations</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Corporate Office</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$location->name}}</li>
                 </ol>
             </nav>
             
             <!-- Location Badge -->
             <div class="location-badge">
-                <span class="badge-text"><i class="fas fa-map-marker-alt"></i> Kuala Lumpur HQ</span>
+                <span class="badge-text"><i class="fas fa-map-marker-alt"></i>{{$location->address}}</span>
             </div>
             
             <!-- Title -->
             <h1 class="location-main-title">
                 <span class="title-small">Welcome to Our</span>
-                <span class="title-large">Corporate <span class="text-gradient">Office</span></span>
+                <span class="title-large"><span class="text-gradient">{{$location->name}}</span></span>
             </h1>
             
             <!-- Subtitle -->
             <p class="location-subtitle">
-                Experience our state-of-the-art facilities and meet the team behind Malaysia's premier event production company
+                {{$location->small_description}}
             </p>
             
             <!-- Quick Info -->
             <div class="quick-info-row">
                 <div class="info-item">
                     <i class="fas fa-clock"></i>
-                    <span>Mon-Fri 9AM-6PM</span>
+                    <span>{{$location->open_time}}</span>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-phone"></i>
-                    <span>+60 3-1234 5678</span>
+                    <span>{{$location->phone}}</span>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-envelope"></i>
-                    <span>office@klmobileevents.com</span>
+                    <span>{{$location->email}}</span>
                 </div>
             </div>
         </div>

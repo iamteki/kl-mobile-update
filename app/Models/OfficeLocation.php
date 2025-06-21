@@ -15,20 +15,21 @@ class OfficeLocation extends Model
         'name',
         'slug',
         'city',
+        'icon',
         'small_description',
         'full_description',
         'open_time',
         'phone',
         'email',
         'address',
-        'image_gallery', // Changed from photo_gallery to match your form
+        'image_gallery',
         'google_map_iframe',
         'is_active',
         'sort_order',
     ];
 
     protected $casts = [
-        'image_gallery' => 'array', // Changed from photo_gallery
+        'image_gallery' => 'array',
         'is_active' => 'boolean',
     ];
 
@@ -64,8 +65,21 @@ class OfficeLocation extends Model
         return 'slug';
     }
 
+    // Get icon URL
+    public function getIconUrlAttribute()
+    {
+        if ($this->icon) {
+            // If it's already a full URL (external image), return as is
+            if (filter_var($this->icon, FILTER_VALIDATE_URL)) {
+                return $this->icon;
+            }
+            // If it's a local file, return the storage URL
+            return Storage::url($this->icon);
+        }
 
-    // Get all image gallery URLs
+        // Return default icon if no icon is uploaded
+        return asset('images/default-location-icon.svg');
+    }
     public function getImageGalleryUrlsAttribute()
     {
         if (!$this->image_gallery || !is_array($this->image_gallery)) {

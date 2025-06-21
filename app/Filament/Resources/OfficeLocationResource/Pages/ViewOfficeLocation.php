@@ -26,12 +26,18 @@ class ViewOfficeLocation extends ViewRecord
             ->schema([
                 Infolists\Components\Section::make('Basic Information')
                     ->schema([
+                        Infolists\Components\ImageEntry::make('icon')
+                            ->label('Location Icon')
+                            ->disk('public')
+                            ->height(80)
+                            ->width(80)
+                            ->defaultImageUrl(asset('images/default-location-icon.svg')),
+                        
                         Infolists\Components\TextEntry::make('name')
                             ->size('lg')
                             ->weight('bold'),
-                        Infolists\Components\TextEntry::make('city')
-                            ->badge()
-                            ->color('primary'),
+                        
+                        
                         Infolists\Components\TextEntry::make('small_description'),
                     ])
                     ->columns(2),

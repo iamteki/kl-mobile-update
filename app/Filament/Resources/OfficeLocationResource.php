@@ -46,14 +46,22 @@ class OfficeLocationResource extends Resource
                             ->rules(['alpha_dash'])
                             ->helperText('URL-friendly version of the name'),
 
-                        Forms\Components\TextInput::make('city')
-                            ->required()
-                            ->maxLength(255),
+
+                        Forms\Components\FileUpload::make('icon')
+                            ->label('Location Icon (SVG)')
+                            ->acceptedFileTypes(['image/svg+xml'])
+                            ->disk('public')
+                            ->directory('location/icons')
+                            ->visibility('public')
+                            ->maxSize(1024) // 1MB max
+                            ->helperText('Upload an SVG icon for this location (max 1MB)')
+                            ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('small_description')
                             ->required()
                             ->maxLength(255)
-                            ->helperText('Brief description for listings'),
+                            ->helperText('Brief description for listings')
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
 
@@ -143,18 +151,19 @@ class OfficeLocationResource extends Resource
     {
         return $table
             ->columns([
-                
+                Tables\Columns\ImageColumn::make('icon')
+                    ->label('Icon')
+                    ->disk('public')
+                    ->size(40)
+                    ->square()
+                    ->defaultImageUrl(asset('images/default-location-icon.svg')),
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
                     ->weight('medium'),
 
-                Tables\Columns\TextColumn::make('city')
-                    ->searchable()
-                    ->sortable()
-                    ->badge()
-                    ->color('primary'),
+
 
                 Tables\Columns\TextColumn::make('small_description')
                     ->limit(40)
@@ -184,12 +193,7 @@ class OfficeLocationResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('city')
-                    ->options(function () {
-                        return OfficeLocation::pluck('city', 'city')
-                            ->unique()
-                            ->sort();
-                    }),
+         
 
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Status')
@@ -244,6 +248,6 @@ class OfficeLocationResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'city', 'small_description'];
+        return ['name','small_description'];
     }
 }

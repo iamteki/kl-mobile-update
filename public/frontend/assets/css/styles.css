@@ -3309,3 +3309,9 @@ footer {
         padding: 12px 15px;
     }
 }
+
+.location-icon-purple {
+    width: 30px;
+    height: 30px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(77%) saturate(4914%) hue-rotate(260deg) brightness(91%) contrast(102%);
+}

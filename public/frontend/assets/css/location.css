@@ -1255,14 +1255,17 @@
 }
 
 /* Ensure equal height columns */
-.location-about-section .row {
+/* .location-about-section .row {
     min-height: 500px;
-}
+} */
 
 /* Perfect vertical centering for content */
 .location-about-section .col-lg-6 {
     display: flex;
     align-items: stretch;
+}
+.about-office-content p{
+    text-align: center !important;
 }
 
 .about-office-content,
@@ -1482,6 +1485,7 @@
     .location-subtitle {
         font-size: 1rem;
     }
+
     
     .team-member .member-image img {
         height: 300px;
@@ -1495,4 +1499,13 @@
         font-size: 1.5rem;
         white-space: normal;
     }
+}
+
+.map-wrapper iframe {
+    filter: grayscale(100%);
+    transition: filter 1.3s ease;
+}
+
+.map-wrapper iframe:hover {
+    filter: grayscale(0%);
 }

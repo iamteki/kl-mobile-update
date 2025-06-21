@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('city');
+            $table->string('icon');
             $table->string('small_description');
             $table->text('full_description');
             $table->string('open_time');

@@ -8,10 +8,12 @@
 @section('content')
     @include('location.header')
     @include('location.about')
-    @include('location.equipment-gallery')
-    @include('location.team')
     @include('location.facilities')
+    {{-- @include('location.equipment-gallery') --}}
+    @include('location.team')
+
     @include('location.faq')
+       @include('components.cta')
     @include('location.visit')
     @include('components.contact')
 @endsection

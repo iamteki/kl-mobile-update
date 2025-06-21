@@ -23,3 +23,4 @@ Route::get('/locations/warehouse', [LocationController::class, 'warehouse'])->na
 
 // Contact Form
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/location/{location:slug}', [LocationController::class, 'show'])->name('location.show');
