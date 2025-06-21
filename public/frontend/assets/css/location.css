@@ -685,11 +685,11 @@
     transform: translateY(0);
 }
 
-.social-links {
+/* .social-links {
     display: flex;
     justify-content: center;
     gap: 15px;
-}
+} */
 
 .social-link {
     width: 40px;
