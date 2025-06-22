@@ -1265,6 +1265,8 @@ footer {
     padding: 20px 0;
 }
 
+
+
 /* Ensure both columns have exactly the same height */
 .testimonial-wrapper .row {
     position: relative;
@@ -1292,6 +1294,16 @@ footer {
 
 /* Both wrappers with identical structure */
 .testimonial-content-wrapper,
+.testimonial-static-image-wrapper {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    overflow: visible !important;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 .testimonial-static-image-wrapper {
     position: relative;
     height: 100%;
