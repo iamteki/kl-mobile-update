@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Client;
 use App\Models\OfficeLocation;
 use App\Models\Settings;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -38,6 +39,8 @@ class HomeController extends Controller
             'company_profile_pdf' => $settings?->company_profile_pdf,
         ];
 
-        return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations'));
+           $testimonials = Testimonial::where('status', true)->orderBy('order')->get();
+
+        return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations','testimonials'));
     }
 }
