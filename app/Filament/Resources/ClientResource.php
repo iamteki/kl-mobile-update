@@ -37,6 +37,7 @@ class ClientResource extends Resource
                     ->directory('clients')
                     ->visibility('public')
                     ->imageEditor()
+                    ->disk('spaces')
                     ->imageEditorAspectRatios([
                         '16:9',
                         '4:3',
@@ -71,8 +72,8 @@ class ClientResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->badge()
-                    ->color(fn (string $state): string => $state % 2 == 0 ? 'success' : 'primary')
-                    ->formatStateUsing(fn (string $state): string => $state . ' (' . ($state % 2 == 0 ? 'Row 2' : 'Row 1') . ')'),
+                    ->color(fn(string $state): string => $state % 2 == 0 ? 'success' : 'primary')
+                    ->formatStateUsing(fn(string $state): string => $state . ' (' . ($state % 2 == 0 ? 'Row 2' : 'Row 1') . ')'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
