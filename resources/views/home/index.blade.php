@@ -6,7 +6,7 @@
 
 @section('og_title', 'KL Mobile Events - Creating Unforgettable Experiences')
 @section('og_description', 'From intimate gatherings to grand celebrations, we bring your vision to life with exceptional event management services.')
-@section('og_image', asset('frontend/assets/images/kl_mobile_final_logo.jpg'))
+@section('og_image', asset('frontend/assets/images/kl_logo_final_2.jpg'))
 @section('og_type', 'website')
 
 @section('twitter_title', 'KL Mobile Events - Premier Event Management')
