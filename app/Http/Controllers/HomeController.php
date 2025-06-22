@@ -41,6 +41,6 @@ class HomeController extends Controller
 
            $testimonials = Testimonial::where('status', true)->orderBy('order')->get();
 
-        return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations','testimonials'));
+        return view('home.index', compact('eventTypes', 'latestBlogs', 'oddClients', 'evenClients', 'officeLocations','testimonials','settings'));
     }
 }

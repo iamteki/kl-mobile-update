@@ -37,7 +37,8 @@
             </div>
             <div class="video-container" data-animscroll="fade-up">
                 <div class="video-wrapper">
-                    <div class="video-placeholder" id="videoPlaceholder" style="background-image: url('{{ $event->featured_image ? Storage::url($event->featured_image) : '' }}');">
+                    <div class="video-placeholder" id="videoPlaceholder"
+                        style="background-image: url('{{ $event->featured_image ? Storage::url($event->featured_image) : '' }}');">
                         <div class="video-overlay" id="videoOverlay">
                             <div class="position-relative">
                                 <div class="play-pulse"></div>
