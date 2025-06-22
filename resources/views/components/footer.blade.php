@@ -10,10 +10,10 @@
                 <div class="col-md-6 text-md-end">
                     <h5 class="mb-3 text-uppercase" style="color: var(--primary-purple);">Follow Us</h5>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/share/1GFC7f5z4s/?mibextid=wwXIfr" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.facebook.com/share/1GFC7f5z4s/?mibextid=wwXIfr" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/share/1GFC7f5z4s/?mibextid=wwXIfr" class="social-icon"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.facebook.com/share/1GFC7f5z4s/?mibextid=wwXIfr" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/share/1GFC7f5z4s/?mibextid=wwXIfr" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="http://tiktok.com" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="http://linkedin.com" class="social-icon" aria-label="Linkedin"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>

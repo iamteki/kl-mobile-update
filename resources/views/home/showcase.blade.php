@@ -42,7 +42,7 @@
                                 <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
                                     <div class="position-relative">
                                         <div class="play-pulse"></div>
-                                        <button class="play-button">
+                                        <button class="play-button" aria-label="Play video">
                                             <i class="fas fa-play"></i>
                                         </button>
                                     </div>
