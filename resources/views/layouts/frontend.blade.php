@@ -16,7 +16,7 @@
     <!-- Open Graph Tags -->
     <meta property="og:title" content="@yield('og_title', 'KL Mobile Events - Premier Event Management')">
     <meta property="og:description" content="@yield('og_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
-    <meta property="og:image" content="@yield('og_image', asset('frontend/assets/images/kl_logo_final_2.jpg'))">
+    <meta property="og:image" content="@yield('og_image', asset('frontend/assets/images/kl_logo_final_original.jpg'))">
     <meta property="og:url" content="@yield('og_url', url()->current())">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:site_name" content="KL Mobile Events">
@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
     <meta name="twitter:title" content="@yield('twitter_title', 'KL Mobile Events - Premier Event Management')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Transform your vision into unforgettable experiences with KL Mobile Events.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('frontend/assets/images/kl_logo_final_2.jpg'))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('frontend/assets/images/kl_logo_final_original.jpg'))">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
