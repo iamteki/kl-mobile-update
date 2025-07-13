@@ -8,10 +8,10 @@
         </div>
 
         <!-- Client Logos Marquee Animation -->
-        <div class="clients-wrapper mt-5">
+        <div class="clients-wrapper mt-5" data-animscroll="fade-up">
             <!-- First Row - Odd Order Numbers -->
             @if ($oddClients->count() > 0)
-                <div class="clients-marquee" data-animscroll="fade-up">
+                <div class="clients-marquee">
                     <div class="clients-track">
                         @foreach ($oddClients as $client)
                             <div class="client-logo-wrapper">
@@ -25,7 +25,7 @@
 
             <!-- Second Row - Even Order Numbers - Reverse Direction -->
             @if ($evenClients->count() > 0)
-                <div class="clients-marquee clients-marquee-reverse mt-5" data-animscroll="fade-up">
+                <div class="clients-marquee clients-marquee-reverse mt-5">
                     <div class="clients-track">
                         @foreach ($evenClients as $client)
                             <div class="client-logo-wrapper">
@@ -46,18 +46,18 @@
         </div>
 
         <!-- Client Statistics -->
-        <div class="client-stats mt-5">
+        <div class="client-stats mt-5" data-animscroll="fade-up">
             <div class="row text-center">
-                <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="100">
+                <div class="col-md-3 col-6 mb-4">
                     <div class="stat-card">
                         <div>
-                            <h3 class="stat-number" data-target="500">500</h3>
+                            <h3 class="stat-number">500</h3>
                             <span>+</span>
                         </div>
                         <p>Corporate Clients</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="200">
+                <div class="col-md-3 col-6 mb-4">
                     <div class="stat-card">
                         <div>
                             <h3 class="stat-number" data-target="20">20</h3>
@@ -66,15 +66,15 @@
                         <p>Years of Trust</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="300">
+                <div class="col-md-3 col-6 mb-4">
                     <div class="stat-card">
                         <div>
-                            <h3 class="stat-number" data-target="1000">1000</h3>
+                            <h3 class="stat-number">1000</h3>
                         </div>
                         <p>Events Delivered</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-6 mb-4" data-animscroll="fade-up" data-animscroll-delay="400">
+                <div class="col-md-3 col-6 mb-4">
                     <div class="stat-card">
                         <div>
                             <h3 class="stat-number" data-target="98">98</h3>
