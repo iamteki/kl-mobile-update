@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="{{ asset('frontend/assets/images/kl_logo_final_2.svg')}}" alt="KL Mobile Events" class="footer-logo">
+                    <img src="{{ asset('frontend/assets/images/kl_logo_final_original.svg')}}" alt="KL Mobile Events" class="footer-logo">
                     <p class="text-white-50">Your trusted partner for corporate events and DJ services in Kuala Lumpur
                     </p>
                 </div>
