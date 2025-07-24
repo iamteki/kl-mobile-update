@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
 
 class EventResource extends Resource
 {
@@ -78,55 +77,81 @@ class EventResource extends Resource
                             ->maxLength(255)
                             ->unique(Event::class, 'slug', ignoreRecord: true)
                             ->rules(['regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'])
-                            ->helperText('Will be auto-generated from title if left empty'),
+                            ->helperText('Only lowercase letters, numbers, and hyphens allowed.'),
 
-                        Forms\Components\TextInput::make('video_title')
-                            ->maxLength(255)
-                            ->placeholder('Optional video title'),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make('Content')
-                    ->schema([
                         Forms\Components\Textarea::make('excerpt')
-                            ->placeholder('Brief excerpt or summary of the event')
+                            ->maxLength(500)
                             ->rows(3)
                             ->columnSpanFull(),
-
-                        Forms\Components\RichEditor::make('description')
-                            ->placeholder('Detailed description of the event')
-                            ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columns(2),
 
                 Forms\Components\Section::make('Media')
                     ->schema([
                         Forms\Components\FileUpload::make('featured_image')
                             ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('16:9')
-                            ->imageResizeTargetWidth('1920')
-                            ->imageResizeTargetHeight('1080')
+                            ->disk('spaces')
                             ->directory('events/featured')
                             ->visibility('public')
-                            ->columnSpan(1),
-
-                        Forms\Components\TextInput::make('video')
-                            ->url()
-                            ->placeholder('YouTube or Vimeo video URL')
-                            ->columnSpan(1),
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                                '1:1',
+                            ])
+                            ->maxSize(5120), // 5MB
 
                         Forms\Components\FileUpload::make('image_gallery')
-                            ->multiple()
                             ->image()
-                            ->imageResizeMode('cover')
-                            ->imageResizeTargetWidth('1200')
-                            ->imageResizeTargetHeight('800')
+                            ->multiple()
+                            ->disk('spaces')
                             ->directory('events/gallery')
                             ->visibility('public')
+                            ->imageEditor()
                             ->reorderable()
+                            ->maxFiles(10)
+                            ->maxSize(5120) // 5MB per image
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
+
+                Forms\Components\Section::make('Video Content')
+                    ->schema([
+                        Forms\Components\TextInput::make('video_title')
+                            ->maxLength(255),
+
+                        Forms\Components\FileUpload::make('video')
+                            ->disk('spaces')
+                            ->directory('events/videos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv'])
+                            ->maxSize(102400) // 100MB
+                            ->helperText('Supported formats: MP4, AVI, MOV, WMV. Max size: 100MB')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
+
+                Forms\Components\Section::make('Content')
+                    ->schema([
+                        Forms\Components\RichEditor::make('description')
+                            ->toolbarButtons([
+                                'attachFiles',
+                                'blockquote',
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'redo',
+                                'strike',
+                                'underline',
+                                'undo',
+                            ])
+                            ->columnSpanFull(),
+                    ]),
 
                 Forms\Components\Section::make('SEO Settings')
                     ->description('Configure SEO meta tags for better search engine visibility')
@@ -190,48 +215,67 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable()
-                    ->sortable(),
-
                 Tables\Columns\ImageColumn::make('featured_image')
-                    ->label('Image')
-                    ->size(40)
+                    ->disk('spaces')
+                    ->size(60)
                     ->square(),
+
+                Tables\Columns\TextColumn::make('eventType.name')
+                    ->badge()
+                    ->color('primary')
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable()
-                    ->weight('medium'),
-
-                Tables\Columns\TextColumn::make('eventType.name')
-                    ->label('Event Type')
-                    ->badge()
-                    ->searchable()
-                    ->sortable(),
+                    ->limit(50),
 
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable()
-                    ->color('gray')
-                    ->copyable()
-                    ->copyMessage('Slug copied!')
-                    ->copyMessageDuration(1500),
+                    ->sortable()
+                    ->limit(30)
+                    ->color('gray'),
 
-                Tables\Columns\IconColumn::make('has_video')
+                Tables\Columns\TextColumn::make('excerpt')
+                    ->limit(60)
+                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
+                        $state = $column->getState();
+                        if (strlen($state) <= 60) {
+                            return null;
+                        }
+                        return $state;
+                    }),
+
+                Tables\Columns\IconColumn::make('video')
+                    ->boolean()
+                    ->getStateUsing(function ($record) {
+                        return !empty($record->video);
+                    })
+                    ->trueIcon('heroicon-o-play-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
                     ->label('Video')
-                    ->boolean()
-                    ->getStateUsing(fn($record) => !empty($record->video)),
-
-                Tables\Columns\IconColumn::make('has_gallery')
-                    ->label('Gallery')
-                    ->boolean()
-                    ->getStateUsing(fn($record) => !empty($record->image_gallery)),
+                    ->tooltip(function ($record) {
+                        return !empty($record->video)
+                            ? 'Video: ' . basename($record->video)
+                            : 'No video uploaded';
+                    }),
 
                 Tables\Columns\IconColumn::make('has_meta_description')
                     ->label('SEO')
                     ->boolean()
-                    ->getStateUsing(fn($record) => !empty($record->meta_description)),
+                    ->getStateUsing(fn($record) => !empty($record->meta_description))
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(function ($record) {
+                        return !empty($record->meta_description)
+                            ? 'SEO configured'
+                            : 'SEO not configured';
+                    }),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -246,23 +290,40 @@ class EventResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('event_type_id')
                     ->relationship('eventType', 'name')
+                    ->searchable()
+                    ->preload()
                     ->label('Event Type'),
 
                 Tables\Filters\Filter::make('has_video')
-                    ->label('Has Video')
-                    ->query(fn(Builder $query): Builder => $query->whereNotNull('video')),
+                    ->query(function ($query) {
+                        return $query->whereNotNull('video');
+                    })
+                    ->label('Has Video'),
 
                 Tables\Filters\Filter::make('has_gallery')
-                    ->label('Has Gallery')
-                    ->query(fn(Builder $query): Builder => $query->whereNotNull('image_gallery')),
+                    ->query(function ($query) {
+                        return $query->whereNotNull('image_gallery');
+                    })
+                    ->label('Has Gallery'),
+
+                Tables\Filters\Filter::make('has_images')
+                    ->query(function ($query) {
+                        return $query->where('image_gallery', '!=', '[]')
+                            ->whereNotNull('image_gallery');
+                    })
+                    ->label('Has Images'),
 
                 Tables\Filters\Filter::make('has_meta_description')
-                    ->label('Has Meta Description')
-                    ->query(fn(Builder $query): Builder => $query->whereNotNull('meta_description')),
+                    ->query(function ($query) {
+                        return $query->whereNotNull('meta_description');
+                    })
+                    ->label('Has SEO'),
 
                 Tables\Filters\Filter::make('missing_meta_description')
-                    ->label('Missing Meta Description')
-                    ->query(fn(Builder $query): Builder => $query->whereNull('meta_description')),
+                    ->query(function ($query) {
+                        return $query->whereNull('meta_description');
+                    })
+                    ->label('Missing SEO'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
