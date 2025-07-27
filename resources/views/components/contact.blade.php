@@ -1,11 +1,11 @@
 <!-- Contact Form -->
 <section id="contact" class="contact-section">
-    <div class="container">
+    <div class="container" data-animscroll="fade-up">
         <div class="section-area text-center mb-5">
-            <span data-animscroll="fade-up">- GET IN TOUCH -</span>
-            <h2 data-animscroll="fade-up" class="fs-two text-white">LET'S CREATE <span>SOMETHING AMAZING</span></h2>
+            <span>- GET IN TOUCH -</span>
+            <h2  class="fs-two text-white">LET'S CREATE <span>SOMETHING AMAZING</span></h2>
         </div>
-        <div class="row justify-content-center" data-animscroll="fade-up">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
                 <form id="contactForm" method="POST" action="{{ route('contact.store') }}">
                     @csrf
