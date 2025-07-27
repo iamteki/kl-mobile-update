@@ -18,6 +18,7 @@ class Settings extends Model
         'instagram_url',
         'linkedin_url',
         'youtube_url',
+        'tiktok_url',
         'company_profile_pdf',
     ];
 
@@ -58,7 +59,64 @@ class Settings extends Model
             'instagram' => $this->instagram_url,
             'linkedin' => $this->linkedin_url,
             'youtube' => $this->youtube_url,
+            'tiktok' => $this->tiktok_url,
         ])->filter()->toArray();
+    }
+
+    // Get formatted social media links with icons and labels
+    public function getFormattedSocialLinksAttribute()
+    {
+        $socialMediaIcons = [
+            'facebook' => [
+                'icon' => 'fab fa-facebook-f',
+                'label' => 'Facebook',
+                'url' => $this->facebook_url
+            ],
+            'twitter' => [
+                'icon' => 'fab fa-twitter',
+                'label' => 'Twitter',
+                'url' => $this->twitter_url
+            ],
+            'instagram' => [
+                'icon' => 'fab fa-instagram',
+                'label' => 'Instagram',
+                'url' => $this->instagram_url
+            ],
+            'linkedin' => [
+                'icon' => 'fab fa-linkedin-in',
+                'label' => 'LinkedIn',
+                'url' => $this->linkedin_url
+            ],
+            'youtube' => [
+                'icon' => 'fab fa-youtube',
+                'label' => 'YouTube',
+                'url' => $this->youtube_url
+            ],
+            'tiktok' => [
+                'icon' => 'fab fa-tiktok',
+                'label' => 'TikTok',
+                'url' => $this->tiktok_url
+            ]
+        ];
+
+        return collect($socialMediaIcons)
+            ->filter(function ($social) {
+                return !empty($social['url']);
+            })
+            ->toArray();
+    }
+
+    // Check if any social media link is set
+    public function hasSocialMediaLinks()
+    {
+        return collect([
+            $this->facebook_url,
+            $this->twitter_url,
+            $this->instagram_url,
+            $this->linkedin_url,
+            $this->youtube_url,
+            $this->tiktok_url
+        ])->filter()->isNotEmpty();
     }
 
     // Boot method to ensure singleton behavior
