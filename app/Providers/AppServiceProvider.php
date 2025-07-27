@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\EventType;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,12 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
             
             $view->with('eventTypes', $eventTypes);
+        });
+
+         // Share settings data with footer component and all layouts
+        View::composer(['components.footer', 'layouts.*'], function ($view) {
+            $settings = Settings::current();
+            $view->with('settings', $settings);
         });
 
         Schema::defaultStringLength(191);
