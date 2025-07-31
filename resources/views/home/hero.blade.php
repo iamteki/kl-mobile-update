@@ -46,7 +46,7 @@
             
             <!-- Animated Subtitle -->
             <p class="hero-description">
-                Creating unforgettable experiences through professional sound, lighting & production
+               <b> Creating unforgettable experiences through professional</b> <br> SOUND - LIGHTING - TRUSS - LED SCREENS - STAGE - FABRICATION - TALENTS
             </p>
             
             <!-- CTA Button with Animation -->
