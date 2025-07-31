@@ -339,9 +339,8 @@ function initClientsSection() {
         });
     });
 }
-
 function initTestimonials() {
-    // Initialize testimonial carousel
+    // Initialize testimonial carousel with arrow navigation added
     testimonialSwiper = new Swiper('.testimonial-carousel', {
         slidesPerView: 1,
         spaceBetween: 30,
@@ -356,12 +355,41 @@ function initTestimonials() {
             el: '.swiper-pagination',
             clickable: true,
         },
+        // Add navigation configuration for arrow buttons
+        navigation: {
+            nextEl: '.testimonial-next, .testimonial-next-mobile',
+            prevEl: '.testimonial-prev, .testimonial-prev-mobile',
+        },
         effect: 'fade',
         fadeEffect: {
             crossFade: true
         },
         speed: 800,
+        // Add keyboard and accessibility support
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true,
+        },
+        a11y: {
+            enabled: true,
+            prevSlideMessage: 'Previous testimonial',
+            nextSlideMessage: 'Next testimonial',
+        },
         on: {
+            init: function() {
+                // Add accessibility attributes to navigation buttons
+                const prevBtn = document.querySelector('.testimonial-prev');
+                const nextBtn = document.querySelector('.testimonial-next');
+                
+                if (prevBtn && nextBtn) {
+                    prevBtn.setAttribute('aria-label', 'Previous testimonial');
+                    nextBtn.setAttribute('aria-label', 'Next testimonial');
+                    prevBtn.setAttribute('role', 'button');
+                    nextBtn.setAttribute('role', 'button');
+                }
+                
+                console.log('Testimonial carousel initialized with arrow navigation');
+            },
             slideChange: function() {
                 // Clear any existing timers when slide changes manually
                 if (autoplayTimer) {
@@ -396,7 +424,7 @@ function initTestimonials() {
         }
     });
 
-    // Initialize testimonial images carousel
+    // Initialize testimonial images carousel (keeping your existing code)
     // testimonialImagesSwiper = new Swiper('.testimonial-images-carousel', {
     //     slidesPerView: 1,
     //     spaceBetween: 0,
@@ -414,18 +442,18 @@ function initTestimonials() {
     //     allowTouchMove: false
     // });
 
-    // Sync both carousels
+    // Sync both carousels (keeping your existing logic)
     if (testimonialSwiper && testimonialImagesSwiper) {
         testimonialSwiper.controller.control = testimonialImagesSwiper;
         testimonialImagesSwiper.controller.control = testimonialSwiper;
     }
 
-    // Pause autoplay on pagination bullet click
+    // Pause autoplay on pagination bullet click (keeping your existing logic)
     document.querySelectorAll('.swiper-pagination-bullet').forEach((bullet, index) => {
         bullet.addEventListener('click', () => {
             // Stop both carousels' autoplay
             testimonialSwiper.autoplay.stop();
-            testimonialImagesSwiper.autoplay.stop();
+            if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.stop();
             
             // Clear any existing timer
             if (autoplayTimer) {
@@ -435,29 +463,70 @@ function initTestimonials() {
             // Restart autoplay after 10 seconds
             autoplayTimer = setTimeout(() => {
                 testimonialSwiper.autoplay.start();
-                testimonialImagesSwiper.autoplay.start();
+                if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.start();
             }, 10000);
         });
     });
 
-    // Pause autoplay on hover
+    // Pause autoplay on hover (keeping your existing logic)
     const testimonialWrapper = document.querySelector('.testimonial-wrapper');
     if (testimonialWrapper) {
         testimonialWrapper.addEventListener('mouseenter', () => {
             testimonialSwiper.autoplay.stop();
-            testimonialImagesSwiper.autoplay.stop();
+            if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.stop();
         });
 
         testimonialWrapper.addEventListener('mouseleave', () => {
             // Only restart if not manually controlled
             if (!autoplayTimer) {
                 testimonialSwiper.autoplay.start();
-                testimonialImagesSwiper.autoplay.start();
+                if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.start();
             }
         });
     }
+
+    // NEW: Enhanced keyboard navigation for arrow keys
+    document.addEventListener('keydown', function(e) {
+        const carousel = document.querySelector('.testimonial-carousel');
+        if (!carousel) return;
+        
+        // Check if carousel is in viewport
+        const rect = carousel.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                testimonialSwiper.slidePrev();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                testimonialSwiper.slideNext();
+            }
+        }
+    });
+
+    // NEW: Add click tracking for arrow buttons (optional)
+    document.querySelector('.testimonial-prev')?.addEventListener('click', function() {
+        console.log('Previous testimonial button clicked');
+        // Add your analytics tracking here if needed
+    });
+
+    document.querySelector('.testimonial-next')?.addEventListener('click', function() {
+        console.log('Next testimonial button clicked');
+        // Add your analytics tracking here if needed
+    });
+
+    // NEW: Mobile navigation event listeners
+    document.querySelector('.testimonial-prev-mobile')?.addEventListener('click', function() {
+        testimonialSwiper.slidePrev();
+    });
+
+    document.querySelector('.testimonial-next-mobile')?.addEventListener('click', function() {
+        testimonialSwiper.slideNext();
+    });
 }
 
+// Keep your existing initCounterAnimation function unchanged
 function initCounterAnimation() {
     const animateCounters = () => {
         const counters = document.querySelectorAll('.stat-number');

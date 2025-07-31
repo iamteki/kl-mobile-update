@@ -3690,3 +3690,241 @@ footer {
         object-fit: cover;
     }
 }
+
+/* ===== TESTIMONIAL ARROW NAVIGATION - MOBILE CORNER POSITIONING ===== */
+/* Replace the previous mobile styles with these corrected ones */
+
+/* Navigation Arrow Buttons - Desktop (unchanged) */
+.testimonial-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 50px;
+    height: 50px;
+    background: rgba(147, 51, 234, 0.9);
+    border: 2px solid var(--primary-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    color: var(--pure-white);
+    font-size: 18px;
+    opacity: 1;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.2);
+}
+
+.testimonial-navigation:hover {
+    background: var(--primary-purple);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 10px 30px rgba(147, 51, 234, 0.5);
+    border-color: var(--secondary-purple);
+}
+
+.testimonial-navigation.swiper-button-disabled {
+    opacity: 0.3 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: rgba(147, 51, 234, 0.3);
+}
+
+/* Desktop positioning - at card corners */
+.testimonial-prev {
+    left: -25px;
+}
+
+.testimonial-next {
+    right: -25px;
+}
+
+/* Arrow icon hover effects */
+.testimonial-navigation i {
+    transition: transform 0.2s ease;
+    font-weight: 600;
+}
+
+.testimonial-navigation:hover i {
+    transform: scale(1.2);
+}
+
+/* Active state feedback */
+.testimonial-navigation:active {
+    transform: translateY(-50%) scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+/* REMOVE the mobile navigation container - not needed */
+.testimonial-mobile-nav {
+    display: none !important; /* Hide completely */
+}
+
+/* Enhanced card styling to support corner arrows */
+.single-area {
+    position: relative;
+    overflow: visible;
+}
+
+/* Ensure the carousel container supports corner arrow positioning */
+.testimonial-carousel {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* Ensure content wrapper has proper overflow for corner positioning */
+.testimonial-content-wrapper {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* Custom focus styles for accessibility */
+.testimonial-navigation:focus {
+    outline: 2px solid var(--secondary-purple);
+    outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1199px) {
+    .testimonial-navigation {
+        width: 48px;
+        height: 48px;
+        font-size: 17px;
+    }
+
+    .testimonial-prev {
+        left: -24px;
+    }
+
+    .testimonial-next {
+        right: -24px;
+    }
+}
+
+@media (max-width: 991px) {
+    .testimonial-navigation {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .testimonial-prev {
+        left: -22px;
+    }
+
+    .testimonial-next {
+        right: -22px;
+    }
+}
+
+/* MOBILE: Keep arrows at left/right corners like desktop */
+@media (max-width: 768px) {
+    /* Keep desktop arrows visible on mobile - positioned at corners */
+    .testimonial-navigation {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+        opacity: 1;
+    }
+
+    .testimonial-prev {
+        left: -20px; /* Left corner */
+    }
+
+    .testimonial-next {
+        right: -20px; /* Right corner */
+    }
+
+    /* Ensure mobile navigation is hidden */
+    .testimonial-mobile-nav {
+        display: none !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonial-navigation {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+    }
+    
+    .testimonial-prev {
+        left: -18px;
+    }
+
+    .testimonial-next {
+        right: -18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial-navigation {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+    }
+    
+    .testimonial-prev {
+        left: -17px;
+    }
+
+    .testimonial-next {
+        right: -17px;
+    }
+}
+
+/* Enhanced visual effects */
+.testimonial-navigation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(192, 132, 252, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.testimonial-navigation:hover::before {
+    opacity: 1;
+}
+
+/* Prevent arrows from interfering with other elements */
+.testimonial-navigation {
+    pointer-events: auto;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .testimonial-navigation {
+        border-width: 3px;
+        background: rgba(147, 51, 234, 1);
+    }
+
+    .testimonial-navigation:hover {
+        background: rgba(192, 132, 252, 1);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .testimonial-navigation {
+        transition: none;
+    }
+
+    .testimonial-navigation:hover {
+        transform: translateY(-50%);
+    }
+
+    .testimonial-navigation i {
+        transition: none;
+    }
+
+    .testimonial-navigation:hover i {
+        transform: none;
+    }
+}

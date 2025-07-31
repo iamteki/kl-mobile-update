@@ -7,12 +7,20 @@
         </div>
         <div class="testimonial-wrapper">
             <div class="row align-items-stretch g-4">
-                <!-- Reviews Column -->
+                <!-- Reviews Column with Arrow Navigation -->
                 <div class="col-lg-6">
                     <div class="testimonial-content-wrapper">
                         <div class="swiper testimonial-carousel">
+                            <!-- Navigation Arrows - Positioned at Card Corners (Desktop & Mobile) -->
+                            <div class="testimonial-navigation testimonial-prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </div>
+                            <div class="testimonial-navigation testimonial-next">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+
                             <div class="swiper-wrapper">
-                                {{-- Review  --}}
+                                {{-- Review Loop --}}
                                 @foreach ($testimonials as $review)
                                     <div class="swiper-slide">
                                         <div class="single-area">
@@ -45,7 +53,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
