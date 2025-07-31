@@ -1644,8 +1644,10 @@ footer {
     font-size: 1.2rem;
     color: var(--light-gray);
     margin-bottom: 2rem;
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: 3px;
+    max-width: 70%;
+    margin: auto;
     animation: textReveal 1s ease-out 0.2s both;
 }
 
@@ -1799,7 +1801,9 @@ footer {
 .page-subtitle {
     font-size: 1.25rem;
     color: var(--light-gray);
-    text-transform: uppercase;
+    text-transform: capitalize;
+    max-width: 70%;
+    margin: auto;
     letter-spacing: 3px;
     animation: textReveal 1s ease-out 0.2s both;
 }
