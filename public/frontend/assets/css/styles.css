@@ -413,10 +413,12 @@ footer {
 }
 
 /* Breadcrumb */
+/* Breadcrumb - Fixed positioning and spacing */
 .breadcrumb {
     background: transparent;
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Increased from 20px */
+    margin-top: 20px; /* Add top margin for better separation from nav */
     position: relative;
     z-index: 10;
 }
@@ -1550,17 +1552,17 @@ footer {
     background-clip: text;
 }
 
-/* Category Header */
+/* Category Header - Dynamic Height for Long Descriptions */
 .category-header {
     position: relative;
-    height: 40vh;
-    min-height: 350px;
+    min-height: 60vh; /* Changed from fixed height to min-height */
+    max-height: none; /* Remove max-height constraint */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: var(--gradient-dark);
-    padding-top: 100px;
+    padding: 120px 0 80px; /* Increased top padding for nav clearance */
 }
 
 .category-header::before {
@@ -1586,6 +1588,44 @@ footer {
     opacity: 0.2;
     background: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&h=1080&fit=crop') center/cover;
     filter: brightness(0.3) contrast(1.2);
+}
+
+/* Ensure proper spacing for content */
+.category-header .container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+.category-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-transform: uppercase; /* UPPERCASE TITLE */
+    letter-spacing: -1px;
+    line-height: 1.2;
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textReveal 1s ease-out;
+    position: relative;
+    filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
+    margin-bottom: 1.5rem; /* Ensure spacing after title */
+}
+
+/* Dynamic subtitle with proper text wrapping */
+.category-subtitle {
+    font-size: 1.2rem;
+    color: var(--light-gray);
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    max-width: 85%; /* Increased from 70% for better readability */
+    margin: 0 auto 2rem;
+    animation: textReveal 1s ease-out 0.2s both;
+    line-height: 1.6; /* Better line spacing for readability */
+    white-space: normal; /* Allow text wrapping */
+    word-wrap: break-word; /* Handle long words */
+    text-align: center;
 }
 
 /* Floating Music Notes Animation */
@@ -1625,31 +1665,7 @@ footer {
     left: 90px;
 }
 
-.category-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    line-height: 1.2;
-    background: var(--gradient-purple);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: textReveal 1s ease-out;
-    position: relative;
-    filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
-}
 
-.category-subtitle {
-    font-size: 1.2rem;
-    color: var(--light-gray);
-    margin-bottom: 2rem;
-    text-transform: capitalize;
-    letter-spacing: 3px;
-    max-width: 70%;
-    margin: auto;
-    animation: textReveal 1s ease-out 0.2s both;
-}
 
 /* Event Types Section */
 .event-types-section {
@@ -1725,17 +1741,17 @@ footer {
     color: var(--secondary-purple);
 }
 
-/* Page Header */
+/* Page Header - Dynamic Height for Long Content */
 .page-header {
     position: relative;
-    height: 50vh;
-    min-height: 400px;
+    min-height: 60vh; /* Changed from fixed height */
+    max-height: none; /* Remove height constraints */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: var(--gradient-dark);
-    padding-top: 100px;
+    padding: 120px 0 80px; /* Increased padding for better spacing */
 }
 
 .page-header::before {
@@ -1765,6 +1781,37 @@ footer {
     filter: brightness(0.4) contrast(1.2);
 }
 
+/* Fix page title spacing with UPPERCASE */
+.page-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 800;
+    text-transform: uppercase; /* UPPERCASE TITLE */
+    letter-spacing: -2px;
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
+    animation: textReveal 1s ease-out;
+}
+
+/* Dynamic page subtitle */
+.page-subtitle {
+    font-size: 1.25rem;
+    color: var(--light-gray);
+    text-transform: capitalize;
+    max-width: 85%;
+    margin: 0 auto 2rem;
+    letter-spacing: 3px;
+    line-height: 1.6;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    animation: textReveal 1s ease-out 0.2s both;
+}
+
 /* Animated Sparkles */
 .sparkles {
     position: absolute;
@@ -1784,29 +1831,6 @@ footer {
     animation: sparkle 4s linear infinite;
 }
 
-.page-title {
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -2px;
-    background: var(--gradient-purple);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
-    animation: textReveal 1s ease-out;
-}
-
-.page-subtitle {
-    font-size: 1.25rem;
-    color: var(--light-gray);
-    text-transform: capitalize;
-    max-width: 70%;
-    margin: auto;
-    letter-spacing: 3px;
-    animation: textReveal 1s ease-out 0.2s both;
-}
 
 /* Video Section */
 .video-section {
@@ -1927,6 +1951,41 @@ footer {
     pointer-events: none;
     bottom: -10px;
     animation: floatParticle 20s infinite linear;
+}
+
+/* Description Section Improvements */
+.description-content {
+    padding: 2rem 0;
+}
+
+.description-content .lead {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--light-gray);
+    max-width: 100%;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: justify; /* Better text alignment for long descriptions */
+}
+
+/* Ensure description content is properly displayed */
+.description-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: var(--light-gray);
+}
+
+.description-content ul,
+.description-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    color: var(--light-gray);
+}
+
+.description-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
 }
 
 /* Different particle sizes and animations */
