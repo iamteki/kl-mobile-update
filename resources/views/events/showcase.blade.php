@@ -10,7 +10,7 @@
         <div class="container position-relative">
             <div class="section-area text-center">
                 <span>- Showcase -</span>
-                <h2 class="fs-two text-white upper">A{{ $eventType->name }} - Portfolio</h2>
+                <h2 class="fs-two text-white upper">{{ $eventType->name }} - Portfolio</h2>
             </div>
 
             <div class="row g-4 mt-5">

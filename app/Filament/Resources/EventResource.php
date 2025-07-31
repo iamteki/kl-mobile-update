@@ -61,7 +61,16 @@ class EventResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(string $context, $state, Forms\Set $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                            ->afterStateUpdated(function (string $context, $state, callable $set, callable $get) {
+                                if ($context === 'create') {
+                                    $set('slug', Str::slug($state));
+                                    
+                                    // Auto-generate meta title if empty
+                                    if (empty($get('meta_title'))) {
+                                        $set('meta_title', $state);
+                                    }
+                                }
+                            }),
 
                         Forms\Components\TextInput::make('slug')
                             ->required()
@@ -143,6 +152,62 @@ class EventResource extends Resource
                             ])
                             ->columnSpanFull(),
                     ]),
+
+                Forms\Components\Section::make('SEO Settings')
+                    ->description('Configure SEO meta tags for better search engine visibility')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->schema([
+                        Forms\Components\TextInput::make('meta_title')
+                            ->label('Meta Title')
+                            ->maxLength(60)
+                            ->placeholder('Custom meta title (leave empty to use event title)')
+                            ->helperText('Recommended: 50-60 characters. Will use event title if empty.')
+                            ->live()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('meta_title_length', strlen($state ?? ''));
+                            }),
+
+                        Forms\Components\Placeholder::make('meta_title_length')
+                            ->label('Meta Title Length')
+                            ->content(function (callable $get) {
+                                $length = strlen($get('meta_title') ?? '');
+                                $color = $length > 60 ? 'danger' : ($length > 50 ? 'warning' : 'success');
+                                return new \Illuminate\Support\HtmlString(
+                                    "<span class='text-{$color}-600 font-medium'>{$length}/60 characters</span>"
+                                );
+                            }),
+
+                        Forms\Components\Textarea::make('meta_description')
+                            ->label('Meta Description')
+                            ->maxLength(160)
+                            ->placeholder('Brief description for search engines')
+                            ->helperText('Recommended: 150-160 characters. Will auto-generate from excerpt if empty.')
+                            ->rows(3)
+                            ->live()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('meta_description_length', strlen($state ?? ''));
+                            })
+                            ->columnSpanFull(),
+
+                        Forms\Components\Placeholder::make('meta_description_length')
+                            ->label('Meta Description Length')
+                            ->content(function (callable $get) {
+                                $length = strlen($get('meta_description') ?? '');
+                                $color = $length > 160 ? 'danger' : ($length > 150 ? 'warning' : 'success');
+                                return new \Illuminate\Support\HtmlString(
+                                    "<span class='text-{$color}-600 font-medium'>{$length}/160 characters</span>"
+                                );
+                            }),
+
+                        Forms\Components\Textarea::make('meta_keywords')
+                            ->label('Meta Keywords')
+                            ->placeholder('Enter keywords separated by commas')
+                            ->helperText('Add relevant keywords separated by commas (e.g., event name, location, type)')
+                            ->rows(2)
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->collapsible(),
             ]);
     }
 
@@ -198,6 +263,19 @@ class EventResource extends Resource
                             : 'No video uploaded';
                     }),
 
+                Tables\Columns\IconColumn::make('has_meta_description')
+                    ->label('SEO')
+                    ->boolean()
+                    ->getStateUsing(fn($record) => !empty($record->meta_description))
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(function ($record) {
+                        return !empty($record->meta_description)
+                            ? 'SEO configured'
+                            : 'SEO not configured';
+                    }),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -234,6 +312,18 @@ class EventResource extends Resource
                             ->whereNotNull('image_gallery');
                     })
                     ->label('Has Images'),
+
+                Tables\Filters\Filter::make('has_meta_description')
+                    ->query(function ($query) {
+                        return $query->whereNotNull('meta_description');
+                    })
+                    ->label('Has SEO'),
+
+                Tables\Filters\Filter::make('missing_meta_description')
+                    ->query(function ($query) {
+                        return $query->whereNull('meta_description');
+                    })
+                    ->label('Missing SEO'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -247,6 +337,7 @@ class EventResource extends Resource
             ])
             ->defaultSort('created_at', 'desc');
     }
+
     public static function getRelations(): array
     {
         return [

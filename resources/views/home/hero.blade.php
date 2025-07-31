@@ -3,7 +3,7 @@
     <!-- Video Background -->
     <div class="hero-video-bg">
         <video autoplay muted loop playsinline>
-            <source src="https://softivuslab.com/wp/evendo/wp-content/uploads/2024/12/conference_video1-1.mp4" type="video/mp4">
+          <source src="https://klmobile.sgp1.digitaloceanspaces.com/klmobileintro" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -45,8 +45,8 @@
             </h1>
             
             <!-- Animated Subtitle -->
-            <p class="hero-description">
-                Creating unforgettable experiences through professional sound, lighting & production
+            <p class="hero-description" style="max-width: 100%">
+               <b> Creating unforgettable experiences through professional</b> <br> SOUND - LIGHTING - TRUSS - LED SCREENS - STAGE - FABRICATION - TALENTS
             </p>
             
             <!-- CTA Button with Animation -->

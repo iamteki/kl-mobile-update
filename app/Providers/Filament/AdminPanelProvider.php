@@ -11,6 +11,13 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
+use App\Filament\Widgets\StatsOverviewWidget;
+use App\Filament\Widgets\ContactInquiriesChart;
+use App\Filament\Widgets\RecentEventsTable;
+use App\Filament\Widgets\InquiriesStatusChart;
+use App\Filament\Widgets\BlogPerformanceChart;
+use App\Filament\Widgets\RecentInquiriesTable;
+use App\Filament\Widgets\SystemHealthWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -37,8 +44,19 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+                // Custom Dashboard Widgets (in order)
+                StatsOverviewWidget::class,
+                ContactInquiriesChart::class,
+                RecentEventsTable::class,
+                InquiriesStatusChart::class,
+                BlogPerformanceChart::class,
+                RecentInquiriesTable::class,
+                SystemHealthWidget::class,
+                
+                // Default Filament Widgets (moved to bottom)
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Remove FilamentInfoWidget to declutter
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <div class="section-area">
+                    <div class="section-area" style="margin-bottom: 0px;">
                         <span data-animscroll="fade-up">- WHY CHOOSE US -</span>
                         <h2 class="fs-two text-white mb-4 upper" data-animscroll="fade-up">Importance of <span>Support</span></h2>
                     </div>
