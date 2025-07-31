@@ -50,7 +50,7 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles.css') }}">
     {{-- Anim Trap  --}}
-    <link rel="stylesheet" href="{{ asset('frontend/animtrap/css/animtrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/animtrap/css/animtrap.min.css') }}"> --}}
     {{-- @vite(['', 'resources/js/app.js']) --}}
     @stack('styles')
 
@@ -99,15 +99,15 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('frontend/animtrap/js/anim-effect.js') }}"></script>
-    <script src="{{ asset('frontend/animtrap/js/anim-scroll.js') }}"></script>
+    {{-- <script src="{{ asset('frontend/animtrap/js/anim-effect.js') }}"></script>
+    <script src="{{ asset('frontend/animtrap/js/anim-scroll.js') }}"></script> --}}
     @stack('scripts')
 
-    <script>
+    {{-- <script>
         ANIMSCROLL.init({
             easing: 'ease-in-out-sine'
         });
-    </script>
+    </script> --}}
 
 </body>
 
