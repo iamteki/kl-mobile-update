@@ -45,7 +45,7 @@
             </h1>
             
             <!-- Animated Subtitle -->
-            <p class="hero-description">
+            <p class="hero-description" style="max-width: 100%">
                <b> Creating unforgettable experiences through professional</b> <br> SOUND - LIGHTING - TRUSS - LED SCREENS - STAGE - FABRICATION - TALENTS
             </p>
             
