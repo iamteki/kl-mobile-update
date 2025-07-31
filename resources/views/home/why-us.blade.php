@@ -7,7 +7,7 @@
                         <span data-animscroll="fade-up">- WHY CHOOSE US -</span>
                         <h2 class="fs-two text-white mb-4 upper" data-animscroll="fade-up">Importance of <span>Support</span></h2>
                     </div>
-                    <p data-animscroll="fade-up" class="lead" style="font-size: 1.25rem; line-height: 1;">
+                    <p data-animscroll="fade-up" class="lead" style="font-size: 1.25rem; line-height: 1.8;">
                         Celebrating a moment or milestone can be a once-in-a-lifetime opportunity, whether it's a
                         corporate or private event. These moments deserve to be captured and remembered. At KL Mobile
                         Events, we work towards making the moment unforgettable, because events are all about that moment . Once it's gone,
