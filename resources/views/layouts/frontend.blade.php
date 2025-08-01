@@ -98,7 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/scriptsnew.js') }}"></script>
     {{-- <script src="{{ asset('frontend/animtrap/js/anim-effect.js') }}"></script>
     <script src="{{ asset('frontend/animtrap/js/anim-scroll.js') }}"></script> --}}
     @stack('scripts')
