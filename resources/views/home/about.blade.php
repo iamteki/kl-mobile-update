@@ -11,14 +11,6 @@
                     
                     <p data-animscroll="fade-up" class="lead mb-4">With over 20 years of experience, we understand that successful events require
                         meticulous planning, professional execution, and seamless coordination.</p>
-                    <ul class="about-features-list" data-animscroll="fade-up">
-                        <li class="mb-3"><i class="fas fa-check-circle me-3"
-                                style="color: var(--primary-purple);"></i>Expert planning and coordination</li>
-                        <li class="mb-3"><i class="fas fa-check-circle me-3"
-                                style="color: var(--primary-purple);"></i>State-of-the-art equipment</li>
-                        <li class="mb-3"><i class="fas fa-check-circle me-3"
-                                style="color: var(--primary-purple);"></i>Professional team of specialists</li>
-                    </ul>
                 </div>
 
                 <!-- Video Section -->
