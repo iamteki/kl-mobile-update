@@ -41,7 +41,7 @@
                                     @endif
                                 </div>
                                 <p class="operating-hours">
-                                    <strong>Operating Hours: {{ $location->open_time }}</strong>
+                                    <strong>View More</strong>
                                 </p>
                                 <span class="see-location"><i class="fas fa-arrow-right"></i></span>
                             </div>
