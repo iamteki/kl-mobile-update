@@ -115,7 +115,6 @@ class OfficeLocationResource extends Resource
                             ->visibility('public')
                             ->imageEditor()
                             ->reorderable()
-                            ->maxFiles(10)
                             ->maxSize(5120)
                             ->imageEditorAspectRatios([
                                 '16:9',
