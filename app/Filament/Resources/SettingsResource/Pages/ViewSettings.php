@@ -49,6 +49,25 @@ class ViewSettings extends ViewRecord
                     ])
                     ->columns(1),
 
+                Infolists\Components\Section::make('About Section')
+                    ->schema([
+                        Infolists\Components\TextEntry::make('about_video')
+                            ->label('About Video')
+                            ->formatStateUsing(function ($state, $record) {
+                                if (!$state) return 'No about video uploaded';
+                                
+                                $url = $record->about_video_url;
+                                return new \Illuminate\Support\HtmlString(
+                                    '<video controls width="100%" style="max-width: 600px; max-height: 300px;">
+                                        <source src="' . $url . '" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>'
+                                );
+                            })
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(1),
+
                 Infolists\Components\Section::make('Company Profile')
                     ->schema([
                         Infolists\Components\TextEntry::make('company_profile_pdf')
@@ -72,62 +91,62 @@ class ViewSettings extends ViewRecord
                     ]),
 
                Infolists\Components\Section::make('Social Media Links')
-    ->schema([
-        Infolists\Components\TextEntry::make('facebook_url')
-            ->label('Facebook')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
+                    ->schema([
+                        Infolists\Components\TextEntry::make('facebook_url')
+                            ->label('Facebook')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
 
-        Infolists\Components\TextEntry::make('twitter_url')
-            ->label('Twitter')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
+                        Infolists\Components\TextEntry::make('twitter_url')
+                            ->label('Twitter')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
 
-        Infolists\Components\TextEntry::make('instagram_url')
-            ->label('Instagram')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
+                        Infolists\Components\TextEntry::make('instagram_url')
+                            ->label('Instagram')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
 
-        Infolists\Components\TextEntry::make('linkedin_url')
-            ->label('LinkedIn')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
+                        Infolists\Components\TextEntry::make('linkedin_url')
+                            ->label('LinkedIn')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
 
-        Infolists\Components\TextEntry::make('youtube_url')
-            ->label('YouTube')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
+                        Infolists\Components\TextEntry::make('youtube_url')
+                            ->label('YouTube')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
 
-        Infolists\Components\TextEntry::make('tiktok_url')
-            ->label('TikTok')
-            ->formatStateUsing(function ($state) {
-                if (!$state) return 'Not set';
-                return new \Illuminate\Support\HtmlString(
-                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
-                );
-            }),
-    ])
-    ->columns(2),
+                        Infolists\Components\TextEntry::make('tiktok_url')
+                            ->label('TikTok')
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return 'Not set';
+                                return new \Illuminate\Support\HtmlString(
+                                    '<a href="' . $state . '" target="_blank" class="text-primary-600 hover:text-primary-700">' . $state . '</a>'
+                                );
+                            }),
+                    ])
+                    ->columns(2),
 
                 Infolists\Components\Section::make('System Information')
                     ->schema([

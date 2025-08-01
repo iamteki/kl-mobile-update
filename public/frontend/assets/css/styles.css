@@ -3987,3 +3987,241 @@ footer {
         transform: none;
     }
 }
+
+/* About Section Video Enhancements - WITH CONTROLS */
+.about-image .video-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(147, 51, 234, 0.3);
+    width: 100%;
+    height: 100%; /* Fill the entire about-image container */
+    cursor: pointer;
+    background: var(--bg-card); /* Fallback background */
+}
+
+.about-image .about-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Initially hidden */
+    border-radius: 16px;
+    object-fit: cover; /* Ensure video fills container properly */
+    transition: opacity 0.3s ease;
+    z-index: 3; /* Above thumbnail */
+}
+
+/* Custom video controls styling */
+.about-image .about-video::-webkit-media-controls-panel {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    border-radius: 0 0 16px 16px;
+}
+
+.about-image .about-video::-webkit-media-controls-play-button,
+.about-image .about-video::-webkit-media-controls-volume-slider,
+.about-image .about-video::-webkit-media-controls-timeline,
+.about-image .about-video::-webkit-media-controls-current-time-display,
+.about-image .about-video::-webkit-media-controls-time-remaining-display {
+    filter: brightness(0) saturate(100%) invert(82%) sepia(96%) saturate(6862%) hue-rotate(252deg) brightness(107%) contrast(106%);
+}
+
+.about-image .video-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fix thumbnail fitting - covers entire container */
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    filter: grayscale(100%);
+    border-radius: 16px;
+    z-index: 1; /* Below play button */
+}
+
+.about-image .video-wrapper:hover .video-thumbnail {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+.about-image .play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(147, 51, 234, 0.6);
+    z-index: 2; /* Above thumbnail, below video */
+}
+
+.about-image .play-button-overlay:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 15px 50px rgba(147, 51, 234, 0.8);
+}
+
+.about-image .play-button-overlay i {
+    font-size: 30px;
+    color: var(--pure-white);
+    margin-left: 5px; /* Slight offset for play icon visual balance */
+}
+
+/* Pulse animation for play button */
+.about-image .play-button-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: var(--gradient-purple);
+    opacity: 0.3;
+    animation: pulse-about 2s infinite;
+    z-index: -1;
+}
+
+/* Enhanced about section layout for better alignment */
+.about-content {
+    display: flex;
+    align-items: stretch; /* Equal heights */
+    gap: 4rem;
+    min-height: 500px; /* Ensure minimum height for proper alignment */
+}
+
+.about-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(147, 51, 234, 0.3);
+}
+
+.about-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+}
+
+/* Fix static images to also fill properly */
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Consistent with video thumbnail */
+    display: block;
+    transition: transform 0.5s ease;
+    filter: grayscale(100%);
+    border-radius: 16px;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+/* Ensure video wrapper inherits proper alignment */
+.about-image:hover .video-wrapper {
+    transform: scale(1.05);
+}
+
+/* Make thumbnail clickable */
+.about-image .video-thumbnail {
+    cursor: pointer;
+}
+
+/* Mobile responsiveness for about video */
+@media (max-width: 991px) {
+    .about-content {
+        flex-direction: column;
+        gap: 2rem;
+        min-height: auto; /* Remove fixed height on mobile */
+    }
+    
+    .about-image,
+    .about-text {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    /* On mobile, give the image container a specific height */
+    .about-image {
+        height: 350px; /* Fixed height for mobile */
+    }
+    
+    .about-image .video-wrapper {
+        height: 100%; /* Fill the mobile container */
+    }
+}
+
+@media (max-width: 768px) {
+    .about-image .play-button-overlay {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .about-image .play-button-overlay i {
+        font-size: 20px;
+    }
+    
+    .about-content {
+        gap: 3rem;
+    }
+    
+    /* Smaller mobile height */
+    .about-image {
+        height: 300px;
+    }
+    
+    /* Smaller video controls on mobile */
+    .about-image .about-video::-webkit-media-controls-panel {
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-image .play-button-overlay {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .about-image .play-button-overlay i {
+        font-size: 18px;
+    }
+    
+    .about-content {
+        gap: 2rem;
+    }
+    
+    /* Even smaller for very small screens */
+    .about-image {
+        height: 250px;
+    }
+    
+    /* Even smaller controls */
+    .about-image .about-video::-webkit-media-controls-panel {
+        height: 30px;
+    }
+}
+
+/* Animation for pulse effect */
+@keyframes pulse-about {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}

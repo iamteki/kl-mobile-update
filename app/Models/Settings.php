@@ -20,6 +20,7 @@ class Settings extends Model
         'youtube_url',
         'tiktok_url',
         'company_profile_pdf',
+        'about_video', // Added new field
     ];
 
     // Singleton pattern - ensure only one settings record exists
@@ -48,6 +49,12 @@ class Settings extends Model
     public function getCompanyProfilePdfUrlAttribute()
     {
         return $this->company_profile_pdf ? Storage::disk('spaces')->url($this->company_profile_pdf) : null;
+    }
+
+    // Added about video URL accessor
+    public function getAboutVideoUrlAttribute()
+    {
+        return $this->about_video ? Storage::disk('spaces')->url($this->about_video) : null;
     }
 
     // Social Media Links as array (filtered to remove empty values)

@@ -60,6 +60,21 @@ class SettingsResource extends Resource
                     ])
                     ->columns(1),
 
+                Forms\Components\Section::make('About Section')
+                    ->description('Manage about section video for the homepage')
+                    ->schema([
+                        Forms\Components\FileUpload::make('about_video')
+                            ->label('About Video')
+                            ->disk('spaces')
+                            ->directory('settings/about')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
+                            ->maxSize(204800) // 200MB max
+                            ->helperText('Upload about video for homepage about section (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(1),
+
                 Forms\Components\Section::make('Company Profile')
                     ->description('Upload company profile document')
                     ->schema([
@@ -78,45 +93,45 @@ class SettingsResource extends Resource
                     ->columns(1),
 
                 Forms\Components\Section::make('Social Media Links')
-    ->description('Manage social media profile links (up to 6 platforms supported)')
-    ->schema([
-        Forms\Components\TextInput::make('facebook_url')
-            ->label('Facebook URL')
-            ->url()
-            ->placeholder('https://facebook.com/yourpage')
-            ->prefixIcon('heroicon-m-globe-alt'),
+                    ->description('Manage social media profile links (up to 6 platforms supported)')
+                    ->schema([
+                        Forms\Components\TextInput::make('facebook_url')
+                            ->label('Facebook URL')
+                            ->url()
+                            ->placeholder('https://facebook.com/yourpage')
+                            ->prefixIcon('heroicon-m-globe-alt'),
 
-        Forms\Components\TextInput::make('twitter_url')
-            ->label('Twitter URL')
-            ->url()
-            ->placeholder('https://twitter.com/youraccount')
-            ->prefixIcon('heroicon-m-globe-alt'),
+                        Forms\Components\TextInput::make('twitter_url')
+                            ->label('Twitter URL')
+                            ->url()
+                            ->placeholder('https://twitter.com/youraccount')
+                            ->prefixIcon('heroicon-m-globe-alt'),
 
-        Forms\Components\TextInput::make('instagram_url')
-            ->label('Instagram URL')
-            ->url()
-            ->placeholder('https://instagram.com/youraccount')
-            ->prefixIcon('heroicon-m-globe-alt'),
+                        Forms\Components\TextInput::make('instagram_url')
+                            ->label('Instagram URL')
+                            ->url()
+                            ->placeholder('https://instagram.com/youraccount')
+                            ->prefixIcon('heroicon-m-globe-alt'),
 
-        Forms\Components\TextInput::make('linkedin_url')
-            ->label('LinkedIn URL')
-            ->url()
-            ->placeholder('https://linkedin.com/company/yourcompany')
-            ->prefixIcon('heroicon-m-globe-alt'),
+                        Forms\Components\TextInput::make('linkedin_url')
+                            ->label('LinkedIn URL')
+                            ->url()
+                            ->placeholder('https://linkedin.com/company/yourcompany')
+                            ->prefixIcon('heroicon-m-globe-alt'),
 
-        Forms\Components\TextInput::make('youtube_url')
-            ->label('YouTube URL')
-            ->url()
-            ->placeholder('https://youtube.com/channel/yourchannel')
-            ->prefixIcon('heroicon-m-globe-alt'),
+                        Forms\Components\TextInput::make('youtube_url')
+                            ->label('YouTube URL')
+                            ->url()
+                            ->placeholder('https://youtube.com/channel/yourchannel')
+                            ->prefixIcon('heroicon-m-globe-alt'),
 
-        Forms\Components\TextInput::make('tiktok_url')
-            ->label('TikTok URL')
-            ->url()
-            ->placeholder('https://tiktok.com/@youraccount')
-            ->prefixIcon('heroicon-m-globe-alt'),
-    ])
-    ->columns(2),
+                        Forms\Components\TextInput::make('tiktok_url')
+                            ->label('TikTok URL')
+                            ->url()
+                            ->placeholder('https://tiktok.com/@youraccount')
+                            ->prefixIcon('heroicon-m-globe-alt'),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -141,6 +156,15 @@ class SettingsResource extends Resource
                     ->label('Hero Video')
                     ->boolean()
                     ->getStateUsing(fn ($record) => !empty($record->hero_video))
+                    ->trueIcon('heroicon-o-play-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray'),
+
+                Tables\Columns\IconColumn::make('about_video')
+                    ->label('About Video')
+                    ->boolean()
+                    ->getStateUsing(fn ($record) => !empty($record->about_video))
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
