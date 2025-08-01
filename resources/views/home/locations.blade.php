@@ -41,7 +41,7 @@
                                     @endif
                                 </div>
                                 <p class="operating-hours">
-                                  View More
+                                    <strong>View More</strong>
                                 </p>
                                 <span class="see-location"><i class="fas fa-arrow-right"></i></span>
                             </div>
