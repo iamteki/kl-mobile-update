@@ -48,7 +48,7 @@
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Custom Styles -->
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles.css') }}?v=2"> --}}
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/stylesnew.css') }}?v={{ time() }}">
     {{-- Anim Trap  --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/animtrap/css/animtrap.min.css') }}"> --}}
     {{-- @vite(['', 'resources/js/app.js']) --}}
