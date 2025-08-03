@@ -23,9 +23,9 @@
                             Your browser does not support the video tag.
                         </video>
                         
-                        <!-- Thumbnail Image (fallback) -->
-                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=675&fit=crop"
-                            alt="Professional DJ Equipment" class="video-thumbnail" id="aboutVideoThumbnail">
+                        <!-- Thumbnail Image (with custom thumbnail or fallback) -->
+                        <img src="{{ $settings->about_video_thumbnail_url ?: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=675&fit=crop' }}"
+                            alt="About Video Thumbnail" class="video-thumbnail" id="aboutVideoThumbnail">
                         
                         <!-- Play Button Overlay -->
                         <div class="play-button-overlay" id="aboutPlayButton">

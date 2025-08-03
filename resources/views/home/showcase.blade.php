@@ -1,4 +1,4 @@
-@if ($settings && ($settings->hero_video || $settings->company_profile_pdf))
+@if ($settings && ($settings->hero_video || $settings->showcase_video || $settings->company_profile_pdf))
     @push('styles')
     <style>
     .video-controls-overlay {
@@ -34,15 +34,39 @@
                 <h2 data-animscroll="fade-up" class="fs-two text-white">EXPERIENCE <span>OUR</span> WORK</h2>
             </div>
             <div class="row g-4 align-items-stretch">
-                @if ($settings->hero_video)
+                @if ($settings->showcase_video)
+                    <div class="col-lg-8" data-animscroll="fade-right">
+                        <div class="video-wrapper position-relative">
+                            <div class="video-placeholder" id="videoPlaceholder"
+                                 style="background-image: url('{{ $settings->showcase_video_thumbnail_url ?: ($settings->hero_featured_image ? Storage::url($settings->hero_featured_image) : 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=600&fit=crop') }}');">
+                                <div class="video-overlay" id="videoOverlay" onclick="playShowcaseVideo()">
+                                    <div class="position-relative">
+                                        <div class="play-pulse"></div>
+                                        <button class="play-button" aria-label="Play showcase video">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Video element -->
+                                <video id="showcaseVideo" controls
+                                       style="display: none; width: 100%; height: 100%; object-fit: cover;"
+                                       poster="{{ $settings->showcase_video_thumbnail_url ?: ($settings->hero_featured_image ? Storage::url($settings->hero_featured_image) : '') }}">
+                                    <source src="{{ Storage::url($settings->showcase_video) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="dj-element vinyl"></div>
+                        </div>
+                    </div>
+                @elseif ($settings->hero_video)
                     <div class="col-lg-8" data-animscroll="fade-right">
                         <div class="video-wrapper position-relative">
                             <div class="video-placeholder" id="videoPlaceholder"
                                  style="background-image: url('{{ $settings->hero_featured_image ? Storage::url($settings->hero_featured_image) : 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=600&fit=crop' }}');">
-                                <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+                                <div class="video-overlay" id="videoOverlay" onclick="playHeroVideo()">
                                     <div class="position-relative">
                                         <div class="play-pulse"></div>
-                                        <button class="play-button" aria-label="Play video">
+                                        <button class="play-button" aria-label="Play hero video">
                                             <i class="fas fa-play"></i>
                                         </button>
                                     </div>
@@ -94,8 +118,33 @@
 
     @push('scripts')
     <script>
-    function playVideo() {
-        const videoPlaceholder = document.getElementById('videoPlaceholder');
+    function playShowcaseVideo() {
+        const videoOverlay = document.getElementById('videoOverlay');
+        const video = document.getElementById('showcaseVideo');
+        
+        // Hide overlay and show video
+        videoOverlay.style.display = 'none';
+        video.style.display = 'block';
+        
+        // Play the video
+        video.play();
+        
+        // Show overlay again when video ends
+        video.addEventListener('ended', function() {
+            videoOverlay.style.display = 'block';
+            video.style.display = 'none';
+        });
+        
+        // Show overlay when video is paused and at beginning
+        video.addEventListener('pause', function() {
+            if (video.currentTime === 0 || video.ended) {
+                videoOverlay.style.display = 'block';
+                video.style.display = 'none';
+            }
+        });
+    }
+
+    function playHeroVideo() {
         const videoOverlay = document.getElementById('videoOverlay');
         const video = document.getElementById('showcaseVideo');
         

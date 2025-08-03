@@ -61,7 +61,7 @@ class SettingsResource extends Resource
                     ->columns(1),
 
                 Forms\Components\Section::make('About Section')
-                    ->description('Manage about section video for the homepage')
+                    ->description('Manage about section video and thumbnail for the homepage')
                     ->schema([
                         Forms\Components\FileUpload::make('about_video')
                             ->label('About Video')
@@ -71,9 +71,56 @@ class SettingsResource extends Resource
                             ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
                             ->maxSize(204800) // 200MB max
                             ->helperText('Upload about video for homepage about section (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
-                            ->columnSpanFull(),
+                            ->columnSpan(1),
+
+                        Forms\Components\FileUpload::make('about_video_thumbnail')
+                            ->label('About Video Thumbnail')
+                            ->image()
+                            ->disk('spaces')
+                            ->directory('settings/about/thumbnails')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                            ])
+                            ->maxSize(5120) // 5MB max
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->helperText('Upload thumbnail image for about video (max 5MB). Recommended: 1200x675px.')
+                            ->columnSpan(1),
                     ])
-                    ->columns(1),
+                    ->columns(2),
+
+                Forms\Components\Section::make('Showcase Section')
+                    ->description('Manage showcase video and thumbnail for the homepage')
+                    ->schema([
+                        Forms\Components\FileUpload::make('showcase_video')
+                            ->label('Showcase Video')
+                            ->disk('spaces')
+                            ->directory('settings/showcase')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
+                            ->maxSize(204800) // 200MB max
+                            ->helperText('Upload showcase video for homepage showcase section (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
+                            ->columnSpan(1),
+
+                        Forms\Components\FileUpload::make('showcase_video_thumbnail')
+                            ->label('Showcase Video Thumbnail')
+                            ->image()
+                            ->disk('spaces')
+                            ->directory('settings/showcase/thumbnails')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                            ])
+                            ->maxSize(5120) // 5MB max
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->helperText('Upload thumbnail image for showcase video (max 5MB). Recommended: 1200x600px.')
+                            ->columnSpan(1),
+                    ])
+                    ->columns(2),
 
                 Forms\Components\Section::make('Company Profile')
                     ->description('Upload company profile document')
@@ -165,6 +212,15 @@ class SettingsResource extends Resource
                     ->label('About Video')
                     ->boolean()
                     ->getStateUsing(fn ($record) => !empty($record->about_video))
+                    ->trueIcon('heroicon-o-play-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray'),
+
+                Tables\Columns\IconColumn::make('showcase_video')
+                    ->label('Showcase Video')
+                    ->boolean()
+                    ->getStateUsing(fn ($record) => !empty($record->showcase_video))
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')

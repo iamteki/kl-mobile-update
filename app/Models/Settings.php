@@ -20,7 +20,10 @@ class Settings extends Model
         'youtube_url',
         'tiktok_url',
         'company_profile_pdf',
-        'about_video', // Added new field
+        'about_video',
+        'showcase_video', // Added new field
+        'about_video_thumbnail', // Added new field
+        'showcase_video_thumbnail', // Added new field
     ];
 
     // Singleton pattern - ensure only one settings record exists
@@ -51,10 +54,27 @@ class Settings extends Model
         return $this->company_profile_pdf ? Storage::disk('spaces')->url($this->company_profile_pdf) : null;
     }
 
-    // Added about video URL accessor
+    // About video URL accessor
     public function getAboutVideoUrlAttribute()
     {
         return $this->about_video ? Storage::disk('spaces')->url($this->about_video) : null;
+    }
+
+    // Added showcase video URL accessor
+    public function getShowcaseVideoUrlAttribute()
+    {
+        return $this->showcase_video ? Storage::disk('spaces')->url($this->showcase_video) : null;
+    }
+
+    // Added thumbnail URL accessors
+    public function getAboutVideoThumbnailUrlAttribute()
+    {
+        return $this->about_video_thumbnail ? Storage::disk('spaces')->url($this->about_video_thumbnail) : null;
+    }
+
+    public function getShowcaseVideoThumbnailUrlAttribute()
+    {
+        return $this->showcase_video_thumbnail ? Storage::disk('spaces')->url($this->showcase_video_thumbnail) : null;
     }
 
     // Social Media Links as array (filtered to remove empty values)

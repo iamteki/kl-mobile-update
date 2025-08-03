@@ -63,10 +63,39 @@ class ViewSettings extends ViewRecord
                                         Your browser does not support the video tag.
                                     </video>'
                                 );
-                            })
-                            ->columnSpanFull(),
+                            }),
+
+                        Infolists\Components\ImageEntry::make('about_video_thumbnail')
+                            ->disk('spaces')
+                            ->height(200)
+                            ->label('About Video Thumbnail')
+                            ->placeholder('No about video thumbnail uploaded'),
                     ])
-                    ->columns(1),
+                    ->columns(2),
+
+                Infolists\Components\Section::make('Showcase Section')
+                    ->schema([
+                        Infolists\Components\TextEntry::make('showcase_video')
+                            ->label('Showcase Video')
+                            ->formatStateUsing(function ($state, $record) {
+                                if (!$state) return 'No showcase video uploaded';
+                                
+                                $url = $record->showcase_video_url;
+                                return new \Illuminate\Support\HtmlString(
+                                    '<video controls width="100%" style="max-width: 600px; max-height: 300px;">
+                                        <source src="' . $url . '" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>'
+                                );
+                            }),
+
+                        Infolists\Components\ImageEntry::make('showcase_video_thumbnail')
+                            ->disk('spaces')
+                            ->height(200)
+                            ->label('Showcase Video Thumbnail')
+                            ->placeholder('No showcase video thumbnail uploaded'),
+                    ])
+                    ->columns(2),
 
                 Infolists\Components\Section::make('Company Profile')
                     ->schema([
