@@ -222,8 +222,10 @@ function initPageSpecificComponents() {
         initHeroSection();
     }
     
-    if (document.querySelector('.clients-section')) {
-        initClientsSection();
+     if (document.querySelector('.clients-swiper-main') || document.querySelector('.clients-swiper-reverse')) {
+        initClientsSwiper(); // New Swiper implementation
+    } else if (document.querySelector('.clients-section')) {
+        initClientsSection(); // Keep old implementation as fallback
     }
     
     if (document.querySelector('.testimonial-carousel')) {
@@ -940,4 +942,220 @@ function initContactFormAjax() {
             form.style.animation = '';
         }, 500);
     }
+}
+
+
+// ========================================
+// CLIENT LOGOS SWIPER IMPLEMENTATION
+// ========================================
+
+let clientsMainSwiper, clientsReverseSwiper;
+
+function initClientsSwiper() {
+    // Check if client swipers exist
+    const mainSwiperEl = document.querySelector('.clients-swiper-main');
+    const reverseSwiperEl = document.querySelector('.clients-swiper-reverse');
+    
+    if (!mainSwiperEl && !reverseSwiperEl) return;
+
+    // Initialize main swiper (left to right)
+    if (mainSwiperEl) {
+        clientsMainSwiper = new Swiper('.clients-swiper-main', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            speed: 3000,
+            loop: true,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+            },
+            freeMode: {
+                enabled: true,
+                momentum: false,
+            },
+            grabCursor: false,
+            allowTouchMove: false,
+            simulateTouch: false,
+            centeredSlides: false,
+            watchSlidesProgress: true,
+            preventInteractionOnTransition: true,
+            breakpoints: {
+                320: {
+                    speed: 2000,
+                },
+                768: {
+                    speed: 2500,
+                },
+                1024: {
+                    speed: 3000,
+                },
+            },
+            on: {
+                init: function() {
+                    console.log('Main clients swiper initialized');
+                },
+                progress: function() {
+                    // Ensure smooth continuous movement
+                    this.wrapperEl.style.transitionTimingFunction = 'linear';
+                }
+            }
+        });
+    }
+
+    // Initialize reverse swiper (right to left)
+    if (reverseSwiperEl) {
+        clientsReverseSwiper = new Swiper('.clients-swiper-reverse', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            speed: 3000,
+            loop: true,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                reverseDirection: true, // This makes it go in reverse
+            },
+            freeMode: {
+                enabled: true,
+                momentum: false,
+            },
+            grabCursor: false,
+            allowTouchMove: false,
+            simulateTouch: false,
+            centeredSlides: false,
+            watchSlidesProgress: true,
+            preventInteractionOnTransition: true,
+            breakpoints: {
+                320: {
+                    speed: 2000,
+                },
+                768: {
+                    speed: 2500,
+                },
+                1024: {
+                    speed: 3000,
+                },
+            },
+            on: {
+                init: function() {
+                    console.log('Reverse clients swiper initialized');
+                },
+                progress: function() {
+                    // Ensure smooth continuous movement
+                    this.wrapperEl.style.transitionTimingFunction = 'linear';
+                }
+            }
+        });
+    }
+
+    // Add hover effects to individual logo wrappers
+    initClientsSwiperHoverEffects();
+}
+
+function initClientsSwiperHoverEffects() {
+    // Enhanced client logo hover effect with ripple
+    document.querySelectorAll('.client-logo-swiper-wrapper').forEach(card => {
+        card.addEventListener('mouseenter', function(e) {
+            // Pause both swipers on hover
+            if (clientsMainSwiper) {
+                clientsMainSwiper.autoplay.pause();
+            }
+            if (clientsReverseSwiper) {
+                clientsReverseSwiper.autoplay.pause();
+            }
+
+            // Create ripple effect
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+                width: 200px;
+                height: 200px;
+                left: ${x - 100}px;
+                top: ${y - 100}px;
+                transform: scale(0);
+                border-radius: 50%;
+                pointer-events: none;
+                transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+                z-index: 10;
+            `;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.style.transform = 'scale(2)';
+                ripple.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        card.addEventListener('mouseleave', function() {
+            // Resume both swipers
+            if (clientsMainSwiper) {
+                clientsMainSwiper.autoplay.resume();
+            }
+            if (clientsReverseSwiper) {
+                clientsReverseSwiper.autoplay.resume();
+            }
+        });
+    });
+
+    // Pause on container hover (optional - for better UX)
+    const mainContainer = document.querySelector('.clients-swiper-main');
+    const reverseContainer = document.querySelector('.clients-swiper-reverse');
+
+    [mainContainer, reverseContainer].forEach(container => {
+        if (!container) return;
+
+        container.addEventListener('mouseenter', () => {
+            if (clientsMainSwiper) clientsMainSwiper.autoplay.pause();
+            if (clientsReverseSwiper) clientsReverseSwiper.autoplay.pause();
+        });
+
+        container.addEventListener('mouseleave', () => {
+            if (clientsMainSwiper) clientsMainSwiper.autoplay.resume();
+            if (clientsReverseSwiper) clientsReverseSwiper.autoplay.resume();
+        });
+    });
+}
+
+// Destroy and reinitialize swipers on window resize
+function reinitializeClientsSwipers() {
+    if (clientsMainSwiper) {
+        clientsMainSwiper.destroy(true, true);
+    }
+    if (clientsReverseSwiper) {
+        clientsReverseSwiper.destroy(true, true);
+    }
+    
+    setTimeout(() => {
+        initClientsSwiper();
+    }, 100);
+}
+
+// Add resize listener
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        reinitializeClientsSwipers();
+    }, 250);
+});
+
+// Export function for use in main script
+window.initClientsSwiper = initClientsSwiper;
+
+// Auto-initialize if DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initClientsSwiper);
+} else {
+    initClientsSwiper();
 }

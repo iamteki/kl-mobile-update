@@ -7,38 +7,58 @@
                 international brands</p>
         </div>
 
-        <!-- Client Logos Marquee Animation -->
-        <div class="clients-wrapper mt-5" data-animscroll="fade-up">
-            <!-- First Row - Odd Order Numbers -->
-            @if ($oddClients->count() > 0)
-                <div class="clients-marquee">
-                    <div class="clients-track">
-                        @foreach ($oddClients as $client)
-                            <div class="client-logo-wrapper">
-                                <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
-                                    class="client-logo">
-                            </div>
-                        @endforeach
+        <!-- Client Logos Swiper Animation -->
+        <div class="clients-swiper-wrapper mt-5" data-animscroll="fade-up">
+            @if ($oddClients->count() > 0 || $evenClients->count() > 0)
+                <!-- First Row - All Clients -->
+                <div class="clients-swiper-container">
+                    <div class="swiper clients-swiper-main">
+                        <div class="swiper-wrapper">
+                            @foreach ($oddClients as $client)
+                                <div class="swiper-slide">
+                                    <div class="client-logo-swiper-wrapper">
+                                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
+                                            class="client-logo-swiper">
+                                    </div>
+                                </div>
+                            @endforeach
+                            @foreach ($evenClients as $client)
+                                <div class="swiper-slide">
+                                    <div class="client-logo-swiper-wrapper">
+                                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
+                                            class="client-logo-swiper">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            @endif
 
-            <!-- Second Row - Even Order Numbers - Reverse Direction -->
-            @if ($evenClients->count() > 0)
-                <div class="clients-marquee clients-marquee-reverse mt-5">
-                    <div class="clients-track">
-                        @foreach ($evenClients as $client)
-                            <div class="client-logo-wrapper">
-                                <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
-                                    class="client-logo">
-                            </div>
-                        @endforeach
+                <!-- Second Row - All Clients Reversed -->
+                <div class="clients-swiper-container mt-4">
+                    <div class="swiper clients-swiper-reverse">
+                        <div class="swiper-wrapper">
+                            @foreach ($evenClients->reverse() as $client)
+                                <div class="swiper-slide">
+                                    <div class="client-logo-swiper-wrapper">
+                                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
+                                            class="client-logo-swiper">
+                                    </div>
+                                </div>
+                            @endforeach
+                            @foreach ($oddClients->reverse() as $client)
+                                <div class="swiper-slide">
+                                    <div class="client-logo-swiper-wrapper">
+                                        <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}"
+                                            class="client-logo-swiper">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            @endif
-
-            <!-- Fallback if no clients -->
-            @if ($oddClients->count() == 0 && $evenClients->count() == 0)
+            @else
+                <!-- Fallback if no clients -->
                 <div class="text-center mt-5">
                     <p class="text-white-50">Client logos will appear here once added.</p>
                 </div>
