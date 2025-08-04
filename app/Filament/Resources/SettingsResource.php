@@ -28,37 +28,68 @@ class SettingsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Hero Section')
-                    ->description('Manage hero video and featured image for the homepage')
+                // Forms\Components\Section::make('Hero Section')
+                //     ->description('Manage hero video and featured image for the homepage')
+                //     ->schema([
+                //         Forms\Components\FileUpload::make('hero_featured_image')
+                //             ->label('Hero Featured Image')
+                //             ->image()
+                //             ->disk('spaces')
+                //             ->directory('settings/hero')
+                //             ->visibility('public')
+                //             ->imageEditor()
+                //             ->imageEditorAspectRatios([
+                //                 '16:9',
+                //                 '21:9',
+                //                 '4:3',
+                //             ])
+                //             ->maxSize(10240) // 10MB max
+                //             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                //             ->helperText('Upload hero image for homepage banner (max 10MB). Recommended: 1920x1080px or larger.')
+                //             ->columnSpanFull(),
+
+                //         Forms\Components\FileUpload::make('hero_video')
+                //             ->label('Hero Video')
+                //             ->disk('spaces')
+                //             ->directory('settings/hero')
+                //             ->visibility('public')
+                //             ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
+                //             ->maxSize(204800) // 200MB max
+                //             ->helperText('Upload hero video for homepage banner (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
+                //             ->columnSpanFull(),
+                //     ])
+                //     ->columns(1),
+
+                Forms\Components\Section::make('Showcase Section')
+                    ->description('Manage showcase video and thumbnail for the homepage')
                     ->schema([
-                        Forms\Components\FileUpload::make('hero_featured_image')
-                            ->label('Hero Featured Image')
+                        Forms\Components\FileUpload::make('showcase_video')
+                            ->label('Showcase Video')
+                            ->disk('spaces')
+                            ->directory('settings/showcase')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
+                            ->maxSize(204800) // 200MB max
+                            ->helperText('Upload showcase video for homepage showcase section (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
+                            ->columnSpan(1),
+
+                        Forms\Components\FileUpload::make('showcase_video_thumbnail')
+                            ->label('Showcase Video Thumbnail')
                             ->image()
                             ->disk('spaces')
-                            ->directory('settings/hero')
+                            ->directory('settings/showcase/thumbnails')
                             ->visibility('public')
                             ->imageEditor()
                             ->imageEditorAspectRatios([
                                 '16:9',
-                                '21:9',
                                 '4:3',
                             ])
-                            ->maxSize(10240) // 10MB max
+                            ->maxSize(5120) // 5MB max
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            ->helperText('Upload hero image for homepage banner (max 10MB). Recommended: 1920x1080px or larger.')
-                            ->columnSpanFull(),
-
-                        Forms\Components\FileUpload::make('hero_video')
-                            ->label('Hero Video')
-                            ->disk('spaces')
-                            ->directory('settings/hero')
-                            ->visibility('public')
-                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
-                            ->maxSize(204800) // 200MB max
-                            ->helperText('Upload hero video for homepage banner (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
-                            ->columnSpanFull(),
+                            ->helperText('Upload thumbnail image for showcase video (max 5MB). Recommended: 1200x600px.')
+                            ->columnSpan(1),
                     ])
-                    ->columns(1),
+                    ->columns(2),
 
                 Forms\Components\Section::make('About Section')
                     ->description('Manage about section video and thumbnail for the homepage')
@@ -91,36 +122,7 @@ class SettingsResource extends Resource
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Showcase Section')
-                    ->description('Manage showcase video and thumbnail for the homepage')
-                    ->schema([
-                        Forms\Components\FileUpload::make('showcase_video')
-                            ->label('Showcase Video')
-                            ->disk('spaces')
-                            ->directory('settings/showcase')
-                            ->visibility('public')
-                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'])
-                            ->maxSize(204800) // 200MB max
-                            ->helperText('Upload showcase video for homepage showcase section (max 200MB). Supported formats: MP4, AVI, MOV, WMV, WebM.')
-                            ->columnSpan(1),
 
-                        Forms\Components\FileUpload::make('showcase_video_thumbnail')
-                            ->label('Showcase Video Thumbnail')
-                            ->image()
-                            ->disk('spaces')
-                            ->directory('settings/showcase/thumbnails')
-                            ->visibility('public')
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '4:3',
-                            ])
-                            ->maxSize(5120) // 5MB max
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            ->helperText('Upload thumbnail image for showcase video (max 5MB). Recommended: 1200x600px.')
-                            ->columnSpan(1),
-                    ])
-                    ->columns(2),
 
                 Forms\Components\Section::make('Company Profile')
                     ->description('Upload company profile document')
@@ -193,7 +195,7 @@ class SettingsResource extends Resource
                 Tables\Columns\IconColumn::make('hero_featured_image')
                     ->label('Hero Image')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->hero_featured_image))
+                    ->getStateUsing(fn($record) => !empty($record->hero_featured_image))
                     ->trueIcon('heroicon-o-photo')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
@@ -202,7 +204,7 @@ class SettingsResource extends Resource
                 Tables\Columns\IconColumn::make('hero_video')
                     ->label('Hero Video')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->hero_video))
+                    ->getStateUsing(fn($record) => !empty($record->hero_video))
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
@@ -211,7 +213,7 @@ class SettingsResource extends Resource
                 Tables\Columns\IconColumn::make('about_video')
                     ->label('About Video')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->about_video))
+                    ->getStateUsing(fn($record) => !empty($record->about_video))
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
@@ -220,7 +222,7 @@ class SettingsResource extends Resource
                 Tables\Columns\IconColumn::make('showcase_video')
                     ->label('Showcase Video')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->showcase_video))
+                    ->getStateUsing(fn($record) => !empty($record->showcase_video))
                     ->trueIcon('heroicon-o-play-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
@@ -229,7 +231,7 @@ class SettingsResource extends Resource
                 Tables\Columns\IconColumn::make('company_profile_pdf')
                     ->label('Company PDF')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->company_profile_pdf))
+                    ->getStateUsing(fn($record) => !empty($record->company_profile_pdf))
                     ->trueIcon('heroicon-o-document')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
@@ -237,7 +239,7 @@ class SettingsResource extends Resource
 
                 Tables\Columns\TextColumn::make('social_links_count')
                     ->label('Social Links')
-                    ->getStateUsing(fn ($record) => count($record->social_links))
+                    ->getStateUsing(fn($record) => count($record->social_links))
                     ->badge()
                     ->color('primary'),
 
@@ -282,7 +284,7 @@ class SettingsResource extends Resource
     {
         // Ensure settings record exists
         Settings::current();
-        
+
         return parent::getEloquentQuery();
     }
 

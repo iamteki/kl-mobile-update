@@ -58,7 +58,7 @@
                             <div class="dj-element vinyl"></div>
                         </div>
                     </div>
-                @elseif ($settings->hero_video)
+                {{-- @elseif ($settings->hero_video)
                     <div class="col-lg-8" data-animscroll="fade-right">
                         <div class="video-wrapper position-relative">
                             <div class="video-placeholder" id="videoPlaceholder"
@@ -81,7 +81,7 @@
                             </div>
                             <div class="dj-element vinyl"></div>
                         </div>
-                    </div>
+                    </div> --}}
                 @else
                     <div class="col-lg-8" data-animscroll="fade-right">
                         <div class="video-wrapper position-relative">
