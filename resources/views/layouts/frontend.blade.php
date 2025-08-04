@@ -48,7 +48,7 @@
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="{{ asset('frontend/assets/css/stylesnew.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles2.css') }}?v={{ time() }}">
     {{-- Anim Trap  --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/animtrap/css/animtrap.min.css') }}"> --}}
     {{-- @vite(['', 'resources/js/app.js']) --}}
@@ -98,7 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('frontend/assets/js/scriptsnew.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/scripts2.js') }}"></script>
     {{-- <script src="{{ asset('frontend/animtrap/js/anim-effect.js') }}"></script>
     <script src="{{ asset('frontend/animtrap/js/anim-scroll.js') }}"></script> --}}
     @stack('scripts')
