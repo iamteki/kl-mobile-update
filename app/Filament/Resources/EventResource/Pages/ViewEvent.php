@@ -83,13 +83,22 @@ class ViewEvent extends ViewRecord
                         Infolists\Components\TextEntry::make('video_title')
                             ->label('Video Title'),
                         
+                        Infolists\Components\ImageEntry::make('video_thumbnail')
+                            ->disk('spaces')
+                            ->height(200)
+                            ->label('Video Thumbnail')
+                            ->placeholder('No video thumbnail uploaded'),
+                        
                         Infolists\Components\TextEntry::make('video')
                             ->formatStateUsing(function ($state, $record) {
                                 if (!$state) return 'No video uploaded';
                                 
                                 $url = Storage::disk('spaces')->url($state);
+                                $posterUrl = $record->video_thumbnail ? Storage::disk('spaces')->url($record->video_thumbnail) : '';
+                                $posterAttribute = $posterUrl ? 'poster="' . $posterUrl . '"' : '';
+                                
                                 return new \Illuminate\Support\HtmlString(
-                                    '<video controls width="100%" style="max-width: 600px;">
+                                    '<video controls width="100%" style="max-width: 600px;" ' . $posterAttribute . '>
                                         <source src="' . $url . '" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>'
@@ -99,7 +108,7 @@ class ViewEvent extends ViewRecord
                             ->columnSpanFull(),
                     ])
                     ->columns(2)
-                    ->visible(fn ($record) => $record->video || $record->video_title),
+                    ->visible(fn ($record) => $record->video || $record->video_title || $record->video_thumbnail),
 
                 Infolists\Components\Section::make('Content')
                     ->schema([
@@ -109,6 +118,27 @@ class ViewEvent extends ViewRecord
                             ->label('Description'),
                     ])
                     ->visible(fn ($record) => !empty($record->description)),
+
+                Infolists\Components\Section::make('SEO Information')
+                    ->schema([
+                        Infolists\Components\TextEntry::make('meta_title')
+                            ->label('Meta Title')
+                            ->placeholder('Using event title as meta title'),
+                        
+                        Infolists\Components\TextEntry::make('meta_description')
+                            ->label('Meta Description')
+                            ->placeholder('Auto-generated from excerpt')
+                            ->columnSpanFull(),
+                        
+                        Infolists\Components\TextEntry::make('meta_keywords')
+                            ->label('Meta Keywords')
+                            ->placeholder('No keywords set')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->collapsible()
+                    ->collapsed()
+                    ->visible(fn ($record) => $record->meta_title || $record->meta_description || $record->meta_keywords),
 
                 Infolists\Components\Section::make('Metadata')
                     ->schema([

@@ -18,6 +18,7 @@ class Event extends Model
         'slug',
         'featured_image',
         'video',
+        'video_thumbnail', // Add this new field
         'image_gallery',
         'video_title',
         'description',
@@ -103,6 +104,21 @@ class Event extends Model
             }
             // If it's a local file, return the storage URL
             return Storage::url($this->featured_image);
+        }
+
+        return null;
+    }
+
+    // Get video thumbnail URL - Add this new method
+    public function getVideoThumbnailUrlAttribute()
+    {
+        if ($this->video_thumbnail) {
+            // If it's a full URL (external image), return as is
+            if (filter_var($this->video_thumbnail, FILTER_VALIDATE_URL)) {
+                return $this->video_thumbnail;
+            }
+            // If it's a local file, return the storage URL
+            return Storage::url($this->video_thumbnail);
         }
 
         return null;

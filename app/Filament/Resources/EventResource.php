@@ -118,16 +118,34 @@ class EventResource extends Resource
                 Forms\Components\Section::make('Video Content')
                     ->schema([
                         Forms\Components\TextInput::make('video_title')
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->columnSpanFull(),
 
                         Forms\Components\FileUpload::make('video')
+                            ->label('Event Video')
                             ->disk('spaces')
                             ->directory('events/videos')
                             ->visibility('public')
                             ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv'])
-                            ->maxSize(307200) // 100MB
+                            ->maxSize(307200) // 300MB
                             ->helperText('Supported formats: MP4, AVI, MOV, WMV. Max size: 300MB')
-                            ->columnSpanFull(),
+                            ->columnSpan(1),
+
+                        Forms\Components\FileUpload::make('video_thumbnail')
+                            ->label('Video Thumbnail')
+                            ->image()
+                            ->disk('spaces')
+                            ->directory('events/video-thumbnails')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                            ])
+                            ->maxSize(5120) // 5MB max
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->helperText('Upload thumbnail image for video (max 5MB). Recommended: 1200x675px.')
+                            ->columnSpan(1),
                     ])
                     ->columns(2),
 
@@ -263,6 +281,20 @@ class EventResource extends Resource
                             : 'No video uploaded';
                     }),
 
+                Tables\Columns\IconColumn::make('has_video_thumbnail')
+                    ->label('Thumbnail')
+                    ->boolean()
+                    ->getStateUsing(fn($record) => !empty($record->video_thumbnail))
+                    ->trueIcon('heroicon-o-photo')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(function ($record) {
+                        return !empty($record->video_thumbnail)
+                            ? 'Video thumbnail uploaded'
+                            : 'No video thumbnail';
+                    }),
+
                 Tables\Columns\IconColumn::make('has_meta_description')
                     ->label('SEO')
                     ->boolean()
@@ -299,6 +331,12 @@ class EventResource extends Resource
                         return $query->whereNotNull('video');
                     })
                     ->label('Has Video'),
+
+                Tables\Filters\Filter::make('has_video_thumbnail')
+                    ->query(function ($query) {
+                        return $query->whereNotNull('video_thumbnail');
+                    })
+                    ->label('Has Video Thumbnail'),
 
                 Tables\Filters\Filter::make('has_gallery')
                     ->query(function ($query) {

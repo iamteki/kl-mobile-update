@@ -38,7 +38,7 @@
             <div class="video-container" data-animscroll="fade-up">
                 <div class="video-wrapper">
                     <div class="video-placeholder" id="videoPlaceholder"
-                        style="background-image: url('{{ $event->featured_image ? Storage::url($event->featured_image) : '' }}');">
+                        style="background-image: url('{{ $event->video_thumbnail ? Storage::url($event->video_thumbnail) : ($event->featured_image ? Storage::url($event->featured_image) : '') }}');">
                         <div class="video-overlay" id="videoOverlay">
                             <div class="position-relative">
                                 <div class="play-pulse"></div>
@@ -50,7 +50,7 @@
                         <!-- Video element with object-fit cover -->
                         <video id="eventVideo" controls
                             style="display: none; width: 100%; height: 100%; object-fit: cover;"
-                            poster="{{ $event->featured_image ? Storage::url($event->featured_image) : '' }}">
+                            poster="{{ $event->video_thumbnail ? Storage::url($event->video_thumbnail) : ($event->featured_image ? Storage::url($event->featured_image) : '') }}">
                             <source src="{{ Storage::url($event->video) }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
