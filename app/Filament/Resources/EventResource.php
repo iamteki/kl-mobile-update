@@ -125,8 +125,8 @@ class EventResource extends Resource
                             ->directory('events/videos')
                             ->visibility('public')
                             ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv'])
-                            ->maxSize(102400) // 100MB
-                            ->helperText('Supported formats: MP4, AVI, MOV, WMV. Max size: 100MB')
+                            ->maxSize(307200) // 100MB
+                            ->helperText('Supported formats: MP4, AVI, MOV, WMV. Max size: 300MB')
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
