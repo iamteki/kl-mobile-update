@@ -4506,3 +4506,693 @@ footer {
 .clients-section .container {
     overflow: visible; /* Allow hover effects to show */
 }
+
+/* ========================================
+   EVENT PAGES - TEXT SIZE FIXES
+   Fix oversized descriptions and hero text
+   ======================================== */
+
+/* === EVENT HERO/HEADER DESCRIPTION FIXES === */
+@media (max-width: 991px) {
+    /* Page subtitle in header sections */
+    .page-subtitle,
+    .category-subtitle {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        max-width: 85% !important;
+        letter-spacing: 1px !important;
+        padding: 0 20px !important;
+        margin: 0 auto 1.5rem !important;
+        font-weight: 400 !important;
+    }
+    
+    /* Event excerpt in hero sections */
+    .page-subtitle p,
+    .category-subtitle p {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.8rem !important;
+        color: var(--light-gray) !important;
+    }
+    
+    /* Any rich text content in hero */
+    .page-subtitle *,
+    .category-subtitle * {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-subtitle,
+    .category-subtitle {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        max-width: 90% !important;
+        letter-spacing: 0.5px !important;
+        padding: 0 15px !important;
+        margin: 0 auto 1rem !important;
+    }
+    
+    .page-subtitle p,
+    .category-subtitle p {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.6rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-subtitle,
+    .category-subtitle {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        max-width: 95% !important;
+        letter-spacing: 0.3px !important;
+        padding: 0 10px !important;
+        margin: 0 auto 0.8rem !important;
+    }
+    
+    .page-subtitle p,
+    .category-subtitle p {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* === SINGLE EVENT DESCRIPTION SECTION FIXES === */
+@media (max-width: 991px) {
+    /* Main description content container */
+    .description-content {
+        padding: 1.5rem 0 !important;
+    }
+    
+    /* Lead paragraph (main description) */
+    .description-content .lead {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1.5rem !important;
+        color: var(--light-gray) !important;
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+        text-align: left !important; /* Change from justify for better mobile reading */
+        padding: 0 15px !important;
+    }
+    
+    /* All paragraphs in description */
+    .description-content p,
+    .description-content .lead p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1.2rem !important;
+        color: var(--light-gray) !important;
+    }
+    
+    /* Headings in description */
+    .description-content h1,
+    .description-content .lead h1 {
+        font-size: 1.4rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 1rem !important;
+        margin-top: 1.5rem !important;
+        color: var(--off-white) !important;
+        font-weight: 700 !important;
+    }
+    
+    .description-content h2,
+    .description-content .lead h2 {
+        font-size: 1.3rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.8rem !important;
+        margin-top: 1.3rem !important;
+        color: var(--off-white) !important;
+        font-weight: 600 !important;
+    }
+    
+    .description-content h3,
+    .description-content .lead h3 {
+        font-size: 1.2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.7rem !important;
+        margin-top: 1.2rem !important;
+        color: var(--off-white) !important;
+        font-weight: 600 !important;
+    }
+    
+    .description-content h4,
+    .description-content .lead h4 {
+        font-size: 1.1rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.6rem !important;
+        margin-top: 1rem !important;
+        color: var(--secondary-purple) !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Lists in description */
+    .description-content ul,
+    .description-content ol,
+    .description-content .lead ul,
+    .description-content .lead ol {
+        margin-bottom: 1.2rem !important;
+        padding-left: 25px !important;
+        color: var(--light-gray) !important;
+    }
+    
+    .description-content li,
+    .description-content .lead li {
+        font-size: 1rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.4rem !important;
+    }
+    
+    /* Strong and emphasis text */
+    .description-content strong,
+    .description-content b,
+    .description-content .lead strong,
+    .description-content .lead b {
+        color: var(--secondary-purple) !important;
+        font-weight: 600 !important;
+    }
+    
+    .description-content em,
+    .description-content i,
+    .description-content .lead em,
+    .description-content .lead i {
+        color: var(--off-white) !important;
+        font-style: italic !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .description-content {
+        padding: 1rem 0 !important;
+    }
+    
+    .description-content .lead {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1.2rem !important;
+        padding: 0 10px !important;
+    }
+    
+    .description-content p,
+    .description-content .lead p {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .description-content h1,
+    .description-content .lead h1 {
+        font-size: 1.2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.8rem !important;
+        margin-top: 1.2rem !important;
+    }
+    
+    .description-content h2,
+    .description-content .lead h2 {
+        font-size: 1.15rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.7rem !important;
+        margin-top: 1.1rem !important;
+    }
+    
+    .description-content h3,
+    .description-content .lead h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.6rem !important;
+        margin-top: 1rem !important;
+    }
+    
+    .description-content h4,
+    .description-content .lead h4 {
+        font-size: 1rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.5rem !important;
+        margin-top: 0.8rem !important;
+    }
+    
+    .description-content ul,
+    .description-content ol,
+    .description-content .lead ul,
+    .description-content .lead ol {
+        padding-left: 20px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .description-content li,
+    .description-content .lead li {
+        font-size: 0.9rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.3rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .description-content {
+        padding: 0.8rem 0 !important;
+    }
+    
+    .description-content .lead {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 1rem !important;
+        padding: 0 5px !important;
+    }
+    
+    .description-content p,
+    .description-content .lead p {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .description-content h1,
+    .description-content .lead h1 {
+        font-size: 1.1rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.6rem !important;
+        margin-top: 1rem !important;
+    }
+    
+    .description-content h2,
+    .description-content .lead h2 {
+        font-size: 1.05rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.5rem !important;
+        margin-top: 0.9rem !important;
+    }
+    
+    .description-content h3,
+    .description-content .lead h3 {
+        font-size: 1rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 0.4rem !important;
+        margin-top: 0.8rem !important;
+    }
+    
+    .description-content h4,
+    .description-content .lead h4 {
+        font-size: 0.95rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 0.4rem !important;
+        margin-top: 0.7rem !important;
+    }
+    
+    .description-content ul,
+    .description-content ol,
+    .description-content .lead ul,
+    .description-content .lead ol {
+        padding-left: 18px !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .description-content li,
+    .description-content .lead li {
+        font-size: 0.85rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.2rem !important;
+    }
+}
+
+/* === EVENT LISTING/CATEGORY PAGE TEXT FIXES === */
+@media (max-width: 991px) {
+    /* Event card descriptions */
+    .event-card .description,
+    .event-excerpt,
+    .event-summary {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        color: var(--light-gray) !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    /* Event card titles */
+    .event-card h3,
+    .event-card .title,
+    .event-title {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.8rem !important;
+        color: var(--off-white) !important;
+    }
+    
+    /* Event meta information */
+    .event-meta,
+    .event-info {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        color: var(--medium-gray) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-card .description,
+    .event-excerpt,
+    .event-summary {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .event-card h3,
+    .event-card .title,
+    .event-title {
+        font-size: 1.1rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .event-meta,
+    .event-info {
+        font-size: 0.75rem !important;
+        line-height: 1.2 !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .event-card .description,
+    .event-excerpt,
+    .event-summary {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .event-card h3,
+    .event-card .title,
+    .event-title {
+        font-size: 1rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .event-meta,
+    .event-info {
+        font-size: 0.7rem !important;
+        line-height: 1.15 !important;
+    }
+}
+
+/* === HERO DESCRIPTION SPECIFIC FIXES === */
+@media (max-width: 991px) {
+    /* Hero descriptions in event pages */
+    .hero-description,
+    .page-hero-description,
+    .event-hero-description,
+    .category-hero-description {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        letter-spacing: 1px !important;
+        padding: 0 20px !important;
+        max-width: 85% !important;
+        margin: 0 auto 1.5rem !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        font-weight: 400 !important;
+        text-transform: none !important; /* Remove uppercase if present */
+    }
+    
+    /* Any paragraphs or content within hero descriptions */
+    .hero-description *,
+    .page-hero-description *,
+    .event-hero-description *,
+    .category-hero-description * {
+        font-size: inherit !important;
+        line-height: inherit !important;
+        color: inherit !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-description,
+    .page-hero-description,
+    .event-hero-description,
+    .category-hero-description {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        letter-spacing: 0.5px !important;
+        padding: 0 15px !important;
+        max-width: 90% !important;
+        margin: 0 auto 1.2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-description,
+    .page-hero-description,
+    .event-hero-description,
+    .category-hero-description {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        letter-spacing: 0.3px !important;
+        padding: 0 10px !important;
+        max-width: 95% !important;
+        margin: 0 auto 1rem !important;
+    }
+}
+
+/* === INLINE STYLE OVERRIDES === */
+@media (max-width: 991px) {
+    /* Override any inline styles that might be making text too large */
+    [style*="font-size"] {
+        font-size: inherit !important;
+    }
+    
+    /* Specific overrides for common inline styles */
+    .description-content [style*="font-size: 24px"],
+    .description-content [style*="font-size: 2rem"],
+    .description-content [style*="font-size: 1.5rem"] {
+        font-size: 1rem !important;
+    }
+    
+    .page-subtitle [style*="font-size"],
+    .category-subtitle [style*="font-size"] {
+        font-size: 0.95rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .description-content [style*="font-size: 20px"],
+    .description-content [style*="font-size: 1.25rem"] {
+        font-size: 0.9rem !important;
+    }
+    
+    .page-subtitle [style*="font-size"],
+    .category-subtitle [style*="font-size"] {
+        font-size: 0.85rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .description-content [style*="font-size"],
+    .page-subtitle [style*="font-size"],
+    .category-subtitle [style*="font-size"] {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* === RICH TEXT EDITOR CONTENT FIXES === */
+@media (max-width: 991px) {
+    /* Common WYSIWYG/Rich text editor classes */
+    .ql-editor,
+    .fr-element,
+    .mce-content-body,
+    .tox-edit-area,
+    .ProseMirror {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .ql-editor p,
+    .fr-element p,
+    .mce-content-body p,
+    .tox-edit-area p,
+    .ProseMirror p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .ql-editor h1, .ql-editor h2, .ql-editor h3,
+    .fr-element h1, .fr-element h2, .fr-element h3,
+    .mce-content-body h1, .mce-content-body h2, .mce-content-body h3 {
+        font-size: 1.3rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.8rem !important;
+        margin-top: 1.2rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .ql-editor,
+    .fr-element,
+    .mce-content-body,
+    .tox-edit-area,
+    .ProseMirror {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    .ql-editor p,
+    .fr-element p,
+    .mce-content-body p,
+    .tox-edit-area p,
+    .ProseMirror p {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .ql-editor h1, .ql-editor h2, .ql-editor h3,
+    .fr-element h1, .fr-element h2, .fr-element h3,
+    .mce-content-body h1, .mce-content-body h2, .mce-content-body h3 {
+        font-size: 1.2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.6rem !important;
+        margin-top: 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .ql-editor,
+    .fr-element,
+    .mce-content-body,
+    .tox-edit-area,
+    .ProseMirror {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .ql-editor p,
+    .fr-element p,
+    .mce-content-body p,
+    .tox-edit-area p,
+    .ProseMirror p {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .ql-editor h1, .ql-editor h2, .ql-editor h3,
+    .fr-element h1, .fr-element h2, .fr-element h3,
+    .mce-content-body h1, .mce-content-body h2, .mce-content-body h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.5rem !important;
+        margin-top: 0.8rem !important;
+    }
+}
+
+/* === CONTAINER AND LAYOUT IMPROVEMENTS === */
+@media (max-width: 768px) {
+    /* Ensure proper container spacing for text content */
+    .description-content .container,
+    .event-content .container,
+    .single-event .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    .description-content .row,
+    .event-content .row {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+    
+    .description-content .col-lg-10,
+    .description-content .col-md-8,
+    .event-content .col-lg-10,
+    .event-content .col-md-8 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .description-content .container,
+    .event-content .container,
+    .single-event .container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    
+    .description-content .row,
+    .event-content .row {
+        margin-left: -10px !important;
+        margin-right: -10px !important;
+    }
+    
+    .description-content .col-lg-10,
+    .description-content .col-md-8,
+    .event-content .col-lg-10,
+    .event-content .col-md-8 {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+/* === ADDITIONAL UTILITY OVERRIDES === */
+@media (max-width: 991px) {
+    /* Override Bootstrap and custom large text utilities */
+    .lead {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .fs-1, .fs-2, .fs-3 {
+        font-size: 1.2rem !important;
+    }
+    
+    .fs-4, .fs-5, .fs-6 {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .lead {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+        font-size: 1.3rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .fs-1, .fs-2, .fs-3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .fs-4, .fs-5, .fs-6 {
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .lead {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+        font-size: 1.2rem !important;
+        line-height: 1.15 !important;
+    }
+    
+    .fs-1, .fs-2, .fs-3 {
+        font-size: 1rem !important;
+    }
+    
+    .fs-4, .fs-5, .fs-6 {
+        font-size: 0.85rem !important;
+    }
+}
