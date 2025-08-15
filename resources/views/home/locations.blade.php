@@ -4,7 +4,7 @@
         <div class="container">
             <div class="section-area text-center">
                 <span data-animscroll="fade-up">- LOCATIONS -</span>
-                <h2 data-animscroll="fade-up" class="fs-two text-white">FIND <span>US</span> HERE</h2>
+                <h2 data-animscroll="fade-up" class="fs-two text-white">We <span>are</span> HERE</h2>
             </div>
             <div class="row g-4 mt-5">
                 @foreach ($officeLocations as $location)

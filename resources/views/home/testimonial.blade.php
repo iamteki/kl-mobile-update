@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Static Image Column -->
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="testimonial-static-image-wrapper">
                         <div class="testimonial-image-container">
                             <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop"
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Pagination dots container -->

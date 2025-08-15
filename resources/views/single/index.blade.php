@@ -18,9 +18,9 @@
 @section('canonical_url', route('event.show', $event->slug))
 
 @section('content')
-    @include('single.header')
+    {{-- @include('single.header') --}}
     @include('single.video')
-    @include('single.description')
-    @include('single.gallery')
+    {{-- @include('single.description') --}}
+    {{-- @include('single.gallery') --}}
     @include('components.contact')
 @endsection

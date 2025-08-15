@@ -1,4 +1,4 @@
-<section class="section-padding clients-section">
+<section class="section-padding clients-section  light-bg">
     <div class="container">
         <div class="section-area text-center">
             <span data-animscroll="fade-up">- TRUSTED BY -</span>
@@ -66,7 +66,7 @@
         </div>
 
         <!-- Client Statistics -->
-        <div class="client-stats mt-5" data-animscroll="fade-up">
+        {{-- <div class="client-stats mt-5" data-animscroll="fade-up">
             <div class="row text-center">
                 <div class="col-md-3 col-6 mb-4">
                     <div class="stat-card">
@@ -104,6 +104,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </section>

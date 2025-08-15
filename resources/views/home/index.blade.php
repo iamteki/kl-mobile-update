@@ -15,7 +15,7 @@
 @section('content')
     @include('home.hero')
     @include('home.what-we-do')
-    @include('components.cta')
+    {{-- @include('components.cta') --}}
     @include('home.why-us')
     @include('home.showcase')
     @include('home.about')

@@ -5,8 +5,8 @@
                 <!-- Content Section -->
                 <div class="about-text-center">
                     <div class="section-area">
-                        <span data-animscroll="fade-up">- ABOUT US -</span>
-                        <h2 data-animscroll="fade-up" class="fs-two text-white">WHY <span>PROFESSIONAL</span> EVENT SUPPORT</h2>
+                        {{-- <span data-animscroll="fade-up">- ABOUT US -</span> --}}
+                        <h2 data-animscroll="fade-up" class="fs-two text-white">WHY <span>US?</span></h2>
                     </div>
                     
                     <p data-animscroll="fade-up" class="lead mb-4">With over 20 years of experience, we understand that successful events require
