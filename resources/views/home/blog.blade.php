@@ -1,5 +1,5 @@
 <!-- Blog Section -->
-<section id="blog" class="blog-section section-padding light-bg">
+<section id="blog" class="blog-section section-padding">
     <div class="container">
         <div class="section-area text-center">
             <span data-animscroll="fade-up">- LATEST INSIGHTS -</span>

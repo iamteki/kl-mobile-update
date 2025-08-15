@@ -5482,3 +5482,322 @@ footer {
         padding: 1.5rem !important;
     }
 }
+
+/* ========================================
+   EVENT CATEGORY CARDS WITH IMAGES
+   ======================================== */
+
+/* Card Link Wrapper */
+.event-category-card-link {
+    text-decoration: none;
+    display: block;
+    height: 100%;
+}
+
+/* Main Card Container */
+.event-category-card {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* Reduced height - 4:3 Aspect Ratio instead of 1:1 */
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--bg-card);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* Hover Effect on Card */
+.event-category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(147, 51, 234, 0.25);
+}
+
+/* Image Wrapper */
+.event-category-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Category Image */
+.event-category-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+/* Scale image on hover */
+.event-category-card:hover .event-category-image {
+    transform: scale(1.1);
+}
+
+/* Dark Overlay for Better Text Visibility */
+.event-category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    transition: background 0.4s ease;
+}
+
+/* Stronger overlay on hover */
+.event-category-card:hover .event-category-overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+}
+
+/* Content Container */
+.event-category-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem; /* Further reduced top padding - title very close to bottom */
+    z-index: 2;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Category Title */
+.event-category-title {
+    color: var(--pure-white) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 !important;
+    margin-bottom: 0 !important; /* Ensure no bottom margin */
+    line-height: 1.2 !important;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+/* View More Button - Initially Hidden */
+.event-category-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gradient-purple);
+    color: var(--pure-white);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px; /* Reduced from 50px to 8px for less rounded corners */
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: auto; /* Changed from 100% to auto - fits content */
+    justify-content: center;
+}
+
+/* Button hover effect */
+.event-category-btn:hover {
+    box-shadow: 0 6px 25px rgba(147, 51, 234, 0.5);
+    transform: translateY(0) scale(1.05);
+}
+
+/* Button icon animation */
+.event-category-btn i {
+    transition: transform 0.3s ease;
+}
+
+.event-category-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Hover State - Move Title and Button Slightly Up (Not to Center) */
+.event-category-card:hover .event-category-content {
+    bottom: 40px; /* Move up more noticeably from bottom */
+    transform: none; /* Remove the center transform */
+    padding: 1rem 2rem;
+}
+
+.event-category-card:hover .event-category-title {
+    margin-bottom: 0.5rem;
+}
+
+.event-category-card:hover .event-category-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Additional Purple Glow Effect on Hover */
+.event-category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(147, 51, 234, 0.2) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.event-category-card:hover::before {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .event-category-title {
+        font-size: 1.4rem !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .event-category-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .event-category-content {
+        padding: 1.5rem;
+    }
+    
+    .event-category-btn {
+        padding: 10px 24px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-category-card {
+        padding-bottom: 80%; /* Maintain rectangular ratio on mobile */
+    }
+    
+    .event-category-title {
+        font-size: 1.2rem !important;
+        letter-spacing: 0.5px;
+    }
+    
+    .event-category-content {
+        padding: 0.75rem 1.25rem; /* Even less padding for mobile */
+    }
+    
+    .event-category-btn {
+        padding: 8px 18px; /* Reduced padding for mobile */
+        font-size: 0.75rem;
+        margin-top: 0.75rem;
+        border-radius: 6px; /* Slightly smaller radius on mobile */
+    }
+    
+    /* Adjust hover position for mobile */
+    .event-category-card:hover .event-category-content {
+        bottom: 25px; /* Less movement on mobile */
+        padding: 0.75rem 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .event-category-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .event-category-content {
+        padding: 0.6rem 1rem; /* Minimal padding - title very close to bottom edge */
+    }
+    
+    .event-category-btn {
+        padding: 6px 14px; /* Even smaller padding */
+        font-size: 0.7rem;
+        margin-top: 0.5rem;
+        border-radius: 5px; /* Small radius for mobile */
+    }
+    
+    /* Even less movement on small screens */
+    .event-category-card:hover .event-category-content {
+        bottom: 20px;
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* Focus states for accessibility */
+.event-category-card-link:focus .event-category-card {
+    outline: 3px solid var(--primary-purple);
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .event-category-card,
+    .event-category-image,
+    .event-category-overlay,
+    .event-category-content,
+    .event-category-title,
+    .event-category-btn {
+        transition: none !important;
+    }
+    
+    .event-category-card:hover {
+        transform: none;
+    }
+    
+    .event-category-card:hover .event-category-image {
+        transform: none;
+    }
+    
+    .event-category-card:hover .event-category-content {
+        bottom: 0;
+        transform: none;
+    }
+}
+
+/* Loading state for images */
+.event-category-image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(147, 51, 234, 0.2);
+    border-top-color: var(--primary-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.event-category-image-wrapper.loading::after {
+    opacity: 1;
+}
+
+/* Ensure text remains readable */
+.event-category-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

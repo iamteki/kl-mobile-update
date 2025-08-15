@@ -1,4 +1,4 @@
-<section class="section-padding clients-section  light-bg">
+<section class="section-padding clients-section">
     <div class="container">
         <div class="section-area text-center">
             <span data-animscroll="fade-up">- TRUSTED BY -</span>

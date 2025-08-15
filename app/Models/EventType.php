@@ -19,6 +19,7 @@ class EventType extends Model
         'meta_title',
         'description',
         'image',
+        'image_alt',
         'status',
         'order',
     ];
@@ -27,10 +28,12 @@ class EventType extends Model
         'status' => 'boolean',
         'order' => 'integer',
     ];
+
     public function events()
     {
         return $this->hasMany(Event::class);
     }
+
     // Scope for active event types
     public function scopeActive($query)
     {
@@ -57,6 +60,23 @@ class EventType extends Model
         static::updating(function ($eventType) {
             if ($eventType->isDirty('name')) {
                 $eventType->slug = static::generateUniqueSlug($eventType->name, $eventType->id);
+            }
+        });
+
+        // Delete old image when updating
+        static::updating(function ($eventType) {
+            if ($eventType->isDirty('image')) {
+                $oldImage = $eventType->getOriginal('image');
+                if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+        });
+
+        // Delete image when deleting record
+        static::deleting(function ($eventType) {
+            if ($eventType->image && Storage::disk('public')->exists($eventType->image)) {
+                Storage::disk('public')->delete($eventType->image);
             }
         });
     }
@@ -98,7 +118,7 @@ class EventType extends Model
         return "Learn more about {$this->name} events and their details.";
     }
 
-    // Get image URL
+    // Get image URL - Updated version
     public function getImageUrlAttribute()
     {
         if ($this->image) {
@@ -113,6 +133,28 @@ class EventType extends Model
         return null;
     }
 
+    // Get display image with fallback placeholder
+    public function getDisplayImageAttribute()
+    {
+        if ($this->image) {
+            // If it's a full URL (external image), return as is
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            // If it's a local file, return the storage URL
+            return asset('storage/' . $this->image);
+        }
+        
+        // Return a placeholder image with purple theme
+        return 'https://via.placeholder.com/800x800/9333EA/FFFFFF?text=' . urlencode($this->name);
+    }
+
+    // Get image alt text with fallback
+    public function getImageAltTextAttribute()
+    {
+        return $this->image_alt ?: $this->name . ' Event Category';
+    }
+
     // Get keywords as array
     public function getKeywordsArrayAttribute()
     {
@@ -121,5 +163,11 @@ class EventType extends Model
         }
 
         return [];
+    }
+
+    // Check if has image
+    public function hasImage()
+    {
+        return !empty($this->image);
     }
 }
