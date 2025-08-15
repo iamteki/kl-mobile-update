@@ -59,8 +59,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 35px;
-        height: 35px;
+        width: 50px;
+        height: 50px;
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 6px;
