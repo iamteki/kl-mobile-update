@@ -7,8 +7,7 @@ let mouseFollower, cursorOutline, cursorDot;
 let mouseX = 0, mouseY = 0;
 let outlineX = 0, outlineY = 0;
 let dotX = 0, dotY = 0;
-let testimonialSwiper, testimonialImagesSwiper;
-let autoplayTimer = null;
+let klTestimonialSwiper; // New testimonial swiper instance
 
 // ========================================
 // INITIALIZE ON DOM LOAD
@@ -23,8 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollToTop();
     initNavbar();
     initSmoothScrolling();
-
-    // Removed initAnimations() to remove scroll animations
     
     // Initialize page-specific components
     initPageSpecificComponents();
@@ -187,12 +184,6 @@ function initSmoothScrolling() {
 }
 
 // ========================================
-// FORM HANDLERS
-// ========================================
-
-
-
-// ========================================
 // PAGE LOAD ANIMATIONS (NO SCROLL)
 // ========================================
 
@@ -222,14 +213,15 @@ function initPageSpecificComponents() {
         initHeroSection();
     }
     
-     if (document.querySelector('.clients-swiper-main') || document.querySelector('.clients-swiper-reverse')) {
-        initClientsSwiper(); // New Swiper implementation
+    if (document.querySelector('.clients-swiper-main') || document.querySelector('.clients-swiper-reverse')) {
+        initClientsSwiper();
     } else if (document.querySelector('.clients-section')) {
-        initClientsSection(); // Keep old implementation as fallback
+        initClientsSection();
     }
     
-    if (document.querySelector('.testimonial-carousel')) {
-        initTestimonials();
+    // NEW CLEAN TESTIMONIAL INITIALIZATION
+    if (document.querySelector('.kl-testimonial-swiper')) {
+        initKLTestimonials();
     }
     
     if (document.querySelector('.stat-number')) {
@@ -260,9 +252,315 @@ function initPageSpecificComponents() {
     }
 
     // Contact form AJAX
-if (document.querySelector('#contactForm')) {
-    initContactFormAjax();
+    if (document.querySelector('#contactForm')) {
+        initContactFormAjax();
+    }
 }
+
+// ========================================
+// NEW CLEAN TESTIMONIAL CAROUSEL
+// ========================================
+
+function initKLTestimonials() {
+    const testimonialElement = document.querySelector('.kl-testimonial-swiper');
+    if (!testimonialElement) return;
+
+    // Initialize the new testimonial swiper
+    klTestimonialSwiper = new Swiper('.kl-testimonial-swiper', {
+        // Base configuration
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        centeredSlides: false,
+        autoHeight: false, // Disable auto height to maintain uniform heights
+        
+        // Auto-play configuration
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false, // Don't permanently disable on interaction
+            pauseOnMouseEnter: true,
+            stopOnLastSlide: false,
+            waitForTransition: true // Wait for transition to complete before continuing
+        },
+        
+        // Navigation arrows configuration
+        navigation: {
+            nextEl: '.kl-nav-next',
+            prevEl: '.kl-nav-prev',
+        },
+        
+        // No pagination - we're using arrows instead
+        pagination: false,
+        
+        // Responsive breakpoints for 3-column layout
+        breakpoints: {
+            // Mobile: 1 card
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+            },
+            // Tablet: 2 cards
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 25
+            },
+            // Desktop: 3 cards
+            1200: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        },
+        
+        // Smooth transitions
+        speed: 800,
+        
+        // Effects
+        effect: 'slide',
+        
+        // Grab cursor
+        grabCursor: true,
+        
+        // Keyboard navigation
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true
+        },
+        
+        // Observer for dynamic content
+        observer: true,
+        observeParents: true,
+        
+        // Ensure equal heights
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        
+        // Events
+        on: {
+            init: function() {
+                console.log('KL Testimonial carousel initialized with arrow navigation');
+                // Ensure proper height calculation
+                this.update();
+                
+                // Equal heights for all cards
+                equalizeCardHeights();
+                
+                // Add accessibility attributes
+                const prevBtn = document.querySelector('.kl-nav-prev');
+                const nextBtn = document.querySelector('.kl-nav-next');
+                
+                if (prevBtn && nextBtn) {
+                    prevBtn.setAttribute('tabindex', '0');
+                    nextBtn.setAttribute('tabindex', '0');
+                }
+            },
+            
+            slideChange: function() {
+                // Animate quote icon on slide change
+                const activeSlides = this.slides.filter((slide, index) => {
+                    return index >= this.activeIndex && index < this.activeIndex + this.params.slidesPerView;
+                });
+                
+                activeSlides.forEach(slide => {
+                    const quoteIcon = slide.querySelector('.kl-quote-icon');
+                    if (quoteIcon) {
+                        quoteIcon.style.transform = 'scale(0.8) rotate(0deg)';
+                        setTimeout(() => {
+                            quoteIcon.style.transform = 'scale(1) rotate(-5deg)';
+                        }, 200);
+                    }
+                });
+                
+                // Animate stars on slide change
+                activeSlides.forEach(slide => {
+                    const stars = slide.querySelectorAll('.kl-rating-stars i.active');
+                    stars.forEach((star, index) => {
+                        star.style.animation = 'none';
+                        setTimeout(() => {
+                            star.style.animation = 'klStarPulse 0.5s ease-in-out';
+                        }, index * 50);
+                    });
+                });
+            },
+            
+            navigationPrev: function() {
+                // Reset autoplay timer when manually navigating
+                this.autoplay.stop();
+                this.autoplay.start();
+                
+                // Add click feedback to prev button
+                const prevBtn = document.querySelector('.kl-nav-prev');
+                if (prevBtn) {
+                    prevBtn.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        prevBtn.style.transform = '';
+                    }, 200);
+                }
+            },
+            
+            navigationNext: function() {
+                // Reset autoplay timer when manually navigating
+                this.autoplay.stop();
+                this.autoplay.start();
+                
+                // Add click feedback to next button
+                const nextBtn = document.querySelector('.kl-nav-next');
+                if (nextBtn) {
+                    nextBtn.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        nextBtn.style.transform = '';
+                    }, 200);
+                }
+            },
+            
+            touchStart: function() {
+                // Pause autoplay on touch
+                this.autoplay.stop();
+            },
+            
+            touchEnd: function() {
+                // Resume autoplay after touch with delay
+                setTimeout(() => {
+                    this.autoplay.start();
+                }, 2000);
+            },
+            
+            resize: function() {
+                // Recalculate equal heights on resize
+                equalizeCardHeights();
+            }
+        }
+    });
+
+    // Function to equalize card heights
+    function equalizeCardHeights() {
+        const cards = document.querySelectorAll('.kl-testimonial-card');
+        let maxHeight = 0;
+        
+        // Reset heights first
+        cards.forEach(card => {
+            card.style.minHeight = '';
+        });
+        
+        // Find max height
+        cards.forEach(card => {
+            const height = card.offsetHeight;
+            if (height > maxHeight) {
+                maxHeight = height;
+            }
+        });
+        
+        // Apply max height to all cards
+        if (maxHeight > 0) {
+            cards.forEach(card => {
+                card.style.minHeight = maxHeight + 'px';
+            });
+        }
+    }
+    
+    // Manual arrow click handlers with proper timer reset
+    const prevBtn = document.querySelector('.kl-nav-prev');
+    const nextBtn = document.querySelector('.kl-nav-next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            // Stop and restart autoplay to reset timer
+            if (klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                klTestimonialSwiper.autoplay.stop();
+                // Small delay before restarting to ensure smooth transition
+                setTimeout(() => {
+                    klTestimonialSwiper.autoplay.start();
+                }, 100);
+            }
+        });
+        
+        // Keyboard support
+        prevBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                klTestimonialSwiper.slidePrev();
+                // Reset autoplay timer
+                if (klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                    klTestimonialSwiper.autoplay.stop();
+                    setTimeout(() => {
+                        klTestimonialSwiper.autoplay.start();
+                    }, 100);
+                }
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            // Stop and restart autoplay to reset timer
+            if (klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                klTestimonialSwiper.autoplay.stop();
+                // Small delay before restarting to ensure smooth transition
+                setTimeout(() => {
+                    klTestimonialSwiper.autoplay.start();
+                }, 100);
+            }
+        });
+        
+        // Keyboard support
+        nextBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                klTestimonialSwiper.slideNext();
+                // Reset autoplay timer
+                if (klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                    klTestimonialSwiper.autoplay.stop();
+                    setTimeout(() => {
+                        klTestimonialSwiper.autoplay.start();
+                    }, 100);
+                }
+            }
+        });
+    }
+
+    // Additional hover pause functionality
+    const testimonialContainer = document.querySelector('.kl-testimonial-container');
+    if (testimonialContainer && klTestimonialSwiper) {
+        let isHovering = false;
+        let autoplayTimeout = null;
+        
+        testimonialContainer.addEventListener('mouseenter', () => {
+            isHovering = true;
+            if (klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                klTestimonialSwiper.autoplay.stop();
+            }
+            // Clear any pending timeout
+            if (autoplayTimeout) {
+                clearTimeout(autoplayTimeout);
+                autoplayTimeout = null;
+            }
+        });
+        
+        testimonialContainer.addEventListener('mouseleave', () => {
+            isHovering = false;
+            // Add small delay before resuming autoplay
+            if (autoplayTimeout) {
+                clearTimeout(autoplayTimeout);
+            }
+            autoplayTimeout = setTimeout(() => {
+                if (!isHovering && klTestimonialSwiper && klTestimonialSwiper.autoplay) {
+                    klTestimonialSwiper.autoplay.start();
+                }
+            }, 500);
+        });
+    }
+
+    // Ensure swiper updates on window resize
+    window.addEventListener('resize', () => {
+        if (klTestimonialSwiper) {
+            klTestimonialSwiper.update();
+            equalizeCardHeights();
+        }
+    });
+    
+    // Initial height equalization after a short delay
+    setTimeout(() => {
+        equalizeCardHeights();
+    }, 100);
 }
 
 // ========================================
@@ -341,198 +639,11 @@ function initClientsSection() {
         });
     });
 }
-function initTestimonials() {
-    // Initialize testimonial carousel with arrow navigation added
-    testimonialSwiper = new Swiper('.testimonial-carousel', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        direction: 'horizontal',
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // Add navigation configuration for arrow buttons
-        navigation: {
-            nextEl: '.testimonial-next, .testimonial-next-mobile',
-            prevEl: '.testimonial-prev, .testimonial-prev-mobile',
-        },
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        speed: 800,
-        // Add keyboard and accessibility support
-        keyboard: {
-            enabled: true,
-            onlyInViewport: true,
-        },
-        a11y: {
-            enabled: true,
-            prevSlideMessage: 'Previous testimonial',
-            nextSlideMessage: 'Next testimonial',
-        },
-        on: {
-            init: function() {
-                // Add accessibility attributes to navigation buttons
-                const prevBtn = document.querySelector('.testimonial-prev');
-                const nextBtn = document.querySelector('.testimonial-next');
-                
-                if (prevBtn && nextBtn) {
-                    prevBtn.setAttribute('aria-label', 'Previous testimonial');
-                    nextBtn.setAttribute('aria-label', 'Next testimonial');
-                    prevBtn.setAttribute('role', 'button');
-                    nextBtn.setAttribute('role', 'button');
-                }
-                
-                console.log('Testimonial carousel initialized with arrow navigation');
-            },
-            slideChange: function() {
-                // Clear any existing timers when slide changes manually
-                if (autoplayTimer) {
-                    clearTimeout(autoplayTimer);
-                }
-                
-                // Add slide change animation
-                const activeSlide = this.slides[this.activeIndex];
-                const quote = activeSlide.querySelector('.fa-quote-left');
-                if (quote) {
-                    quote.style.transform = 'scale(0.8)';
-                    quote.style.transition = 'transform 0.3s ease';
-                    setTimeout(() => {
-                        quote.style.transform = 'scale(1)';
-                    }, 300);
-                }
-            },
-            slideChangeTransitionStart: function() {
-                // Animate stars on slide change
-                const activeSlide = this.slides[this.activeIndex];
-                const stars = activeSlide.querySelectorAll('.fa-star');
-                stars.forEach((star, index) => {
-                    star.style.opacity = '0';
-                    star.style.transform = 'scale(0)';
-                    setTimeout(() => {
-                        star.style.transition = 'all 0.3s ease';
-                        star.style.opacity = '1';
-                        star.style.transform = 'scale(1)';
-                    }, 100 * (index + 1));
-                });
-            }
-        }
-    });
 
-    // Initialize testimonial images carousel (keeping your existing code)
-    // testimonialImagesSwiper = new Swiper('.testimonial-images-carousel', {
-    //     slidesPerView: 1,
-    //     spaceBetween: 0,
-    //     loop: true,
-    //     direction: 'horizontal',
-    //     autoplay: {
-    //         delay: 5000,
-    //         disableOnInteraction: false
-    //     },
-    //     effect: 'fade',
-    //     fadeEffect: {
-    //         crossFade: true
-    //     },
-    //     speed: 800,
-    //     allowTouchMove: false
-    // });
-
-    // Sync both carousels (keeping your existing logic)
-    if (testimonialSwiper && testimonialImagesSwiper) {
-        testimonialSwiper.controller.control = testimonialImagesSwiper;
-        testimonialImagesSwiper.controller.control = testimonialSwiper;
-    }
-
-    // Pause autoplay on pagination bullet click (keeping your existing logic)
-    document.querySelectorAll('.swiper-pagination-bullet').forEach((bullet, index) => {
-        bullet.addEventListener('click', () => {
-            // Stop both carousels' autoplay
-            testimonialSwiper.autoplay.stop();
-            if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.stop();
-            
-            // Clear any existing timer
-            if (autoplayTimer) {
-                clearTimeout(autoplayTimer);
-            }
-            
-            // Restart autoplay after 10 seconds
-            autoplayTimer = setTimeout(() => {
-                testimonialSwiper.autoplay.start();
-                if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.start();
-            }, 10000);
-        });
-    });
-
-    // Pause autoplay on hover (keeping your existing logic)
-    const testimonialWrapper = document.querySelector('.testimonial-wrapper');
-    if (testimonialWrapper) {
-        testimonialWrapper.addEventListener('mouseenter', () => {
-            testimonialSwiper.autoplay.stop();
-            if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.stop();
-        });
-
-        testimonialWrapper.addEventListener('mouseleave', () => {
-            // Only restart if not manually controlled
-            if (!autoplayTimer) {
-                testimonialSwiper.autoplay.start();
-                if (testimonialImagesSwiper) testimonialImagesSwiper.autoplay.start();
-            }
-        });
-    }
-
-    // NEW: Enhanced keyboard navigation for arrow keys
-    document.addEventListener('keydown', function(e) {
-        const carousel = document.querySelector('.testimonial-carousel');
-        if (!carousel) return;
-        
-        // Check if carousel is in viewport
-        const rect = carousel.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isInViewport) {
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                testimonialSwiper.slidePrev();
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                testimonialSwiper.slideNext();
-            }
-        }
-    });
-
-    // NEW: Add click tracking for arrow buttons (optional)
-    document.querySelector('.testimonial-prev')?.addEventListener('click', function() {
-        console.log('Previous testimonial button clicked');
-        // Add your analytics tracking here if needed
-    });
-
-    document.querySelector('.testimonial-next')?.addEventListener('click', function() {
-        console.log('Next testimonial button clicked');
-        // Add your analytics tracking here if needed
-    });
-
-    // NEW: Mobile navigation event listeners
-    document.querySelector('.testimonial-prev-mobile')?.addEventListener('click', function() {
-        testimonialSwiper.slidePrev();
-    });
-
-    document.querySelector('.testimonial-next-mobile')?.addEventListener('click', function() {
-        testimonialSwiper.slideNext();
-    });
-}
-
-// Keep your existing initCounterAnimation function unchanged
 function initCounterAnimation() {
     const animateCounters = () => {
         const counters = document.querySelectorAll('.stat-number');
-        const speed = 200; // Animation duration
+        const speed = 200;
 
         counters.forEach(counter => {
             const animate = () => {
@@ -548,7 +659,6 @@ function initCounterAnimation() {
                 }
             };
 
-            // Start animation when element is in viewport
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && counter.innerText === '0') {
@@ -569,7 +679,6 @@ function initCounterAnimation() {
 // ========================================
 
 function initCategoryPage() {
-    // Add parallax effect to header background
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
         const headerBg = document.querySelector('.category-bg-image');
@@ -585,7 +694,6 @@ function initCategoryPage() {
 // ========================================
 
 function initGallerySection() {
-    // Generate background particles for gallery
     const particlesContainer = document.getElementById('particlesContainer');
     if (!particlesContainer) return;
     
@@ -595,16 +703,9 @@ function initGallerySection() {
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = `particle ${sizes[Math.floor(Math.random() * sizes.length)]}`;
-        
-        // Random horizontal position
         particle.style.left = Math.random() * 100 + '%';
-        
-        // Random animation delay
         particle.style.animationDelay = Math.random() * 25 + 's';
-        
-        // Random opacity
         particle.style.opacity = Math.random() * 0.4 + 0.1;
-        
         particlesContainer.appendChild(particle);
     }
 }
@@ -616,7 +717,6 @@ function initLightbox() {
     const galleryItems = document.querySelectorAll('.gallery-item');
     let currentIndex = 0;
 
-    // Gallery data
     const galleryData = [];
     galleryItems.forEach((item, index) => {
         const img = item.querySelector('.gallery-image');
@@ -656,14 +756,12 @@ function initLightbox() {
         lightboxCaption.textContent = item.caption;
     }
 
-    // Close lightbox on clicking outside
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
             closeLightbox();
         }
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         
@@ -674,7 +772,6 @@ function initLightbox() {
 }
 
 function initSparkles() {
-    // Generate sparkles continuously
     function generateSparkle() {
         const sparklesContainer = document.querySelector('.sparkles');
         if (sparklesContainer) {
@@ -689,47 +786,19 @@ function initSparkles() {
         }
     }
 
-    // Generate new sparkles every 500ms
     setInterval(generateSparkle, 500);
 }
-
-// ========================================
-// UTILITY FUNCTIONS
-// ========================================
-
-// Play video function
-window.playVideo = function() {
-    alert('Video player would open here');
-}
-
-// Location card hover effects
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.location-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.borderColor = 'var(--primary-purple)';
-            this.style.transform = 'translateY(-5px)';
-            this.style.boxShadow = '0 20px 40px rgba(147, 51, 234, 0.2)';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.borderColor = 'var(--border-color)';
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-    });
-});
 
 // ========================================
 // BLOG SECTION SCRIPTS
 // ======================================== 
 
-// Blog Section Initialization
 function initBlogSection() {
-    // Add ripple effect on blog card click
     const blogCards = document.querySelectorAll('.blog-card');
     
     blogCards.forEach(card => {
         card.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') return; // Don't trigger on link clicks
+            if (e.target.tagName === 'A') return;
             
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -764,7 +833,6 @@ function initBlogSection() {
         });
     });
     
-    // Parallax effect for decoration circles
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
         const decoration1 = document.querySelector('.decoration-1');
@@ -779,7 +847,6 @@ function initBlogSection() {
         }
     });
     
-    // Add hover effect to featured post
     const featuredPost = document.querySelector('.featured-post');
     if (featuredPost) {
         featuredPost.addEventListener('mouseenter', function() {
@@ -791,7 +858,6 @@ function initBlogSection() {
         });
     }
     
-    // Animate blog meta items on hover
     document.querySelectorAll('.blog-meta span').forEach(meta => {
         meta.addEventListener('mouseenter', function() {
             this.style.color = 'var(--secondary-purple)';
@@ -806,9 +872,8 @@ function initBlogSection() {
     });
 }
 
-
 // ========================================
-// CONTACT FORM AJAX - Add this section to your existing scripts.js
+// CONTACT FORM AJAX
 // ========================================
 
 function initContactFormAjax() {
@@ -824,18 +889,14 @@ function initContactFormAjax() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Clear previous errors
         clearContactErrors();
         
-        // Disable submit button and show loading
         submitBtn.disabled = true;
         submitBtn.querySelector('.btn-text').textContent = 'Sending...';
         submitBtn.querySelector('i').className = 'fas fa-spinner fa-spin me-2';
         
-        // Create FormData object
         const formData = new FormData(form);
         
-        // Send AJAX request
         fetch(form.action, {
             method: 'POST',
             body: formData,
@@ -847,22 +908,12 @@ function initContactFormAjax() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Show success message
                 showContactMessage('success', data.message);
-                
-                // Reset form
                 form.reset();
-                
-                // Optionally scroll to message
                 formMessages.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Optional: Add success animation
                 playSuccessAnimation();
             } else {
-                // Show error message
                 showContactMessage('danger', data.message || 'An error occurred. Please try again.');
-                
-                // Show field errors if any
                 if (data.errors) {
                     showFieldErrors(data.errors);
                 }
@@ -873,7 +924,6 @@ function initContactFormAjax() {
             showContactMessage('danger', 'An unexpected error occurred. Please try again later.');
         })
         .finally(() => {
-            // Re-enable submit button
             submitBtn.disabled = false;
             submitBtn.querySelector('.btn-text').textContent = 'Send Message';
             submitBtn.querySelector('i').className = 'fas fa-paper-plane me-2';
@@ -886,7 +936,6 @@ function initContactFormAjax() {
         alertMessage.textContent = message;
         formMessages.style.display = 'block';
         
-        // Auto-hide success message after 5 seconds
         if (type === 'success') {
             setTimeout(() => {
                 formMessages.style.display = 'none';
@@ -908,20 +957,15 @@ function initContactFormAjax() {
     }
     
     function clearContactErrors() {
-        // Hide message div
         formMessages.style.display = 'none';
-        
-        // Clear field errors
         form.querySelectorAll('.is-invalid').forEach(element => {
             element.classList.remove('is-invalid');
         });
-        
         form.querySelectorAll('.invalid-feedback').forEach(element => {
             element.textContent = '';
         });
     }
     
-    // Clear errors when user starts typing
     form.querySelectorAll('input, textarea, select').forEach(input => {
         input.addEventListener('input', function() {
             if (this.classList.contains('is-invalid')) {
@@ -934,16 +978,13 @@ function initContactFormAjax() {
         });
     });
     
-    // Optional: Add success animation
     function playSuccessAnimation() {
-        // Add a subtle pulse to the form
         form.style.animation = 'pulse 0.5s ease-in-out';
         setTimeout(() => {
             form.style.animation = '';
         }, 500);
     }
 }
-
 
 // ========================================
 // CLIENT LOGOS SWIPER IMPLEMENTATION
@@ -952,13 +993,11 @@ function initContactFormAjax() {
 let clientsMainSwiper, clientsReverseSwiper;
 
 function initClientsSwiper() {
-    // Check if client swipers exist
     const mainSwiperEl = document.querySelector('.clients-swiper-main');
     const reverseSwiperEl = document.querySelector('.clients-swiper-reverse');
     
     if (!mainSwiperEl && !reverseSwiperEl) return;
 
-    // Initialize main swiper (left to right)
     if (mainSwiperEl) {
         clientsMainSwiper = new Swiper('.clients-swiper-main', {
             slidesPerView: 'auto',
@@ -996,14 +1035,12 @@ function initClientsSwiper() {
                     console.log('Main clients swiper initialized');
                 },
                 progress: function() {
-                    // Ensure smooth continuous movement
                     this.wrapperEl.style.transitionTimingFunction = 'linear';
                 }
             }
         });
     }
 
-    // Initialize reverse swiper (right to left)
     if (reverseSwiperEl) {
         clientsReverseSwiper = new Swiper('.clients-swiper-reverse', {
             slidesPerView: 'auto',
@@ -1014,7 +1051,7 @@ function initClientsSwiper() {
                 delay: 0,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: false,
-                reverseDirection: true, // This makes it go in reverse
+                reverseDirection: true,
             },
             freeMode: {
                 enabled: true,
@@ -1042,22 +1079,18 @@ function initClientsSwiper() {
                     console.log('Reverse clients swiper initialized');
                 },
                 progress: function() {
-                    // Ensure smooth continuous movement
                     this.wrapperEl.style.transitionTimingFunction = 'linear';
                 }
             }
         });
     }
 
-    // Add hover effects to individual logo wrappers
     initClientsSwiperHoverEffects();
 }
 
 function initClientsSwiperHoverEffects() {
-    // Enhanced client logo hover effect with ripple
     document.querySelectorAll('.client-logo-swiper-wrapper').forEach(card => {
         card.addEventListener('mouseenter', function(e) {
-            // Pause both swipers on hover
             if (clientsMainSwiper) {
                 clientsMainSwiper.autoplay.pause();
             }
@@ -1065,7 +1098,6 @@ function initClientsSwiperHoverEffects() {
                 clientsReverseSwiper.autoplay.pause();
             }
 
-            // Create ripple effect
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -1098,7 +1130,6 @@ function initClientsSwiperHoverEffects() {
         });
 
         card.addEventListener('mouseleave', function() {
-            // Resume both swipers
             if (clientsMainSwiper) {
                 clientsMainSwiper.autoplay.resume();
             }
@@ -1108,7 +1139,6 @@ function initClientsSwiperHoverEffects() {
         });
     });
 
-    // Pause on container hover (optional - for better UX)
     const mainContainer = document.querySelector('.clients-swiper-main');
     const reverseContainer = document.querySelector('.clients-swiper-reverse');
 
@@ -1127,7 +1157,6 @@ function initClientsSwiperHoverEffects() {
     });
 }
 
-// Destroy and reinitialize swipers on window resize
 function reinitializeClientsSwipers() {
     if (clientsMainSwiper) {
         clientsMainSwiper.destroy(true, true);
@@ -1141,7 +1170,6 @@ function reinitializeClientsSwipers() {
     }, 100);
 }
 
-// Add resize listener
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -1150,12 +1178,40 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Export function for use in main script
+// ========================================
+// UTILITY FUNCTIONS
+// ========================================
+
+window.playVideo = function() {
+    alert('Video player would open here');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.location-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.borderColor = 'var(--primary-purple)';
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 20px 40px rgba(147, 51, 234, 0.2)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.borderColor = 'var(--border-color)';
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+
+// Export functions
 window.initClientsSwiper = initClientsSwiper;
+window.initKLTestimonials = initKLTestimonials;
 
 // Auto-initialize if DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initClientsSwiper);
+    document.addEventListener('DOMContentLoaded', () => {
+        initClientsSwiper();
+        initKLTestimonials();
+    });
 } else {
     initClientsSwiper();
+    initKLTestimonials();
 }
