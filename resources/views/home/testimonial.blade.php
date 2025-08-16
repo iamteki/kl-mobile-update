@@ -6,7 +6,7 @@
             <span data-animscroll="fade-up">- TESTIMONIAL -</span>
             <h2 data-animscroll="fade-up" class="fs-two text-white">CLIENT <span>REVIEWS</span></h2>
         </div>
-        
+
         <!-- Testimonial Carousel Container -->
         <div class="kl-testimonial-container" data-animscroll="fade-up">
             <div class="swiper kl-testimonial-swiper">
@@ -18,19 +18,19 @@
                                 <div class="kl-quote-icon">
                                     <i class="fas fa-quote-left"></i>
                                 </div>
-                                
+
                                 <!-- Star Rating -->
                                 <div class="kl-rating-stars">
                                     @for ($i = 1; $i <= 5; $i++)
                                         <i class="fas fa-star {{ $i <= $review->rating ? 'active' : '' }}"></i>
                                     @endfor
                                 </div>
-                                
+
                                 <!-- Testimonial Content -->
                                 <div class="kl-testimonial-content">
                                     <p>"{{ $review->testimonial }}"</p>
                                 </div>
-                                
+
                                 <!-- Client Details -->
                                 <div class="kl-client-details">
                                     <h5 class="kl-client-name">{{ $review->name }}</h5>
@@ -50,7 +50,7 @@
                         </div>
                     @endforeach
                 </div>
-                
+
                 <!-- Navigation Arrows in the Middle -->
                 <div class="kl-testimonial-nav">
                     <button class="kl-nav-prev" aria-label="Previous testimonial">
@@ -64,3 +64,41 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+  const swiper = new Swiper('.kl-testimonial-swiper', {
+    slidesPerView: 3,
+    spaceBetween: 20,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    navigation: {
+      nextEl: '.kl-nav-next',
+      prevEl: '.kl-nav-prev',
+    },
+    loop: true,
+    speed: 1200,
+    effect: 'slide',
+    grabCursor: true,
+    centeredSlides: false,
+    allowTouchMove: true,
+    simulateTouch: true,
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      }
+    }
+  });
+});
+    </script>
+@endpush
