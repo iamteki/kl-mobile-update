@@ -4503,7 +4503,7 @@ footer {
     width: 100%;
     overflow: visible;
     /* Changed from hidden to visible */
-    padding: 20px 0;
+    padding: 10px 0;
     /* Add padding for hover effects */
 }
 

@@ -35,7 +35,7 @@
                 </div>
 
                 <!-- Second Row - All Clients Reversed -->
-                <div class="clients-swiper-container mt-4">
+                <div class="clients-swiper-container">
                     <div class="swiper clients-swiper-reverse">
                         <div class="swiper-wrapper">
                             @foreach ($evenClients->reverse() as $client)
