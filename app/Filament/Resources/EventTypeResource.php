@@ -46,7 +46,14 @@ class EventTypeResource extends Resource
                             ->columnSpanFull()
                             ->rows(3),
                         
-                        Forms\Components\Toggle::make('is_active')
+                        Forms\Components\TextInput::make('order')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->helperText('Lower numbers appear first. Default is 0.')
+                            ->label('Display Order'),
+                        
+                        Forms\Components\Toggle::make('status')
                             ->label('Active')
                             ->default(true)
                             ->helperText('Only active event types will be displayed on the website'),
@@ -72,6 +79,24 @@ class EventTypeResource extends Resource
                             ->helperText('Alternative text for the image (for SEO and accessibility)')
                             ->columnSpanFull(),
                     ]),
+                
+                Forms\Components\Section::make('SEO Settings')
+                    ->schema([
+                        Forms\Components\TextInput::make('meta_title')
+                            ->maxLength(255)
+                            ->helperText('Leave empty to use the event type name'),
+                        
+                        Forms\Components\Textarea::make('meta_description')
+                            ->maxLength(255)
+                            ->rows(2)
+                            ->helperText('Leave empty to auto-generate from description'),
+                        
+                        Forms\Components\TextInput::make('meta_keywords')
+                            ->maxLength(255)
+                            ->helperText('Comma-separated keywords for SEO'),
+                    ])
+                    ->collapsed()
+                    ->collapsible(),
             ]);
     }
 
@@ -79,11 +104,17 @@ class EventTypeResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('order')
+                    ->sortable()
+                    ->label('Order')
+                    ->badge()
+                    ->color('gray'),
+                
                 Tables\Columns\ImageColumn::make('image')
                     ->square()
                     ->size(60)
                     ->defaultImageUrl(fn ($record) => 
-                        'https://via.placeholder.com/60x60/1a1a1a/666666?text=' . urlencode(substr($record->name, 0, 1))
+                        'https://via.placeholder.com/60x60/9333EA/FFFFFF?text=' . urlencode(substr($record->name, 0, 1))
                     ),
                 
                 Tables\Columns\TextColumn::make('name')
@@ -94,16 +125,21 @@ class EventTypeResource extends Resource
                     ->searchable()
                     ->copyable()
                     ->copyMessage('Slug copied!')
-                    ->color('gray'),
+                    ->color('gray')
+                    ->toggleable(isToggledHiddenByDefault: false),
                 
                 Tables\Columns\TextColumn::make('events_count')
                     ->counts('events')
                     ->label('Events')
                     ->sortable(),
                 
-                Tables\Columns\IconColumn::make('is_active')
+                Tables\Columns\IconColumn::make('status')
                     ->boolean()
-                    ->label('Active'),
+                    ->label('Active')
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
                 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -116,7 +152,7 @@ class EventTypeResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('is_active')
+                Tables\Filters\SelectFilter::make('status')
                     ->options([
                         '1' => 'Active',
                         '0' => 'Inactive',
@@ -136,9 +172,24 @@ class EventTypeResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('activate')
+                        ->label('Activate Selected')
+                        ->icon('heroicon-o-check')
+                        ->color('success')
+                        ->action(fn ($records) => $records->each->update(['status' => true]))
+                        ->deselectRecordsAfterCompletion()
+                        ->requiresConfirmation(),
+                    Tables\Actions\BulkAction::make('deactivate')
+                        ->label('Deactivate Selected')
+                        ->icon('heroicon-o-x-mark')
+                        ->color('danger')
+                        ->action(fn ($records) => $records->each->update(['status' => false]))
+                        ->deselectRecordsAfterCompletion()
+                        ->requiresConfirmation(),
                 ]),
             ])
-            ->defaultSort('name', 'asc');
+            ->defaultSort('order', 'asc')
+            ->reorderable('order');
     }
 
     public static function getRelations(): array
